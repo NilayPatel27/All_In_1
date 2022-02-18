@@ -1,0 +1,35 @@
+{
+    "floor_list" :
+    [
+        {
+            "title": "1st Floor GW 01",
+            "Active": 10,
+            "InActive": 1
+        },
+        {
+            "title": "2nd Floor GW 02",
+            "Active": 1,
+            "InActive": 10
+        },
+        {
+            "title": "3rd Floor GW 03",
+            "Active": 9,
+            "InActive": 2
+        },
+        {
+            "title": "4th Floor GW 04",
+            "Active": 8,
+            "InActive": 3
+        },
+        {
+            "title": "sth Floor GW 05",
+            "Active": 7,
+            "InActive": 4
+        },
+        {
+            "title": "6th Floor GW 06",
+            "Active": 6,
+            "InActive": 5
+        }
+    ]
+}
