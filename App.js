@@ -201,11 +201,11 @@ const App = () => {
   return (
     <>
       <SafeAreaView>
-        <View style={{ height: '100%', width: '100%' }}>
-          <View style={{ height: '20%', width: '100%' }}>
-
+        <View style={{ height: '100%', width: '100%',flexDirection:'column',justifyContent:'space-between' }}>
+          <View style={{ height: '20%', width: '100%', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ color: '#2d333a', fontSize: 30 }}>Customer List</Text>
           </View>
-          <View style={{ height: '80%', width: '100%', borderTopColor: '#2d333a', borderWidth: 1, borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, bottom: 25 }}>
+          <View style={{ height: '80%',width: '100%', borderTopColor: '#2d333a', borderWidth: 1, borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0,paddingBottom:25}}>
             <Image source={require('./assates/Plus.png')} style={{ height: 60, width: 60, position: 'absolute', right: '15%', justifyContent: 'center', top: '-6%', }} />
             <View style={{ top: 30, height: '100%' }}>
               <FlatList
