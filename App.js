@@ -14,10 +14,10 @@ const App = () => {
   return (
     <>
       <View style={{ height: '100%', width: '100%', flexDirection: 'column', justifyContent: 'space-between' }}>
-        <View style={{ height: '20%', width: '100%', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ height: '15%', width: '100%', justifyContent: 'center', flexDirection: 'row', alignItems: 'center' }}>
           <Text style={{ color: '#2d333a', fontSize: 30 }}>Customer List</Text>
         </View>
-        <View style={{ height: '80%', width: '100%', borderTopColor: '#2d333a', borderWidth: 1, borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, paddingBottom: 25 }}>
+        <View style={{ height: '85%', width: '100%', borderTopColor: '#2d333a', borderWidth: 1, borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, paddingBottom: 25 }}>
           <TouchableOpacity style={{ backgroundColor: 'red', width: '100%', top: '-8%', flexDirection: 'row' }}>
             <Image source={require('./assates/Plus.png')} style={{ height: 60, width: 60, position: 'absolute', right: '15%', justifyContent: 'center', }} />
           </TouchableOpacity>
@@ -28,7 +28,7 @@ const App = () => {
                 <View key={Date.now} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 25, marginBottom: 10 }}>
                   <Image source={{ uri: item.image }}
                     style={styles.story} />
-                  <Text style={{ color: '#2d333a' }}>{item.user.toLowerCase()}
+                  <Text style={{ color: '#2d333a',fontSize:20 }}>{item.user.toUpperCase()}
                   </Text>
                 </View>}
             />
