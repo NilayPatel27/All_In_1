@@ -1,12 +1,19 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
+import Plus from './assates/svg/Plus.svg'
 
 const App = () => {
   return (
-    <View style={{flex:1}}>
-      <View style={{height:'30%',width:'100%',color:'red'}}></View>
-      <View style={{height:'70%',width:'100%'}}></View>
-    </View>
+    <>
+      <View style={{ height: '100%', width: '100%' }}>
+        <View style={{ backgroundColor: 'red', height: '30%', width: '100%' }}>
+          
+        </View>
+        <View style={{ backgroundColor: 'yellow', height: '70%', width: '100%' }}>
+        <Plus width={18} height={18} style={{position:'absolute',right:0}} />
+        </View>
+      </View>
+    </>
   )
 }
 
