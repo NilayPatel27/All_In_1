@@ -202,27 +202,22 @@ const App = () => {
     <>
       <SafeAreaView>
         <View style={{ height: '100%', width: '100%' }}>
-          <View style={{ height: '30%', width: '100%' }}>
+          <View style={{ height: '20%', width: '100%' }}>
 
           </View>
-          <View style={{ height: '70%', width: '100%', borderTopColor: '#2d333a', borderWidth: 1, borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, bottom: 25 }}>
+          <View style={{ height: '80%', width: '100%', borderTopColor: '#2d333a', borderWidth: 1, borderBottomWidth: 0, borderLeftWidth: 0, borderRightWidth: 0, bottom: 25 }}>
             <Image source={require('./assates/Plus.png')} style={{ height: 60, width: 60, position: 'absolute', right: '15%', justifyContent: 'center', top: '-6%', }} />
             <View style={{ top: 30, height: '100%' }}>
-              {/* <FlatList
-                data={filterData}
-                keyExtractor={(renderItem, index) => index}
-                renderItem={renderItem}
-              /> */}
-              <ScrollView>
-              {USER.map((story, index) => (
-                <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',marginHorizontal:25,marginBottom:10 }}>
-                  <Image source={{ uri: story.image }}
-                    style={styles.story} />
-                  <Text style={{ color: '#2d333a' }}>{story.user.toLowerCase()}
-                  </Text>
-                </View>
-              ))}
-              </ScrollView>
+              <FlatList
+                data={USER}
+                renderItem={({ item }) =>
+                  <View key={Date.now} style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 25, marginBottom: 10 }}>
+                    <Image source={{ uri: item.image }}
+                      style={styles.story} />
+                    <Text style={{ color: '#2d333a' }}>{item.user.toLowerCase()}
+                    </Text>
+                  </View>}
+              />
             </View>
           </View>
         </View>
