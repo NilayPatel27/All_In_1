@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Log from '../assates/svg/login.svg'
@@ -7,6 +7,11 @@ import Log from '../assates/svg/login.svg'
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const onPress = ()=>{
+        {email == 'admin'&& password=='admin'? navigation.navigate('Home'):console.log("invalid")}
+       
+    }
+
 
     return (
         <>
@@ -43,7 +48,7 @@ const Login = ({ navigation }) => {
                         <View style={{ width: "100%", justifyContent: "center", alignItems: 'center' }}>
                             <Divider width={2} style={{ width: '90%' }} />
                         </View>
-                        <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{justifyContent:"center",flexDirection:"row"}}>
+                        <TouchableOpacity onPress={onPress} style={{justifyContent:"center",flexDirection:"row"}}>
                             <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: "blue", height: 50, alignItems: "center", marginHorizontal: 20, marginVertical:10, width:'90%' }}>
                                 <Text style={{ color: "#fff", fontSize: 20 }}>Login</Text>
                             </View>
