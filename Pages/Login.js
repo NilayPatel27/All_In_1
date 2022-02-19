@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         shadowColor: 'blue',
         shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
         elevation: 10,
         backgroundColor: "white"
     }
