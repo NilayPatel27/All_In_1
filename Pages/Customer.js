@@ -16,7 +16,7 @@ const Customer = ({ route, navigation }) => {
   const text = (Name, col, content) =>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
       <Text style={styles.text}>{Name}</Text>
-      <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold" }}>{col}</Text>
+      <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold",paddingHorizontal: 25 }}>{col}</Text>
       <Text style={styles.text}>{content}</Text>
     </View>
 
@@ -35,7 +35,7 @@ const Customer = ({ route, navigation }) => {
             <TouchableWithoutFeedback onPress={() => navigation.navigate('Item', { Name: item.item })}>
               <View key={Date.now} style={styles.listItem}>
                 <Image source={{ uri: item.image }} style={styles.story} />
-                <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#e90c59", borderTopLeftRadius: 20, borderBottomRightRadius: 20, marginLeft: 15, paddingVertical: 5 }}>
+                <View style={styles.details}>
                   {text('Name', ':', item.item.toUpperCase())}
                   {text('Prize', ':', item.prize)}
                   {text('Type', ':', item.type.toUpperCase())}
@@ -103,5 +103,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#335252",
     justifyContent: "space-between",
     paddingHorizontal: 25
+  },
+  details: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#e90c59",
+    borderTopLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    marginLeft: 15,
+    paddingVertical: 5
   }
 });
