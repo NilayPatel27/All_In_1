@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Alert, Button, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Divider } from 'react-native-elements/dist/divider/Divider';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Entypo from 'react-native-vector-icons/Entypo';
 import Log from '../assates/svg/login.svg'
+import Entypo from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -18,6 +18,9 @@ const Login = ({ navigation }) => {
         seteye(e => e == 'eye' ? 'eye-with-line' : 'eye')
         setpass(p => !p)
     }
+    const divider = <View style={styles.Divider}>
+        <Divider width={2} style={{ width: '90%' }} />
+    </View>
     return (
         <>
             <View style={styles.first}>
@@ -36,9 +39,7 @@ const Login = ({ navigation }) => {
                                 autoComplete={'off'}
                             />
                         </View>
-                        <View style={styles.Divider}>
-                            <Divider width={2} style={{ width: '90%' }} />
-                        </View>
+                        {divider}
                         <View style={[styles.inputField, { justifyContent: 'space-between' }]}>
                             <Icon name="lock" size={25} color="#000" />
                             <TextInput
@@ -53,9 +54,7 @@ const Login = ({ navigation }) => {
                                 <Entypo name={eye} size={25} color="#000" />
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.Divider}>
-                            <Divider width={2} style={{ width: '90%' }} />
-                        </View>
+                        {divider}
                         <TouchableOpacity onPress={onPress} style={{ justifyContent: "center", flexDirection: "row" }}>
                             <View style={styles.button}>
                                 <Text style={{ color: "#fff", fontSize: 20 }}>Login</Text>
