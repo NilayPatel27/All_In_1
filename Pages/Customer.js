@@ -16,7 +16,7 @@ const Customer = ({ route, navigation }) => {
   const text = (Name, col, content) =>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
       <Text style={styles.text}>{Name}</Text>
-      <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold",paddingHorizontal: 25 }}>{col}</Text>
+      <Text style={styles.col}>{col}</Text>
       <Text style={styles.text}>{content}</Text>
     </View>
 
@@ -94,6 +94,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignSelf: 'center',
     fontWeight: 'bold'
+  },
+  col: {
+    position: "absolute",
+    left: "50%",
+    color: '#fff',
+    fontWeight: "bold",
+    paddingHorizontal: 25
   },
   header: {
     flexDirection: 'row',
