@@ -20,7 +20,7 @@ const Login = ({ navigation }) => {
         setpass(p => !p)
     }
     const divider = <View style={styles.Divider}>
-        <Divider width={2} style={{ width: '90%' }} />
+        <Divider width={2} style={{ width: '90%' }} color={'pink'} />
     </View>
     return (
         <>
