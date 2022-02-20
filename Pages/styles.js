@@ -363,7 +363,7 @@ const Customer = StyleSheet.create({
       shadowOpacity: 0.34,
       shadowRadius: 6.27,
       elevation: 10,
-      backgroundColor: '#46dff0'
+      backgroundColor: '#ADEFD1FF'
     },
     item: {
       paddingVertical: 10,
@@ -405,14 +405,19 @@ const Customer = StyleSheet.create({
       height: '10%',
       alignItems: "center",
       width: "100%",
-      backgroundColor: "#335252",
+      backgroundColor: "#e90c59",
       justifyContent: "space-between",
-      paddingHorizontal: 25
+      paddingHorizontal: 25,
+      shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
     },
     details: {
       flex: 1,
       justifyContent: "center",
-      backgroundColor: "#e90c59",
+      backgroundColor: "#00203FFF",
       borderTopLeftRadius: 20,
       borderBottomRightRadius: 20,
       marginLeft: 15,
