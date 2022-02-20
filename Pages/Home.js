@@ -9,13 +9,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View style={{
-          height: '10%', width: '100%', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', paddingLeft: 25, backgroundColor: "#e90c59", shadowColor: '#000',
-          shadowOffset: { width: 0, height: 5 },
-          shadowOpacity: 0.34,
-          shadowRadius: 6.27,
-          elevation: 10
-        }}>
+        <View style={styles.header}>
           <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
           <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }}>
             <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
@@ -71,6 +65,20 @@ const styles = StyleSheet.create({
     fontSize: 15,
     alignSelf: 'center',
     fontWeight: 'bold'
+  },
+  header: {
+    height: '10%',
+    width: '100%',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 25,
+    backgroundColor: "#e90c59",
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10
   }
 });
 
