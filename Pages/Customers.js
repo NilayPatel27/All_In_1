@@ -27,9 +27,7 @@ const Customers = ({ route, navigation }) => {
         {header('CUSTOMER NAME')}
         {header(Name.toUpperCase())}
       </View>
-      <Divider width={2} orientation='horizontal' />
       <View style={{ height: "90%", paddingTop: 30 }}>
-
         <FlatList
           data={ITEM}
           renderItem={({ item }) =>
