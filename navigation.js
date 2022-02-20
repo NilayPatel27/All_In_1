@@ -17,11 +17,11 @@ const screenOptions = {
 const navigation = ({navigation}) => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login" screenOptions={screenOptions}>
+            <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
+                <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Customer" component={Customer} />
                 <Stack.Screen name="Item" component={Item} />
-                <Stack.Screen name="Login" component={Login} />
             </Stack.Navigator>
         </NavigationContainer>
     );

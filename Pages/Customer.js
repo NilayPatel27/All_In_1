@@ -8,15 +8,23 @@ const Customer = ({ route, navigation }) => {
   let color = '#fff'
   const { Name } = route.params;
 
+  const header = (text) =>
+    <View style={{ justifyContent: 'flex-start', flexDirection: "row", height: '100%', alignItems: "center" }}>
+      <Text style={{ color, fontSize: 20 }}>{text}</Text>
+    </View>
+
+  const text = (Name, col, content) =>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
+      <Text style={styles.text}>{Name}</Text>
+      <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold" }}>{col}</Text>
+      <Text style={styles.text}>{content}</Text>
+    </View>
+
   return (
     <>
-      <View style={{ flexDirection: 'row', height: '10%', alignItems: "center", width: "100%", backgroundColor: "#335252", paddingHorizontal: 25 }}>
-        <View style={{ width: "50%", justifyContent: 'center', flexDirection: "row", height: '100%', alignItems: "center" }}>
-          <Text style={{ color, fontSize: 20 }}>CUSTOMER NAME</Text>
-        </View>
-        <View style={{ width: "50%", justifyContent: 'flex-end', flexDirection: "row", height: '100%', alignItems: "center" }}>
-          <Text style={{ color, fontSize: 20 }}>{Name.toUpperCase()}</Text>
-        </View>
+      <View style={styles.header}>
+        {header('CUSTOMER NAME')}
+        {header(Name.toUpperCase())}
       </View>
       <Divider width={2} orientation='horizontal' />
       <View style={{ height: "90%", paddingTop: 30 }}>
@@ -27,22 +35,10 @@ const Customer = ({ route, navigation }) => {
             <TouchableWithoutFeedback onPress={() => navigation.navigate('Item', { Name: item.item })}>
               <View key={Date.now} style={styles.listItem}>
                 <Image source={{ uri: item.image }} style={styles.story} />
-                <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#e90c59", borderTopLeftRadius: 20, borderBottomRightRadius: 20, marginLeft: 15,paddingVertical:5 }}>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
-                    <Text style={styles.text}>Name</Text>
-                    <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold" }}>:</Text>
-                    <Text style={styles.text}>{item.item.toUpperCase()}</Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
-                    <Text style={styles.text}>Prize</Text>
-                    <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold" }}>:</Text>
-                    <Text style={styles.text}>{item.prize}</Text>
-                  </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
-                    <Text style={styles.text}>Type</Text>
-                    <Text style={{ position: "absolute", left: "50%", color, fontWeight: "bold" }}>:</Text>
-                    <Text style={styles.text}>{item.type.toUpperCase()}</Text>
-                  </View>
+                <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#e90c59", borderTopLeftRadius: 20, borderBottomRightRadius: 20, marginLeft: 15, paddingVertical: 5 }}>
+                  {text('Name', ':', item.item.toUpperCase())}
+                  {text('Prize', ':', item.prize)}
+                  {text('Type', ':', item.type.toUpperCase())}
                 </View>
               </View>
             </TouchableWithoutFeedback>
@@ -59,6 +55,7 @@ const styles = StyleSheet.create({
   listItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginHorizontal: 25,
     marginBottom: 10,
     borderBottomRightRadius: 20,
@@ -81,8 +78,8 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 50,
-    // borderWidth: 1,
-    // borderColor: '#2d333a',
+    borderWidth: 1,
+    borderColor: '#e90c59',
     margin: 5,
     marginLeft: 15
   },
@@ -98,26 +95,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold'
   },
-  renderItemStyle: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    borderRadius: 10,
-    marginVertical: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-    backgroundColor: 'white',
-  },
-  riv: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-    width: '80%',
-    alignItems: 'flex-start',
-    // backgroundColor:'pink'
-  },
+  header: {
+    flexDirection: 'row',
+    height: '10%',
+    alignItems: "center",
+    width: "100%",
+    backgroundColor: "#335252",
+    justifyContent: "space-between",
+    paddingHorizontal: 25
+  }
 });
