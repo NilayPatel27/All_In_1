@@ -12,7 +12,7 @@ export const USER =[
         image:"https://img.icons8.com/office/16/000000/user.png"
     },
     {
-        user:'rahuulv232000',
+        user:'rahuulv23',
         image:"https://img.icons8.com/clouds/100/000000/user.png"
     },
     {
