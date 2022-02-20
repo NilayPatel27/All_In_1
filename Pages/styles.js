@@ -348,4 +348,75 @@ const styles = StyleSheet.create({
         marginVertical: 5
     }
 })
-export { container, form, text, utils, navbar, styles }
+
+const Customer = StyleSheet.create({
+    listItem: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginHorizontal: 25,
+      marginBottom: 10,
+      borderBottomRightRadius: 20,
+      borderRadius: 10,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 5 },
+      shadowOpacity: 0.34,
+      shadowRadius: 6.27,
+      elevation: 10,
+      backgroundColor: '#46dff0'
+    },
+    item: {
+      paddingVertical: 10,
+      marginVertical: 8,
+      marginHorizontal: 16,
+      flexDirection: 'row',
+      borderRadius: 6,
+    },
+    story: {
+      width: 55,
+      height: 55,
+      borderRadius: 50,
+      borderWidth: 1,
+      borderColor: '#e90c59',
+      margin: 5,
+      marginLeft: 15
+    },
+    title: {
+      fontSize: 18,
+      marginLeft: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    text: {
+      color: '#fff',
+      fontSize: 15,
+      alignSelf: 'center',
+      fontWeight: 'bold'
+    },
+    col: {
+      position: "absolute",
+      left: "50%",
+      color: '#fff',
+      fontWeight: "bold",
+      paddingHorizontal: 25
+    },
+    header: {
+      flexDirection: 'row',
+      height: '10%',
+      alignItems: "center",
+      width: "100%",
+      backgroundColor: "#335252",
+      justifyContent: "space-between",
+      paddingHorizontal: 25
+    },
+    details: {
+      flex: 1,
+      justifyContent: "center",
+      backgroundColor: "#e90c59",
+      borderTopLeftRadius: 20,
+      borderBottomRightRadius: 20,
+      marginLeft: 15,
+      paddingVertical: 5
+    }
+  })
+export { container, form, text, utils, navbar, styles, Customer }

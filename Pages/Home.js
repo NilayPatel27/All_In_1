@@ -8,7 +8,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View style={{ height: '10%', width: '100%', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center',marginLeft:25 }}>
+        <View style={{ height: '10%', width: '100%', justifyContent: 'flex-start', flexDirection: 'row', alignItems: 'center', marginLeft: 25 }}>
           <Text style={{ color: '#2d333a', fontSize: 30 }}>Customers List</Text>
         </View>
         <Divider width={2} orientation='horizontal' />
@@ -20,7 +20,7 @@ const Home = ({ navigation }) => {
             <FlatList
               data={USER}
               renderItem={({ item }) =>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('Customer', { Name: item.user })}>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('Customers', { Name: item.user })}>
                   <View key={Date.now} style={styles.listItem}>
                     <Image source={{ uri: item.image }} style={styles.story} />
                     <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#e90c59", borderTopLeftRadius: 20, borderBottomLeftRadius: 0, borderBottomRightRadius: 20, marginLeft: 15 }}>
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 50,
-    // borderWidth: 1,
-    // borderColor: '#2d333a',
+    borderWidth: 1,
+    borderColor: '#e90c59',
     margin: 5,
     marginLeft: 15
   },

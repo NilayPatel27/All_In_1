@@ -3,7 +3,7 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './Pages/Home';
-import Customer from './Pages/Customer';
+import Customers from './Pages/Customers';
 import Item from './Pages/Item';
 import Login from './Pages/Login';
 
@@ -20,7 +20,7 @@ const navigation = ({navigation}) => {
             <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Customer" component={Customer} />
+                <Stack.Screen name="Customers" component={Customers} />
                 <Stack.Screen name="Item" component={Item} />
             </Stack.Navigator>
         </NavigationContainer>
