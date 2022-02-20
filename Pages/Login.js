@@ -76,8 +76,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 8,
         color: '#2d333a',
-        width: '80%',
-        // backgroundColor:"pink"
+        width: '80%'
     },
     first: {
         flex: 1,
@@ -89,34 +88,34 @@ const styles = StyleSheet.create({
     second: {
         width: '90%',
         height: "80%",
-        justifyContent: "center",
-        flexDirection: "row",
-        shadowColor: 'blue',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.5,
         elevation: 10,
-        backgroundColor: "white"
+        shadowRadius: 3.5,
+        shadowColor: 'blue',
+        shadowOpacity: 0.25,
+        flexDirection: "row",
+        backgroundColor: "#fff",
+        justifyContent: "center",
+        shadowOffset: { width: 0, height: 5 }
     },
     third: {
-        justifyContent: 'center',
+        flex: 1,
         flexDirection: 'column',
-        flex: 1
+        justifyContent: 'center'
     },
     Divider: {
         width: "100%",
-        justifyContent: "center",
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: "center"
     },
     button: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: "blue",
         height: 50,
+        width: '90%',
+        marginVertical: 10,
+        flexDirection: 'row',
         alignItems: "center",
         marginHorizontal: 20,
-        marginVertical: 10,
-        width: '90%'
+        backgroundColor: "blue",
+        justifyContent: 'center'
     },
     logo: {
         flexDirection: 'row',
