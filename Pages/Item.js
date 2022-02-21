@@ -118,7 +118,6 @@ const Item = ({ route, navigation }) => {
   }
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
-    console.log('hello')
     if (modelData.length == 0) {
       for (let i = 0; i < array.length; i++) {
         modelData.push(USER[array[i]].user);
@@ -126,6 +125,19 @@ const Item = ({ route, navigation }) => {
       setDELETE(true);
     }
     else {
+      for(let i = 0; i<modelData.length; i++){
+        let FLAG = 0;
+        for(let j = 0; j<array.length; j++){
+          if(modelData[i] == USER[array[j]].user){
+            FLAG = 1;
+            j=array.length;
+          }
+        }
+        if(FLAG == 0){
+         setmodelData( modelData.slice(i,1))
+        }
+      }
+
       for (let i = 0; i < array.length; i++) {
         let flag = 0;
         for (let j = 0; j < modelData.length; j++) {
@@ -136,7 +148,7 @@ const Item = ({ route, navigation }) => {
         }
         if (flag == 0) {
           modelData.push(USER[array[i]].user);
-          flag = 0;
+          // flag = 0;
         }
       }
       setDELETE(true);
