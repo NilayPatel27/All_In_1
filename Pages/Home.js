@@ -1,17 +1,34 @@
-import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
+import Modal from 'react-native-modal';
 import React from 'react'
 import { USER } from '../Data/CustomerData';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import Add from '../assates/svg/Add.svg'
+import { useState } from 'react';
 
 const Home = ({ navigation }) => {
+  const [successful, setsuccessful] = useState(false);
+  const [user, setuser] = useState('');
+  const [image, setimage] = useState('');
+
+  const addItem = () => {
+    if(user.trim()!=='' && image.trim()!==''){
+    USER.push({
+      user: user,
+      image: image
+    })
+    setsuccessful(false);
+  }
+  setuser('');
+  setimage('');
+}
 
   return (
     <>
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={styles.header}>
           <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
-          <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }}>
+          <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
             <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
           </TouchableOpacity>
         </View>
@@ -33,6 +50,49 @@ const Home = ({ navigation }) => {
           </View>
         </View>
       </View>
+      <Modal
+        isVisible={successful}
+        animationType={'slide'}
+        transparent={true}
+        onRequestClose={() => {
+          setsuccessful(false);
+        }}
+        onBackdropPress={() => {
+          setsuccessful(false);
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'column',
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 20,
+            width: '100%',
+            paddingVertical: 20,
+            backgroundColor: 'white'
+          }}>
+          <TextInput
+            style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+            placeholder="User Name"
+            placeholderTextColor="#2d333a"
+            onChangeText={(Name) => setuser(Name)}
+            autoComplete={'off'}
+          />
+          <TextInput
+            style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+            placeholder="User Image"
+            placeholderTextColor="#2d333a"
+            onChangeText={(image) => setimage(image)}
+            autoComplete={'off'}
+          />
+          <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+            <View style={styles.button}>
+              <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Modal>
     </>
   )
 }
@@ -79,6 +139,27 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 6.27,
     elevation: 10
+  },
+  textInput: {
+    paddingBottom: 10,
+    borderColor: 'gray',
+    paddingLeft: 10,
+    borderWidth: 1,
+    borderRadius: 8,
+    color: '#2d333a',
+    width: '80%',
+    marginBottom: 10
+  },
+  button: {
+    height: 50,
+    width: '50%',
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: "center",
+    marginHorizontal: 20,
+    backgroundColor: "green",
+    justifyContent: 'center',
+    borderRadius:25
   }
 });
 
