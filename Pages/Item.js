@@ -131,6 +131,7 @@ const Item = ({ route, navigation }) => {
         for (let j = 0; j < modelData.length; j++) {
           if (modelData[j] == USER[array[i]].user) {
             flag = 1;
+            j=modelData.length;
           }
         }
         if (flag == 0) {
