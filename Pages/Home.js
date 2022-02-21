@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from 'react';
 import Modal from 'react-native-modal';
-import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
-import { Divider } from 'react-native-elements/dist/divider/Divider';
 import Cross from '../assates/svg/Cross.svg'
+import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
 
 const Home = ({ navigation }) => {
 
@@ -157,7 +157,7 @@ const Home = ({ navigation }) => {
                 onChangeText={text => searchFilter(text)}
               >
               </TextInput>
-              <Cross width={search!=''?15:0} height={search!=''?15:0} onPress={() => { searchFilter('') }} />
+              <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
             </View>
             <View style={styles.Divider}>
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />

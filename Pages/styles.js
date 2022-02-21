@@ -350,6 +350,17 @@ const styles = StyleSheet.create({
 })
 
 const Customer = StyleSheet.create({
+    textInputStyle: {
+        height: 40,
+        color: 'black',
+        borderRadius: 20,
+        width: '90%'
+    },
+    Divider: {
+        width: "100%",
+        alignItems: 'center',
+        justifyContent: "center"
+    },
     listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
