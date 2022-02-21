@@ -152,7 +152,7 @@ const Home = ({ navigation }) => {
               <TextInput
                 style={styles.textInputStyle}
                 value={search}
-                placeholder="Search here"
+                placeholder="Search Customer"
                 placeholderTextColor="black"
                 onChangeText={text => searchFilter(text)}
               >

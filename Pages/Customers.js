@@ -179,7 +179,7 @@ const Customers = ({ route, navigation }) => {
           <TextInput
             style={Customer.textInputStyle}
             value={search}
-            placeholder="Search here"
+            placeholder="Search Item"
             placeholderTextColor="black"
             onChangeText={text => searchFilter(text)}
           >
