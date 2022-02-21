@@ -157,7 +157,7 @@ const Home = ({ navigation }) => {
                 onChangeText={text => searchFilter(text)}
               >
               </TextInput>
-              <Cross width={search!=''?15:0} height={15} onPress={() => { searchFilter('') }} />
+              <Cross width={search!=''?15:0} height={search!=''?15:0} onPress={() => { searchFilter('') }} />
             </View>
             <View style={styles.Divider}>
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
