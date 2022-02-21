@@ -5,7 +5,13 @@ import Modal from 'react-native-modal';
 import Cross from '../assates/svg/Cross.svg'
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { useEffect } from 'react';
+import Snackbar from 'react-native-snackbar';
 
+let indexValues = [];
+let long = 0;
+let count = 0;
+let SnackBar = 0;
 const Item = ({ route, navigation }) => {
   let color = '#fff'
   const { Name } = route.params;
@@ -129,14 +135,193 @@ const Item = ({ route, navigation }) => {
       <Text style={Customer.text}>{content}</Text>
     </View>
 
+  const [select, setselect] = useState(-1);
+
+  const Item = ({ index, Name }) => {
+    let state = ['Online', 'Offline'];
+    let send = ['sent', 'notsent'];
+
+    const [Index, setIndex] = useState(0);
+    useEffect(() => {
+      if (select == 1) {
+        if (indexValues.indexOf(index) == -1) {
+          indexValues.push(index);
+        }
+        count = filterData.length;
+        long = 1;
+        if (index == filterData.length - 1) {
+          Snackbar.show({
+            text: 'Choose Template',
+            duration: Snackbar.LENGTH_INDEFINITE,
+            action: {
+              text: 'GO',
+              textColor: 'green',
+              onPress: () => {
+                if (indexValues.length != 0) {
+                  SnackBar = 1;
+                  navigation.navigate('Notification', {
+                    selectedData: indexValues,
+                    Name: Name
+                  })
+                }
+              },
+            },
+          })
+        }
+        setIndex(!Index);
+
+      }
+      if (select == 0) {
+        indexValues = [];
+        count = 0;
+        long = 0;
+        Snackbar.dismiss();
+        setIndex(!Index);
+      }
+
+    }, []);
+
+    const onLongPressButton = () => {
+
+      let idx = indexValues.indexOf(index);
+      long = 1;
+      if (idx > -1) {
+        indexValues.splice(idx, 1);
+        count = count - 1;
+        setIndex(!Index);
+      }
+      else {
+        indexValues.push(index)
+        count = count + 1;
+        setIndex(!Index);
+      }
+      if (indexValues.length === 0) {
+        long = 0;
+        count = 0;
+        SnackBar = 0;
+        setselect(-1);
+        Snackbar.dismiss();
+      }
+
+      if (long === 1 && count < 2 || SnackBar == 1) {
+        Snackbar.show({
+          text: 'Choose Template',
+          duration: Snackbar.LENGTH_INDEFINITE,
+          action: {
+            text: 'GO',
+            textColor: 'green',
+            onPress: () => {
+              if (indexValues.length != 0) {
+                SnackBar = 1;
+                navigation.navigate('Notification', {
+                  selectedData: indexValues,
+                  Name: Name
+                })
+
+              }
+            },
+          },
+        })
+      }
+      if (select == 1) {
+        setselect(-1);
+      }
+    };
+
+    const onPress = () => {
+
+
+      if (long === 1) {
+        if (indexValues.indexOf(index) == -1) {
+          count = count + 1;
+          indexValues.push(index);
+          setIndex(!Index);
+
+
+        } else {
+          let id = indexValues.indexOf(index);
+          if (id > -1) {
+            indexValues.splice(id, 1);
+            count = count - 1;
+            if (indexValues.length === 0) {
+              long = 0;
+              count = 0;
+              SnackBar = 0;
+              Snackbar.dismiss();
+            }
+          }
+          setIndex(!Index);
+        }
+      };
+      if (SnackBar == 1) {
+        Snackbar.show({
+          text: 'Choose Template',
+          duration: Snackbar.LENGTH_INDEFINITE,
+          action: {
+            text: 'GO',
+            textColor: 'green',
+            onPress: () => {
+              if (indexValues.length != 0) {
+                SnackBar = 1;
+                console.log('SnackBar' + SnackBar);
+                navigation.navigate('Notification', {
+                  selectedData: indexValues,
+                  Name: Name
+                })
+              }
+            },
+          },
+        })
+        SnackBar = 0;
+      }
+      if (select == 1) {
+        setselect(-1);
+      }
+    }
+    return (
+      // #ffffe0
+      <TouchableWithoutFeedback
+        onLongPress={onLongPressButton}
+        onPress={onPress}
+      >
+        <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
+          <View key={index} style={[styles.listItem, { width: '85%' }]}>
+            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#000" }}>
+              <Text style={styles.text}>{Name.toUpperCase()}</Text>
+              {indexValues.indexOf(index) == -1 ? null
+                : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
+                  <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
+                </View>}
+
+            </View>
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
+    );
+  };
+  const renderItem = ({ item, index }) => {
+    return (
+      <>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Item
+            index={index}
+            Name={item.user}
+          />
+        </View>
+      </>
+    );
+  };
   return (
     <>
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
         {header(Name.toUpperCase())}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
-            <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
-          </TouchableOpacity>
+          <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
+        </TouchableOpacity>
+        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
+          <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
+        </TouchableOpacity>
       </View>
       <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', marginTop: 25 }}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
@@ -154,21 +339,10 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-      <View style={{ height: "90%", paddingTop: 30 }}>
+      <View style={{ height: "80%", paddingTop: 30 }}>
         <FlatList
           data={USER}
-          renderItem={({ item }) =>
-            <TouchableWithoutFeedback>
-              <View key={Date.now} style={styles.listItem}>
-              <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',marginHorizontal:10}}>
-              <Cross width={30} height={30} />
-              </View>
-                <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#00203FFF", borderTopLeftRadius: 20, borderBottomLeftRadius: 0, borderBottomRightRadius: 20, marginLeft: 15 }}>
-                  <Text style={styles.text}>{item.user.toUpperCase()}</Text>
-                </View>
-              </View>
-            </TouchableWithoutFeedback>
-          }
+          renderItem={renderItem}
         />
       </View>
       <Modal
@@ -219,8 +393,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginHorizontal: 25,
     marginBottom: 10,
-    borderBottomRightRadius: 20,
-    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.34,
@@ -228,6 +400,8 @@ const styles = StyleSheet.create({
     elevation: 10,
     backgroundColor: '#ADEFD1FF',
     height: 60,
+    marginVertical: 15,
+
   },
   story: {
     width: 55,
@@ -240,7 +414,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 25,
     alignSelf: 'center',
     fontWeight: 'bold'
   },
