@@ -1,27 +1,135 @@
-import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
-import Modal from 'react-native-modal';
 import React from 'react'
-import { USER } from '../Data/CustomerData';
-import { Divider } from 'react-native-elements/dist/divider/Divider';
-import Add from '../assates/svg/Add.svg'
 import { useState } from 'react';
+import Modal from 'react-native-modal';
+import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
+import { Divider } from 'react-native-elements/dist/divider/Divider';
+import Cross from '../assates/svg/Cross.svg'
 
 const Home = ({ navigation }) => {
+
+  const [USER, setUSER] = useState([
+    {
+      user: 'nilay._.patel',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'darshan',
+      image: "https://img.icons8.com/color/48/000000/user.png"
+    },
+    {
+      user: 'harshil',
+      image: "https://img.icons8.com/office/16/000000/user.png"
+    },
+    {
+      user: 'rahuulv23',
+      image: "https://img.icons8.com/clouds/100/000000/user.png"
+    },
+    {
+      user: 'nilay',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'nilay',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'darshan',
+      image: "https://img.icons8.com/color/48/000000/user.png"
+    },
+    {
+      user: 'harshil',
+      image: "https://img.icons8.com/office/16/000000/user.png"
+    },
+    {
+      user: 'rahul',
+      image: "https://img.icons8.com/clouds/100/000000/user.png"
+    },
+    {
+      user: 'nilay',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    }
+
+  ]);
+  const [NEWUSER, setNEWUSER] = useState([
+    {
+      user: 'nilay._.patel',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'darshan',
+      image: "https://img.icons8.com/color/48/000000/user.png"
+    },
+    {
+      user: 'harshil',
+      image: "https://img.icons8.com/office/16/000000/user.png"
+    },
+    {
+      user: 'rahuulv23',
+      image: "https://img.icons8.com/clouds/100/000000/user.png"
+    },
+    {
+      user: 'nilay',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'nilay',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'darshan',
+      image: "https://img.icons8.com/color/48/000000/user.png"
+    },
+    {
+      user: 'harshil',
+      image: "https://img.icons8.com/office/16/000000/user.png"
+    },
+    {
+      user: 'rahul',
+      image: "https://img.icons8.com/clouds/100/000000/user.png"
+    },
+    {
+      user: 'nilay',
+      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    }
+
+  ]);
+
   const [successful, setsuccessful] = useState(false);
   const [user, setuser] = useState('');
   const [image, setimage] = useState('');
 
+  const [search, setsearch] = useState('');
+  const [autoFocus, setautoFocus] = useState(false);
+
+  const searchFilter = text => {
+    if (text.trim()) {
+      setautoFocus(true);
+      const newData = NEWUSER.filter(item => {
+        const itemData = item.user
+          ? item.user.trim().toLowerCase()
+          : ''.toUpperCase();
+        const textData = text.trim().toLowerCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setUSER(newData);
+      setsearch(text);
+    } else {
+      setUSER(NEWUSER);
+      setsearch(text);
+    }
+  };
+
   const addItem = () => {
-    if(user.trim()!=='' && image.trim()!==''){
-    USER.push({
-      user: user,
-      image: image
-    })
-    setsuccessful(false);
+    if (user.trim() !== '' && image.trim() !== '') {
+      USER.push({
+        user: user,
+        image: image
+      })
+      setsuccessful(false);
+    }
+    setuser('');
+    setimage('');
   }
-  setuser('');
-  setimage('');
-}
 
   return (
     <>
@@ -31,6 +139,36 @@ const Home = ({ navigation }) => {
           <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
             <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
           </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: 30,
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: "center",
+            backgroundColor: '#fff',
+          }}>
+          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center' }}>
+          <View style={{width:'85%',flexDirection:'row',justifyContent:'space-evenly',alignItems:'center'}}>
+            <TextInput
+              style={styles.textInputStyle}
+              value={search}
+              placeholder="Search here"
+              placeholderTextColor="black"
+              onChangeText={text => searchFilter(text)}
+              autoFocus={autoFocus}
+              >
+            </TextInput>
+          <Cross width={15} height={15} onPress={() => {
+            searchFilter('');
+            setautoFocus(false);
+            } }/>
+            </View>
+            <View style={styles.Divider}>
+        <Divider width={2} style={{ width: '85%' }} color={'pink'} />
+    </View>
+          </View>
         </View>
         <View style={{ height: '90%', width: '100%' }}>
           <View style={{ top: 30, paddingBottom: 25 }}>
@@ -126,6 +264,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold'
   },
+  Divider: {
+    width: "100%",
+    alignItems: 'center',
+    justifyContent: "center"
+},
   header: {
     height: '10%',
     width: '100%',
@@ -159,8 +302,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     backgroundColor: "green",
     justifyContent: 'center',
-    borderRadius:25
-  }
+    borderRadius: 25
+  },
+  textInputStyle: {
+    height: 40,
+    color: 'black',
+    borderRadius: 20,
+    width: '90%'
+  },
 });
 
 export default Home
