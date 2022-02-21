@@ -119,7 +119,7 @@ const Home = ({ navigation }) => {
 
   const addItem = () => {
     if (user.trim() !== '' && image.trim() !== '') {
-      USER.push({
+      USER.unshift({
         user: user,
         image: image
       })
@@ -155,7 +155,6 @@ const Home = ({ navigation }) => {
                 placeholder="Search here"
                 placeholderTextColor="black"
                 onChangeText={text => searchFilter(text)}
-                autoFocus={autoFocus}
               >
               </TextInput>
               <Cross width={15} height={15} onPress={() => { searchFilter('') }} />
