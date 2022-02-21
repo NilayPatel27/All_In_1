@@ -125,16 +125,16 @@ const Item = ({ route, navigation }) => {
       setDELETE(true);
     }
     else {
-      for(let i = 0; i<modelData.length; i++){
+      for (let i = 0; i < modelData.length; i++) {
         let FLAG = 0;
-        for(let j = 0; j<array.length; j++){
-          if(modelData[i] == USER[array[j]].user){
+        for (let j = 0; j < array.length; j++) {
+          if (modelData[i] == USER[array[j]].user) {
             FLAG = 1;
-            j=array.length;
+            j = array.length;
           }
         }
-        if(FLAG == 0){
-         setmodelData( modelData.slice(i,1))
+        if (FLAG == 0) {
+          setmodelData(modelData.slice(i, 1))
         }
       }
 
@@ -143,12 +143,11 @@ const Item = ({ route, navigation }) => {
         for (let j = 0; j < modelData.length; j++) {
           if (modelData[j] == USER[array[i]].user) {
             flag = 1;
-            j=modelData.length;
+            j = modelData.length;
           }
         }
         if (flag == 0) {
           modelData.push(USER[array[i]].user);
-          // flag = 0;
         }
       }
       setDELETE(true);
