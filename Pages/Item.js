@@ -117,13 +117,12 @@ const Item = ({ route, navigation }) => {
     setimage('');
   }
   const [modelData, setmodelData] = useState([]);
-  const DELETEITEM = () =>{
-    // setmodelData([]);
-    if(modelData.length ==0){
-    for (let i = 0; i < array.length; i++) {
-      modelData.push(USER[array[i]].user);
+  const DELETEITEM = () => {
+    if (modelData.length == 0) {
+      for (let i = 0; i < array.length; i++) {
+        modelData.push(USER[array[i]].user);
+      }
     }
-  }
     setDELETE(true);
   }
   const deleteItem = () => {
@@ -157,7 +156,7 @@ const Item = ({ route, navigation }) => {
         }}>
         <ModelItem
           index={index}
-          
+
         />
       </View>
     );
@@ -335,7 +334,7 @@ const Item = ({ route, navigation }) => {
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
         {header(Name.toUpperCase())}
-        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ?setModel(true):DELETEITEM()}>
+        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
           <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
         </TouchableOpacity>
 
@@ -421,10 +420,10 @@ const Item = ({ route, navigation }) => {
             backgroundColor: 'white'
           }}>
           <FlatList
-                data={modelData}
-                // keyExtractor={( index) => index}
-                renderItem={modelitem}
-              />
+            data={modelData}
+            // keyExtractor={( index) => index}
+            renderItem={modelitem}
+          />
           <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row" }}>
             <View style={styles.button}>
               <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
