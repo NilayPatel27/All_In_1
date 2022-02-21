@@ -118,12 +118,29 @@ const Item = ({ route, navigation }) => {
   }
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
+    console.log('hello')
     if (modelData.length == 0) {
       for (let i = 0; i < array.length; i++) {
         modelData.push(USER[array[i]].user);
       }
+      setDELETE(true);
     }
-    setDELETE(true);
+    else {
+      for (let i = 0; i < array.length; i++) {
+        let flag = 0;
+        for (let j = 0; j < modelData.length; j++) {
+          if (modelData[j] == USER[array[i]].user) {
+            flag = 1;
+          }
+        }
+        if (flag == 0) {
+          modelData.push(USER[array[i]].user);
+          flag = 0;
+        }
+      }
+      setDELETE(true);
+    }
+    console.log(modelData);
   }
   const deleteItem = () => {
     if (user.trim() !== '') {
@@ -184,7 +201,7 @@ const Item = ({ route, navigation }) => {
             duration: Snackbar.LENGTH_INDEFINITE,
             action: {
               text: 'DELETE',
-              textColor: 'red',
+              textColor: '#e90c59',
               onPress: () => {
                 if (indexValues.length != 0) {
                   SnackBar = 1;
@@ -234,7 +251,7 @@ const Item = ({ route, navigation }) => {
           duration: Snackbar.LENGTH_INDEFINITE,
           action: {
             text: 'DELETE',
-            textColor: 'red',
+            textColor: '#e90c59',
             onPress: () => {
               if (indexValues.length != 0) {
                 SnackBar = 1;
@@ -251,14 +268,11 @@ const Item = ({ route, navigation }) => {
 
     const onPress = () => {
 
-
       if (long === 1) {
         if (indexValues.indexOf(index) == -1) {
           count = count + 1;
           indexValues.push(index);
           setIndex(!Index);
-
-
         } else {
           let id = indexValues.indexOf(index);
           if (id > -1) {
@@ -280,7 +294,7 @@ const Item = ({ route, navigation }) => {
           duration: Snackbar.LENGTH_INDEFINITE,
           action: {
             text: 'DELETE',
-            textColor: 'red',
+            textColor: '#e90c59',
             onPress: () => {
               if (indexValues.length != 0) {
                 SnackBar = 1;
