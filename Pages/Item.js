@@ -327,7 +327,7 @@ const Item = ({ route, navigation }) => {
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
           {array.length == 0
             ? <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
-            : <Image source={require('../assates/svg/Dustbin.png')} style={{ height: 50, width: 50 }} />}
+            : <Image source={require('../assates/svg/Dustbin.png')} style={{ height: 60, width: 60 }} />}
         </TouchableOpacity>
 
       </View>
