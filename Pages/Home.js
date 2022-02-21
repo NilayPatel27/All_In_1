@@ -99,11 +99,9 @@ const Home = ({ navigation }) => {
   const [image, setimage] = useState('');
 
   const [search, setsearch] = useState('');
-  const [autoFocus, setautoFocus] = useState(false);
 
   const searchFilter = text => {
     if (text.trim()) {
-      setautoFocus(true);
       const newData = NEWUSER.filter(item => {
         const itemData = item.user
           ? item.user.trim().toLowerCase()
@@ -150,24 +148,21 @@ const Home = ({ navigation }) => {
             backgroundColor: '#fff',
           }}>
           <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center' }}>
-          <View style={{width:'85%',flexDirection:'row',justifyContent:'space-evenly',alignItems:'center'}}>
-            <TextInput
-              style={styles.textInputStyle}
-              value={search}
-              placeholder="Search here"
-              placeholderTextColor="black"
-              onChangeText={text => searchFilter(text)}
-              autoFocus={autoFocus}
+            <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
+              <TextInput
+                style={styles.textInputStyle}
+                value={search}
+                placeholder="Search here"
+                placeholderTextColor="black"
+                onChangeText={text => searchFilter(text)}
+                autoFocus={autoFocus}
               >
-            </TextInput>
-          <Cross width={15} height={15} onPress={() => {
-            searchFilter('');
-            setautoFocus(false);
-            } }/>
+              </TextInput>
+              <Cross width={15} height={15} onPress={() => { searchFilter('') }} />
             </View>
             <View style={styles.Divider}>
-        <Divider width={2} style={{ width: '85%' }} color={'pink'} />
-    </View>
+              <Divider width={2} style={{ width: '85%' }} color={'pink'} />
+            </View>
           </View>
         </View>
         <View style={{ height: '90%', width: '100%' }}>
@@ -268,7 +263,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: 'center',
     justifyContent: "center"
-},
+  },
   header: {
     height: '10%',
     width: '100%',
