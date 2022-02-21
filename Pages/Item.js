@@ -1,13 +1,11 @@
 import React from 'react'
-import { useState } from 'react';
 import { Customer } from './styles'
 import Modal from 'react-native-modal';
-import Cross from '../assates/svg/Cross.svg'
-import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
-
+import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 let indexValues = [];
 let long = 0;
@@ -19,7 +17,8 @@ const Item = ({ route, navigation }) => {
 
   let color = '#fff'
   const { Name } = route.params;
-  const [successful, setsuccessful] = useState(false);
+  const [model, setModel] = useState(false);
+  const [DELETE, setDELETE] = useState(false);
 
   const [USER, setUSER] = useState([
     {
@@ -56,44 +55,34 @@ const Item = ({ route, navigation }) => {
   ]);
   const [NEWUSER, setNEWUSER] = useState([
     {
-      user: 'nilay._.patel',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
+      user: 'ITEM 1',
     },
     {
-      user: 'darshan',
-      image: "https://img.icons8.com/color/48/000000/user.png"
+      user: 'ITEM 2',
     },
     {
-      user: 'harshil',
-      image: "https://img.icons8.com/office/16/000000/user.png"
+      user: 'ITEM 3',
     },
     {
-      user: 'rahuulv23',
-      image: "https://img.icons8.com/clouds/100/000000/user.png"
+      user: 'ITEM 4',
     },
     {
-      user: 'nilay',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
+      user: 'ITEM 5',
     },
     {
-      user: 'nilay',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
+      user: 'ITEM 6',
     },
     {
-      user: 'darshan',
-      image: "https://img.icons8.com/color/48/000000/user.png"
+      user: 'ITEM 7',
     },
     {
-      user: 'harshil',
-      image: "https://img.icons8.com/office/16/000000/user.png"
+      user: 'ITEM 8',
     },
     {
-      user: 'rahul',
-      image: "https://img.icons8.com/clouds/100/000000/user.png"
+      user: 'ITEM 9',
     },
     {
-      user: 'nilay',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
+      user: 'ITEM 10',
     }
 
   ]);
@@ -122,30 +111,65 @@ const Item = ({ route, navigation }) => {
         user: user,
         image: image
       })
-      setsuccessful(false);
+      setModel(false);
     }
     setuser('');
     setimage('');
   }
+  const [modelData, setmodelData] = useState([]);
+  const DELETEITEM = () =>{
+    // setmodelData([]);
+    if(modelData.length ==0){
+    for (let i = 0; i < array.length; i++) {
+      modelData.push(USER[array[i]].user);
+    }
+  }
+    setDELETE(true);
+  }
+  const deleteItem = () => {
+    if (user.trim() !== '') {
+      USER.unshift({
+        user: user,
+        image: image
+      })
+      setModel(false);
+    }
+    setuser('');
+    setimage('');
+  }
+  const ModelItem = ({ index }) => {
+    return (
+      <View style={{ flexDirection: 'column', justifyContent: "space-between", marginTop: 20 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white' }}>
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', paddingLeft: 10 }}>
+            Mac ID : {modelData[index]}
+          </Text>
+        </View>
+      </View>
+    );
+  };
+  const modelitem = ({ item, index }) => {
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ModelItem
+          index={index}
+          
+        />
+      </View>
+    );
+  };
   const header = (text) =>
     <View style={{ justifyContent: 'flex-start', flexDirection: "row", height: '100%', alignItems: "center" }}>
       <Text style={{ color, fontSize: 20 }}>{text}</Text>
     </View>
 
-  const text = (Name, col, content) =>
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
-      <Text style={Customer.text}>{Name}</Text>
-      <Text style={Customer.col}>{col}</Text>
-      <Text style={Customer.text}>{content}</Text>
-    </View>
-
   const [select, setselect] = useState(-1);
 
   const Item = ({ index, Name }) => {
-
-
-    let state = ['Online', 'Offline'];
-    let send = ['sent', 'notsent'];
 
     const [Index, setIndex] = useState(0);
     useEffect(() => {
@@ -157,18 +181,14 @@ const Item = ({ route, navigation }) => {
         long = 1;
         if (index == filterData.length - 1) {
           Snackbar.show({
-            text: 'Choose Template',
+            text: 'Delete Item',
             duration: Snackbar.LENGTH_INDEFINITE,
             action: {
-              text: 'GO',
-              textColor: 'green',
+              text: 'DELETE',
+              textColor: 'red',
               onPress: () => {
                 if (indexValues.length != 0) {
                   SnackBar = 1;
-                  navigation.navigate('Notification', {
-                    selectedData: indexValues,
-                    Name: Name
-                  })
                 }
               },
             },
@@ -211,19 +231,14 @@ const Item = ({ route, navigation }) => {
 
       if (long === 1 && count < 2 || SnackBar == 1) {
         Snackbar.show({
-          text: 'Choose Template',
+          text: 'Delete Item',
           duration: Snackbar.LENGTH_INDEFINITE,
           action: {
-            text: 'GO',
-            textColor: 'green',
+            text: 'DELETE',
+            textColor: 'red',
             onPress: () => {
               if (indexValues.length != 0) {
                 SnackBar = 1;
-                navigation.navigate('Notification', {
-                  selectedData: indexValues,
-                  Name: Name
-                })
-
               }
             },
           },
@@ -262,19 +277,15 @@ const Item = ({ route, navigation }) => {
       };
       if (SnackBar == 1) {
         Snackbar.show({
-          text: 'Choose Template',
+          text: 'Delete Item',
           duration: Snackbar.LENGTH_INDEFINITE,
           action: {
-            text: 'GO',
-            textColor: 'green',
+            text: 'DELETE',
+            textColor: 'red',
             onPress: () => {
               if (indexValues.length != 0) {
                 SnackBar = 1;
                 console.log('SnackBar' + SnackBar);
-                navigation.navigate('Notification', {
-                  selectedData: indexValues,
-                  Name: Name
-                })
               }
             },
           },
@@ -324,10 +335,8 @@ const Item = ({ route, navigation }) => {
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
         {header(Name.toUpperCase())}
-        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
-          {array.length == 0
-            ? <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
-            : <Image source={require('../assates/svg/Dustbin.png')} style={{ height: 50, width: 50 }} />}
+        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ?setModel(true):DELETEITEM()}>
+          <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
         </TouchableOpacity>
 
       </View>
@@ -354,14 +363,14 @@ const Item = ({ route, navigation }) => {
         />
       </View>
       <Modal
-        isVisible={successful}
+        isVisible={model}
         animationType={'slide'}
         transparent={true}
         onRequestClose={() => {
-          setsuccessful(false);
+          setModel(false);
         }}
         onBackdropPress={() => {
-          setsuccessful(false);
+          setModel(false);
         }}
       >
         <View
@@ -385,6 +394,40 @@ const Item = ({ route, navigation }) => {
           <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
             <View style={styles.button}>
               <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+      <Modal
+        isVisible={DELETE}
+        animationType={'slide'}
+        transparent={true}
+        onRequestClose={() => {
+          setDELETE(false);
+        }}
+        onBackdropPress={() => {
+          setDELETE(false);
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'column',
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 20,
+            width: '100%',
+            paddingTop: 20,
+            backgroundColor: 'white'
+          }}>
+          <FlatList
+                data={modelData}
+                // keyExtractor={( index) => index}
+                renderItem={modelitem}
+              />
+          <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+            <View style={styles.button}>
+              <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
             </View>
           </TouchableOpacity>
         </View>
