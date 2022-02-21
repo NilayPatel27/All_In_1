@@ -8,11 +8,15 @@ import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, Touchab
 import { useEffect } from 'react';
 import Snackbar from 'react-native-snackbar';
 
+
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
+
+  const [array, setarray] = useState([]);
+
   let color = '#fff'
   const { Name } = route.params;
   const [successful, setsuccessful] = useState(false);
@@ -138,6 +142,8 @@ const Item = ({ route, navigation }) => {
   const [select, setselect] = useState(-1);
 
   const Item = ({ index, Name }) => {
+
+
     let state = ['Online', 'Offline'];
     let send = ['sent', 'notsent'];
 
@@ -226,6 +232,7 @@ const Item = ({ route, navigation }) => {
       if (select == 1) {
         setselect(-1);
       }
+      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
     };
 
     const onPress = () => {
@@ -277,6 +284,7 @@ const Item = ({ route, navigation }) => {
       if (select == 1) {
         setselect(-1);
       }
+      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
     }
     return (
       // #ffffe0
@@ -317,11 +325,11 @@ const Item = ({ route, navigation }) => {
         {header('SUPPLIER NAME')}
         {header(Name.toUpperCase())}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
-          <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
+          {array.length == 0
+            ? <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
+            : <Image source={require('../assates/svg/Dustbin.png')} style={{ height: 50, width: 50 }} />}
         </TouchableOpacity>
-        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => setsuccessful(true)}>
-          <Image source={require('../assates/Plus.png')} style={{ height: 60, width: 60 }} />
-        </TouchableOpacity>
+
       </View>
       <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', marginTop: 25 }}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
