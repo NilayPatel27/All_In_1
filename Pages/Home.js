@@ -303,18 +303,18 @@ console.log(index , Name);
     //     name: Name,
     //   });
     // }
+    // indexValues.length==0
+    //     ? () => {
+    //       navigation.navigate('Customers', {
+    //         name: Name,
+    //       });
+    //     }
+    //     :onPress
     return (
       // #ffffe0
       <TouchableWithoutFeedback
         onLongPress={onLongPressButton}
-        onPress={indexValues.length==0
-        ? () => {
-          navigation.navigate('Customers', {
-            name: Name,
-          });
-        }
-        :onPress
-        }
+        onPress={onPress}
       >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
