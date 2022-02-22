@@ -119,9 +119,9 @@ const Item = ({ route, navigation }) => {
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
     modelData.length = 0;
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < array.length; i++)
       modelData.push(USER[array[i]].user);
-    }
+
     setDELETE(true);
   }
   const deleteItem = () => {
@@ -416,16 +416,24 @@ const Item = ({ route, navigation }) => {
             paddingTop: 20,
             backgroundColor: 'white'
           }}>
+          <Text style={{color:'red'}}>Are you sure ?</Text>
           <FlatList
             data={modelData}
             // keyExtractor={( index) => index}
             renderItem={modelitem}
           />
-          <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row" }}>
-            <View style={styles.button}>
+          <View style={{width:'100%',flexDirection:'row',justifyContent:'center'}}>
+          <TouchableOpacity onPress={console.log('delete')} style={{ justifyContent: "center", flexDirection: "row",width:'50%' }}>
+            <View style={styles.delete}>
               <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity onPress={console.log('cancle')} style={{ justifyContent: "center", flexDirection: "row",width:'50%' }}>
+            <View style={styles.cancle}>
+              <Text style={{ color: "#2d333a", fontSize: 20 }}>CENCLE</Text>
+            </View>
+          </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </>
@@ -494,14 +502,23 @@ const styles = StyleSheet.create({
     width: '80%',
     marginBottom: 10
   },
-  button: {
+  delete: {
     height: 50,
-    width: '50%',
+    width: '60%',
     marginVertical: 10,
     flexDirection: 'row',
     alignItems: "center",
-    marginHorizontal: 20,
     backgroundColor: "green",
+    justifyContent: 'center',
+    borderRadius: 25
+  },
+  cancle: {
+    height: 50,
+    width: '60%',
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: "center",
+    borderWidth:1,
     justifyContent: 'center',
     borderRadius: 25
   },
