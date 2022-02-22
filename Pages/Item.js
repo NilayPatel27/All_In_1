@@ -118,41 +118,11 @@ const Item = ({ route, navigation }) => {
   }
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
-    if (modelData.length == 0) {
-      for (let i = 0; i < array.length; i++) {
-        modelData.push(USER[array[i]].user);
-      }
-      setDELETE(true);
+    modelData.length = 0;
+    for (let i = 0; i < array.length; i++) {
+      modelData.push(USER[array[i]].user);
     }
-    else {
-      for (let i = 0; i < modelData.length; i++) {
-        let FLAG = 0;
-        for (let j = 0; j < array.length; j++) {
-          if (modelData[i] == USER[array[j]].user) {
-            FLAG = 1;
-            j = array.length;
-          }
-        }
-        if (FLAG == 0) {
-          setmodelData(modelData.slice(i, 1))
-        }
-      }
-
-      for (let i = 0; i < array.length; i++) {
-        let flag = 0;
-        for (let j = 0; j < modelData.length; j++) {
-          if (modelData[j] == USER[array[i]].user) {
-            flag = 1;
-            j = modelData.length;
-          }
-        }
-        if (flag == 0) {
-          modelData.push(USER[array[i]].user);
-        }
-      }
-      setDELETE(true);
-    }
-    console.log(modelData);
+    setDELETE(true);
   }
   const deleteItem = () => {
     if (user.trim() !== '') {
@@ -200,40 +170,40 @@ const Item = ({ route, navigation }) => {
   const Item = ({ index, Name }) => {
 
     const [Index, setIndex] = useState(0);
-    useEffect(() => {
-      if (select == 1) {
-        if (indexValues.indexOf(index) == -1) {
-          indexValues.push(index);
-        }
-        count = filterData.length;
-        long = 1;
-        if (index == filterData.length - 1) {
-          Snackbar.show({
-            text: 'Delete Item',
-            duration: Snackbar.LENGTH_INDEFINITE,
-            action: {
-              text: 'DELETE',
-              textColor: '#e90c59',
-              onPress: () => {
-                if (indexValues.length != 0) {
-                  SnackBar = 1;
-                }
-              },
-            },
-          })
-        }
-        setIndex(!Index);
+    // useEffect(() => {
+    //   if (select == 1) {
+    //     if (indexValues.indexOf(index) == -1) {
+    //       indexValues.push(index);
+    //     }
+    //     count = filterData.length;
+    //     long = 1;
+    //     if (index == filterData.length - 1) {
+    //       Snackbar.show({
+    //         text: 'Delete Item',
+    //         duration: Snackbar.LENGTH_INDEFINITE,
+    //         action: {
+    //           text: 'DELETE',
+    //           textColor: '#e90c59',
+    //           onPress: () => {
+    //             if (indexValues.length != 0) {
+    //               SnackBar = 1;
+    //             }
+    //           },
+    //         },
+    //       })
+    //     }
+    //     setIndex(!Index);
 
-      }
-      if (select == 0) {
-        indexValues = [];
-        count = 0;
-        long = 0;
-        Snackbar.dismiss();
-        setIndex(!Index);
-      }
+    //   }
+    //   if (select == 0) {
+    //     indexValues = [];
+    //     count = 0;
+    //     long = 0;
+    //     Snackbar.dismiss();
+    //     setIndex(!Index);
+    //   }
 
-    }, []);
+    // }, []);
 
     const onLongPressButton = () => {
 
@@ -355,6 +325,7 @@ const Item = ({ route, navigation }) => {
       </>
     );
   };
+
   return (
     <>
       <View style={Customer.header}>
