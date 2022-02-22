@@ -145,20 +145,10 @@ const Home = ({ navigation }) => {
     long = 0;
     count = 0;
   }
-  const ModelItem = ({ index }) =>
-    <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>
-      {modelData[index]}
-    </Text>
-  const modelitem = ({ item, index }) => {
+  const modelitem = ({index }) => {
     return (
-      <View
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <ModelItem
-          index={index}
-        />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>{modelData[index]}</Text>
       </View>
     );
   };
