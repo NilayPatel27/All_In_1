@@ -95,6 +95,8 @@ const Home = ({ navigation }) => {
   const [user, setuser] = useState('');
   const [DELETE, setDELETE] = useState(false);
   const [search, setsearch] = useState('');
+  const [modelData, setmodelData] = useState([]);
+  const [select, setselect] = useState(-1);
 
   const searchFilter = text => {
     if (text.trim()) {
@@ -112,7 +114,6 @@ const Home = ({ navigation }) => {
       setsearch(text);
     }
   };
-
   const addItem = () => {
     if (user.trim() !== '') {
       USER.unshift({
@@ -122,7 +123,6 @@ const Home = ({ navigation }) => {
     }
     setuser('');
   }
-  const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
     modelData.length = 0;
     for (let i = 0; i < array.length; i++)
@@ -145,15 +145,13 @@ const Home = ({ navigation }) => {
     long = 0;
     count = 0;
   }
-  const modelitem = ({index }) => {
+  const modelitem = ({ index }) => {
     return (
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>{modelData[index]}</Text>
       </View>
     );
   };
-  const [select, setselect] = useState(-1);
-
   const Item = ({ index, Name, navigation }) => {
     const [Index, setIndex] = useState(0);
     useEffect(() => {
