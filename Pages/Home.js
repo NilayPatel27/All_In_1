@@ -1,18 +1,18 @@
 import React from 'react'
-import { useState } from 'react';
 import Modal from 'react-native-modal';
+import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
+import MenuButton from '../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
-import navigation from '../navigation';
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Home = ({ navigation }) => {
-  const [array, setarray] = useState([]);
 
   const [USER, setUSER] = useState([
     {
@@ -90,9 +90,8 @@ const Home = ({ navigation }) => {
     }
 
   ]);
+  const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
-
-  const [successful, setsuccessful] = useState(false);
   const [user, setuser] = useState('');
   const [DELETE, setDELETE] = useState(false);
   const [search, setsearch] = useState('');
@@ -113,14 +112,13 @@ const Home = ({ navigation }) => {
       setsearch(text);
     }
   };
-  
 
   const addItem = () => {
     if (user.trim() !== '') {
       USER.unshift({
         user: user,
       })
-      setsuccessful(false);
+      setModel(false);
     }
     setuser('');
   }
@@ -151,59 +149,59 @@ const Home = ({ navigation }) => {
     <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>
       {modelData[index]}
     </Text>
-     const modelitem = ({ item, index }) => {
-      return (
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <ModelItem
-            index={index}
-  
-          />
-        </View>
-      );
-    };
+  const modelitem = ({ item, index }) => {
+    return (
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ModelItem
+          index={index}
+        />
+      </View>
+    );
+  };
   const [select, setselect] = useState(-1);
 
-  const Item = ( {index, Name,navigation} ) => {
-console.log(index , Name);
+  const Item = ({ index, Name, navigation }) => {
     const [Index, setIndex] = useState(0);
-    // useEffect(() => {
-    //   if (select == 1) {
-    //     if (indexValues.indexOf(index) == -1) {
-    //       indexValues.push(index);
-    //     }
-    //     count = filterData.length;
-    //     long = 1;
-    //     if (index == filterData.length - 1) {
-    //       Snackbar.show({
-    //         text: 'Delete Item',
-    //         duration: Snackbar.LENGTH_INDEFINITE,
-    //         action: {
-    //           text: 'DELETE',
-    //           textColor: '#e90c59',
-    //           onPress: () => {
-    //             if (indexValues.length != 0) {
-    //               SnackBar = 1;
-    //             }
-    //           },
-    //         },
-    //       })
-    //     }
-    //     setIndex(!Index);
+    useEffect(() => {
+      if (select == 1) {
+        if (indexValues.indexOf(index) == -1) {
+          indexValues.push(index);
+        }
+        count = USER.length;
+        long = 1;
+        // if (index == USER.length - 1) {
+        //   Snackbar.show({
+        //     text: 'Delete Item',
+        //     duration: Snackbar.LENGTH_INDEFINITE,
+        //     action: {
+        //       text: 'DELETE',
+        //       textColor: '#e90c59',
+        //       onPress: () => {
+        //         if (indexValues.length != 0) {
+        //           SnackBar = 1;
+        //         }
+        //       },
+        //     },
+        //   })
+        // }
+        { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+        setIndex(!Index);
+      }
+      if (select == 0) {
+        indexValues = [];
+        count = 0;
+        long = 0;
+        Snackbar.dismiss();
+        { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+        setselect(-1);
+        setIndex(!Index);
+      }
 
-    //   }
-    //   if (select == 0) {
-    //     indexValues = [];
-    //     count = 0;
-    //     long = 0;
-    //     Snackbar.dismiss();
-    //     setIndex(!Index);
-    //   }
-
-    // }, []);
+    }, []);
 
     const onLongPressButton = () => {
       let idx = indexValues.indexOf(index);
@@ -269,13 +267,12 @@ console.log(index , Name);
           setIndex(!Index);
         }
       }
-      else{
-        console.log('console before navigation' + Name);
+      else {
         navigation.navigate('Customers', {
-         Name:Name
+          Name: Name
         });
       }
-     
+
       // if (SnackBar == 1) {
       //   Snackbar.show({
       //     text: 'Delete Item',
@@ -298,40 +295,24 @@ console.log(index , Name);
       }
       { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
     }
-    // indexValues.length==0?onPress : () => {
-    //   navigation.navigate('Customers', {
-    //     name: Name,
-    //   });
-    // }
-    // indexValues.length==0
-    //     ? () => {
-    //       navigation.navigate('Customers', {
-    //         name: Name,
-    //       });
-    //     }
-    //     :onPress
     return (
       // #ffffe0
-      <TouchableWithoutFeedback
-        onLongPress={onLongPressButton}
-        onPress={onPress}
-      >
+      <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#000" }}>
               <Text style={styles.text}>{Name}</Text>
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
-                  <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
+                  <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50 }}></View>
                 </View>}
-
             </View>
           </View>
         </View>
       </TouchableWithoutFeedback>
     );
   };
-  const renderItem = ( {item,navigation,index}) => {
+  const renderItem = ({ item, navigation, index }) => {
     return (
       <>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -340,21 +321,42 @@ console.log(index , Name);
             Name={item.user}
             navigation={navigation}
           />
-          {console.log(item)}
         </View>
       </>
     );
   };
   return (
     <>
-      <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View style={styles.header}>
-          <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
-          <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
-          <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
-          </TouchableOpacity>
-        </View>
-          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center',paddingTop: 25 ,backgroundColor:'#fff' }}>
+      <MenuProvider>
+        <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          <View style={styles.header}>
+            <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
+            <Menu onSelect={value => setselect(value)}>
+              <MenuTrigger>
+                <MenuButton width={18} height={18} />
+              </MenuTrigger>
+              <MenuOptions style={{ backgroundColor: 'white', height: 80 }}>
+                <MenuOption
+                  value={1}
+                  style={{ height: '50%', justifyContent: 'center' }}>
+                  <Text style={{ color: '#2d333a', textAlign: 'center' }}>
+                    Select All
+                  </Text>
+                </MenuOption>
+                <MenuOption
+                  value={0}
+                  style={{ height: '50%', justifyContent: 'center' }}>
+                  <Text style={{ color: '#2d333a', textAlign: 'center' }}>
+                    Deselect All
+                  </Text>
+                </MenuOption>
+              </MenuOptions>
+            </Menu>
+            <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
+              <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
+            </TouchableOpacity>
+          </View>
+          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
               <TextInput
                 style={styles.textInputStyle}
@@ -370,95 +372,85 @@ console.log(index , Name);
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
             </View>
           </View>
-          <View style={{flex:1,backgroundColor:'#fff'}}>
-          <FlatList
-          data={USER}
-          renderItem={({item,index})=>renderItem({navigation,item,index})}
-        />
+          <View style={{ flex: 1, backgroundColor: '#fff' }}>
+            <FlatList
+              data={USER}
+              renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+            />
           </View>
-      </View>
-      <Modal
-        isVisible={model}
-        animationType={'slide'}
-        transparent={true}
-        onRequestClose={() => {
-          setModel(false);
-        }}
-        onBackdropPress={() => {
-          setModel(false);
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'column',
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 20,
-            width: '100%',
-            paddingTop: 20,
-            backgroundColor: 'white'
-          }}>
-          <TextInput
-            style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
-            placeholder="Customer Name"
-            placeholderTextColor="#2d333a"
-            onChangeText={(Name) => setuser(Name)}
-            autoComplete={'off'}
-          />
-          <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
-            <View style={styles.Add}>
-              <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+        </View>
+        <Modal
+          isVisible={model}
+          animationType={'slide'}
+          transparent={true}
+          onRequestClose={() => {
+            setModel(false);
+          }}
+          onBackdropPress={() => {
+            setModel(false);
+          }}
+        >
+          <View style={styles.modelview}>
+            <TextInput
+              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Customer Name"
+              placeholderTextColor="#2d333a"
+              onChangeText={(Name) => setuser(Name)}
+              autoComplete={'off'}
+            />
+            <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+              <View style={styles.Add}>
+                <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal
+          isVisible={DELETE}
+          animationType={'slide'}
+          transparent={true}
+          onRequestClose={() => {
+            setDELETE(false);
+          }}
+          onBackdropPress={() => {
+            setDELETE(false);
+          }}
+        >
+          <View style={styles.modelview}>
+            <Text style={{ color: 'red' }}>Are you sure ?</Text>
+            <FlatList
+              data={modelData}
+              // keyExtractor={( index) => index}
+              renderItem={modelitem}
+            />
+            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+              <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+                <View style={styles.delete}>
+                  <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+                <View style={styles.cancle}>
+                  <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
+                </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-      <Modal
-        isVisible={DELETE}
-        animationType={'slide'}
-        transparent={true}
-        onRequestClose={() => {
-          setDELETE(false);
-        }}
-        onBackdropPress={() => {
-          setDELETE(false);
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'column',
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 20,
-            width: '100%',
-            paddingTop: 20,
-
-          }}>
-          <Text style={{ color: 'red' }}>Are you sure ?</Text>
-          <FlatList
-            data={modelData}
-            // keyExtractor={( index) => index}
-            renderItem={modelitem}
-          />
-          <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
-            <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
-              <View style={styles.delete}>
-                <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
-              <View style={styles.cancle}>
-                <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
-              </View>
-            </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </MenuProvider>
     </>
   )
 }
 const styles = StyleSheet.create({
+  modelview: {
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    width: '100%',
+    paddingTop: 20
+  },
   delete: {
     height: 50,
     width: '60%',

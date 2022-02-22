@@ -10,7 +10,6 @@ import { FlatList, Image, Text, TextInput, TouchableWithoutFeedback, View } from
 const Customers = ({ route, navigation }) => {
   let color = '#fff'
   const { Name } = route.params;
-  console.log('customer'+Name)
 
   const [ITEM, setITEM] = useState([
     {
@@ -143,7 +142,7 @@ const Customers = ({ route, navigation }) => {
     </View>
 
   const text = (Name, col, content) =>
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25,marginVertical:5 }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25, marginVertical: 5 }}>
       <Text style={Customer.text}>{Name}</Text>
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
@@ -155,7 +154,7 @@ const Customers = ({ route, navigation }) => {
         {header('CUSTOMER NAME')}
         {header(Name.toUpperCase())}
       </View>
-      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25 ,backgroundColor:'#fff'}}>
+      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
           <TextInput
             style={Customer.textInputStyle}
@@ -171,7 +170,7 @@ const Customers = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-      <View style={{ flex:1,backgroundColor:'#fff'}}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <FlatList
           data={ITEM}
           renderItem={({ item }) =>
