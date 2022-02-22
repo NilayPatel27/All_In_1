@@ -359,22 +359,25 @@ const Customer = StyleSheet.create({
     Divider: {
         width: "100%",
         alignItems: 'center',
-        justifyContent: "center"
+        justifyContent: "center",
     },
     listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
         marginHorizontal: 25,
         marginBottom: 10,
-        borderBottomRightRadius: 20,
-        borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10,
-        backgroundColor: '#ADEFD1FF'
+        // height: 60,
+        marginVertical: 10,
+    },
+    details: {
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: "#000",
     },
     item: {
         paddingVertical: 10,
@@ -425,14 +428,5 @@ const Customer = StyleSheet.create({
         shadowRadius: 6.27,
         elevation: 10,
     },
-    details: {
-        flex: 1,
-        justifyContent: "center",
-        backgroundColor: "#00203FFF",
-        borderTopLeftRadius: 20,
-        borderBottomRightRadius: 20,
-        marginLeft: 15,
-        paddingVertical: 5
-    }
 })
 export { container, form, text, utils, navbar, styles, Customer }

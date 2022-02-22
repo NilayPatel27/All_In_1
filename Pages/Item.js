@@ -88,7 +88,6 @@ const Item = ({ route, navigation }) => {
   ]);
   const [search, setsearch] = useState('');
   const [user, setuser] = useState('');
-  const [image, setimage] = useState('');
   const searchFilter = text => {
     if (text.trim()) {
       const newData = NEWUSER.filter(item => {
@@ -106,46 +105,43 @@ const Item = ({ route, navigation }) => {
     }
   };
   const addItem = () => {
-    if (user.trim() !== '' && image.trim() !== '') {
+    if (user.trim() !== '') {
       USER.unshift({
         user: user,
-        image: image
       })
       setModel(false);
     }
     setuser('');
-    setimage('');
+
   }
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
     modelData.length = 0;
     for (let i = 0; i < array.length; i++)
       modelData.push(USER[array[i]].user);
-
     setDELETE(true);
   }
   const deleteItem = () => {
-    if (user.trim() !== '') {
-      USER.unshift({
-        user: user,
-        image: image
-      })
-      setModel(false);
+    for (let i = 0; i < modelData.length; i++) {
+      for (let j = 0; j < USER.length; j++) {
+        if (USER[j].user === modelData[i]) {
+          USER.splice(j, 1);
+          break;
+        }
+      }
     }
-    setuser('');
-    setimage('');
+    setDELETE(false);
+    array.length = 0;
+    indexValues.length = 0;
+    modelData.length = 0;
+    long = 0;
+    count = 0;
   }
-  const ModelItem = ({ index }) => {
-    return (
-      <View style={{ flexDirection: 'column', justifyContent: "space-between", marginTop: 20 }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', backgroundColor: 'white' }}>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', paddingLeft: 10 }}>
-            Mac ID : {modelData[index]}
-          </Text>
-        </View>
-      </View>
-    );
-  };
+  // const Add = () =>{}
+  const ModelItem = ({ index }) =>
+    <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>
+      {modelData[index]}
+    </Text>
   const modelitem = ({ item, index }) => {
     return (
       <View
@@ -227,21 +223,21 @@ const Item = ({ route, navigation }) => {
         Snackbar.dismiss();
       }
 
-      if (long === 1 && count < 2 || SnackBar == 1) {
-        Snackbar.show({
-          text: 'Delete Item',
-          duration: Snackbar.LENGTH_INDEFINITE,
-          action: {
-            text: 'DELETE',
-            textColor: '#e90c59',
-            onPress: () => {
-              if (indexValues.length != 0) {
-                SnackBar = 1;
-              }
-            },
-          },
-        })
-      }
+      // if (long === 1 && count < 2 || SnackBar == 1) {
+      //   Snackbar.show({
+      //     text: 'Delete Item',
+      //     duration: Snackbar.LENGTH_INDEFINITE,
+      //     action: {
+      //       text: 'DELETE',
+      //       textColor: '#e90c59',
+      //       onPress: () => {
+      //         if (indexValues.length != 0) {
+      //           SnackBar = 1;
+      //         }
+      //       },
+      //     },
+      //   })
+      // }
       if (select == 1) {
         setselect(-1);
       }
@@ -270,23 +266,23 @@ const Item = ({ route, navigation }) => {
           setIndex(!Index);
         }
       };
-      if (SnackBar == 1) {
-        Snackbar.show({
-          text: 'Delete Item',
-          duration: Snackbar.LENGTH_INDEFINITE,
-          action: {
-            text: 'DELETE',
-            textColor: '#e90c59',
-            onPress: () => {
-              if (indexValues.length != 0) {
-                SnackBar = 1;
-                console.log('SnackBar' + SnackBar);
-              }
-            },
-          },
-        })
-        SnackBar = 0;
-      }
+      // if (SnackBar == 1) {
+      //   Snackbar.show({
+      //     text: 'Delete Item',
+      //     duration: Snackbar.LENGTH_INDEFINITE,
+      //     action: {
+      //       text: 'DELETE',
+      //       textColor: '#e90c59',
+      //       onPress: () => {
+      //         if (indexValues.length != 0) {
+      //           SnackBar = 1;
+      //           console.log('SnackBar' + SnackBar);
+      //         }
+      //       },
+      //     },
+      //   })
+      //   SnackBar = 0;
+      // }
       if (select == 1) {
         setselect(-1);
       }
@@ -336,7 +332,7 @@ const Item = ({ route, navigation }) => {
         </TouchableOpacity>
 
       </View>
-      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', marginTop: 25 }}>
+      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center',paddingTop: 25 ,backgroundColor:'#fff'}}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
           <TextInput
             style={Customer.textInputStyle}
@@ -352,7 +348,7 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-      <View style={{ height: "80%", paddingTop: 30 }}>
+      <View style={{ flex: 1}}>
         <FlatList
           data={USER}
           renderItem={renderItem}
@@ -388,7 +384,7 @@ const Item = ({ route, navigation }) => {
             autoComplete={'off'}
           />
           <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
-            <View style={styles.button}>
+            <View style={styles.Add}>
               <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
             </View>
           </TouchableOpacity>
@@ -414,25 +410,25 @@ const Item = ({ route, navigation }) => {
             borderRadius: 20,
             width: '100%',
             paddingTop: 20,
-            backgroundColor: 'white'
+
           }}>
-          <Text style={{color:'red'}}>Are you sure ?</Text>
+          <Text style={{ color: 'red' }}>Are you sure ?</Text>
           <FlatList
             data={modelData}
             // keyExtractor={( index) => index}
             renderItem={modelitem}
           />
-          <View style={{width:'100%',flexDirection:'row',justifyContent:'center'}}>
-          <TouchableOpacity onPress={console.log('delete')} style={{ justifyContent: "center", flexDirection: "row",width:'50%' }}>
-            <View style={styles.delete}>
-              <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={console.log('cancle')} style={{ justifyContent: "center", flexDirection: "row",width:'50%' }}>
-            <View style={styles.cancle}>
-              <Text style={{ color: "#2d333a", fontSize: 20 }}>CENCLE</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+            <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+              <View style={styles.delete}>
+                <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+              <View style={styles.cancle}>
+                <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -455,8 +451,7 @@ const styles = StyleSheet.create({
     elevation: 10,
     backgroundColor: '#ADEFD1FF',
     height: 60,
-    marginVertical: 15,
-
+    marginVertical: 10,
   },
   story: {
     width: 55,
@@ -512,13 +507,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 25
   },
+  Add: {
+    height: 50,
+    width: '60%',
+    marginVertical: 10,
+    flexDirection: 'row',
+    alignItems: "center",
+    backgroundColor: "green",
+    justifyContent: 'center',
+    borderRadius: 25
+  },
   cancle: {
     height: 50,
     width: '60%',
     marginVertical: 10,
     flexDirection: 'row',
     alignItems: "center",
-    borderWidth:1,
+    borderWidth: 1,
     justifyContent: 'center',
     borderRadius: 25
   },

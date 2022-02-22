@@ -9,66 +9,58 @@ import { FlatList, Image, Text, TextInput, TouchableWithoutFeedback, View } from
 
 const Customers = ({ route, navigation }) => {
   let color = '#fff'
+  console.log('customer prop'+route.params);
   const { Name } = route.params;
+  console.log(Name)
 
   const [ITEM, setITEM] = useState([
     {
       item: 'Item 1',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 2',
-      image: "https://img.icons8.com/color/48/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 3',
-      image: "https://img.icons8.com/office/16/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 4',
-      image: "https://img.icons8.com/clouds/100/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 5',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 6',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 7',
-      image: "https://img.icons8.com/color/48/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 8',
-      image: "https://img.icons8.com/office/16/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 9',
-      image: "https://img.icons8.com/clouds/100/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 10',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     }
@@ -77,61 +69,51 @@ const Customers = ({ route, navigation }) => {
   const [NEWITEM, setNEWITEM] = useState([
     {
       item: 'Item 1',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 2',
-      image: "https://img.icons8.com/color/48/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 3',
-      image: "https://img.icons8.com/office/16/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 4',
-      image: "https://img.icons8.com/clouds/100/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 5',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 6',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 7',
-      image: "https://img.icons8.com/color/48/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 8',
-      image: "https://img.icons8.com/office/16/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 9',
-      image: "https://img.icons8.com/clouds/100/000000/user.png",
       prize: 10,
       type: 'fruits'
     },
     {
       item: 'Item 10',
-      image: "https://img.icons8.com/color/48/000000/user-male.png",
       prize: 10,
       type: 'fruits'
     }
@@ -162,7 +144,7 @@ const Customers = ({ route, navigation }) => {
     </View>
 
   const text = (Name, col, content) =>
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25 }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25,marginVertical:5 }}>
       <Text style={Customer.text}>{Name}</Text>
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
@@ -174,7 +156,7 @@ const Customers = ({ route, navigation }) => {
         {header('CUSTOMER NAME')}
         {header(Name.toUpperCase())}
       </View>
-      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', marginTop: 25 }}>
+      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25 ,backgroundColor:'#fff'}}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
           <TextInput
             style={Customer.textInputStyle}
@@ -190,13 +172,12 @@ const Customers = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-      <View style={{ height: "90%", paddingTop: 30 }}>
+      <View style={{ flex:1,backgroundColor:'#fff'}}>
         <FlatList
           data={ITEM}
           renderItem={({ item }) =>
             <TouchableWithoutFeedback onPress={() => navigation.navigate('Item', { Name: item.item })}>
               <View key={Date.now} style={Customer.listItem}>
-                <Image source={{ uri: item.image }} style={Customer.story} />
                 <View style={Customer.details}>
                   {text('Name', ':', item.item.toUpperCase())}
                   {text('Prize', ':', item.prize)}
