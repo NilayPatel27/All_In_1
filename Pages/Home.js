@@ -168,7 +168,7 @@ const Home = ({ navigation }) => {
   const [select, setselect] = useState(-1);
 
   const Item = ( {index, Name,navigation} ) => {
-
+console.log(index , Name);
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
     //   if (select == 1) {
@@ -206,7 +206,6 @@ const Home = ({ navigation }) => {
     // }, []);
 
     const onLongPressButton = () => {
-
       let idx = indexValues.indexOf(index);
       long = 1;
       if (idx > -1) {
@@ -271,6 +270,7 @@ const Home = ({ navigation }) => {
         }
       }
       else{
+        console.log('console before navigation' + Name);
         navigation.navigate('Customers', {
          Name:Name
         });
@@ -298,15 +298,22 @@ const Home = ({ navigation }) => {
       }
       { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
     }
+    // indexValues.length==0?onPress : () => {
+    //   navigation.navigate('Customers', {
+    //     name: Name,
+    //   });
+    // }
     return (
       // #ffffe0
       <TouchableWithoutFeedback
         onLongPress={onLongPressButton}
-        onPress={array.length==0?onPress : () => {
+        onPress={indexValues.length==0
+        ? () => {
           navigation.navigate('Customers', {
             name: Name,
           });
         }
+        :onPress
         }
       >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>

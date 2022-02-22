@@ -9,9 +9,8 @@ import { FlatList, Image, Text, TextInput, TouchableWithoutFeedback, View } from
 
 const Customers = ({ route, navigation }) => {
   let color = '#fff'
-  console.log('customer prop'+route.params);
   const { Name } = route.params;
-  console.log(Name)
+  console.log('customer'+Name)
 
   const [ITEM, setITEM] = useState([
     {
