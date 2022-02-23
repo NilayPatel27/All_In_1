@@ -191,4 +191,3 @@ const Customers = ({ route, navigation }) => {
 }
 
 export default Customers
-
