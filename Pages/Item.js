@@ -16,7 +16,7 @@ const Item = ({ route, navigation }) => {
   const [array, setarray] = useState([]);
 
   let color = '#fff'
-  const { Name } = route.params;
+  const { ItemName } = route.params;
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
 
@@ -296,7 +296,7 @@ const Item = ({ route, navigation }) => {
       >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#000" }}>
+            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffd7ae" }}>
               <Text style={styles.text}>{Name.toUpperCase()}</Text>
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
@@ -326,7 +326,7 @@ const Item = ({ route, navigation }) => {
     <>
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
-        {header(Name.toUpperCase())}
+        {header(ItemName.toUpperCase())}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
           <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
         </TouchableOpacity>
@@ -338,7 +338,7 @@ const Item = ({ route, navigation }) => {
             style={Customer.textInputStyle}
             value={search}
             placeholder="Search Item"
-            placeholderTextColor="black"
+            placeholderTextColor="#DB4437"
             onChangeText={text => searchFilter(text)}
           >
           </TextInput>
@@ -463,7 +463,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   text: {
-    color: '#fff',
+    color: '#DB4437',
     fontSize: 25,
     alignSelf: 'center',
     fontWeight: 'bold'

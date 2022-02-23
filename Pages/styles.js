@@ -377,7 +377,12 @@ const Customer = StyleSheet.create({
     details: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "#000",
+        backgroundColor: "#ffd7ae",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
     },
     item: {
         paddingVertical: 10,
@@ -402,7 +407,7 @@ const Customer = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        color: '#fff',
+        color: '#DB4437',
         fontSize: 15,
         alignSelf: 'center',
         fontWeight: 'bold'
@@ -410,23 +415,23 @@ const Customer = StyleSheet.create({
     col: {
         position: "absolute",
         left: "50%",
-        color: '#fff',
+        color: '#DB4437',
         fontWeight: "bold",
         paddingHorizontal: 25
     },
     header: {
-        flexDirection: 'row',
         height: '10%',
-        alignItems: "center",
-        width: "100%",
-        backgroundColor: "#e90c59",
-        justifyContent: "space-between",
+        width: '100%',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
         paddingHorizontal: 25,
+        backgroundColor: "#DB4437",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
-        elevation: 10,
+        elevation: 10
     },
 })
 export { container, form, text, utils, navbar, styles, Customer }

@@ -18,122 +18,136 @@ const Home = ({ navigation }) => {
 
   const [USER, setUSER] = useState([
     {
-      id: 1,
+      user: 'nilay._.patel',
     },
     {
-      id: 2,
+      user: 'darshan',
     },
     {
-      id: 3,
+      user: 'harshil',
     },
     {
-      id: 4,
+      user: 'rahuulv23',
     },
     {
-      id: 5,
+      user: 'nilay',
     },
     {
-      id: 6,
+      user: 'nilay',
     },
     {
-      id: 7,
+      user: 'darshan',
     },
     {
-      id: 8,
+      user: 'harshil',
     },
     {
-      id: 9,
+      user: 'rahul',
     },
     {
-      id: 10,
+      user: 'nilay',
     },
     {
-      id: 11,
+      user: 'nilay._.patel',
     },
     {
-      id: 12,
+      user: 'darshan',
     },
     {
-      id: 13,
+      user: 'harshil',
     },
     {
-      id: 14,
+      user: 'rahuulv23',
     },
     {
-      id: 15,
+      user: 'nilay',
     },
     {
-      id: 16,
+      user: 'nilay',
     },
     {
-      id: 17,
+      user: 'darshan',
     },
     {
-      id: 18,
+      user: 'harshil',
     },
     {
-      id: 19,
+      user: 'rahul',
     },
     {
-      id: 20,
-    },
-    {
-      id: 21,
-    },
-    {
-      id: 22,
-    },
+      user: 'nilay',
+    }
 
   ]);
   const [NEWUSER, setNEWUSER] = useState([
     {
       user: 'nilay._.patel',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
     },
     {
       user: 'darshan',
-      image: "https://img.icons8.com/color/48/000000/user.png"
     },
     {
       user: 'harshil',
-      image: "https://img.icons8.com/office/16/000000/user.png"
     },
     {
       user: 'rahuulv23',
-      image: "https://img.icons8.com/clouds/100/000000/user.png"
     },
     {
       user: 'nilay',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
     },
     {
       user: 'nilay',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
     },
     {
       user: 'darshan',
-      image: "https://img.icons8.com/color/48/000000/user.png"
     },
     {
       user: 'harshil',
-      image: "https://img.icons8.com/office/16/000000/user.png"
     },
     {
       user: 'rahul',
-      image: "https://img.icons8.com/clouds/100/000000/user.png"
     },
     {
       user: 'nilay',
-      image: "https://img.icons8.com/color/48/000000/user-male.png"
+    },
+    {
+      user: 'nilay._.patel',
+    },
+    {
+      user: 'darshan',
+    },
+    {
+      user: 'harshil',
+    },
+    {
+      user: 'rahuulv23',
+    },
+    {
+      user: 'nilay',
+    },
+    {
+      user: 'nilay',
+    },
+    {
+      user: 'darshan',
+    },
+    {
+      user: 'harshil',
+    },
+    {
+      user: 'rahul',
+    },
+    {
+      user: 'nilay',
     }
 
   ]);
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
-  const [user, setuser] = useState('');
   const [DELETE, setDELETE] = useState(false);
-  const [search, setsearch] = useState('');
+  const [user, setuser] = useState('');
   const [modelData, setmodelData] = useState([]);
+  const [search, setsearch] = useState('');
   const [select, setselect] = useState(-1);
   const [prev, setprev] = useState(0);
   const [next, setnext] = useState(10)
@@ -193,7 +207,6 @@ const Home = ({ navigation }) => {
     );
   };
   const Item = ({ index, Name, navigation }) => {
-    console.log(prev, next)
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -329,11 +342,11 @@ const Home = ({ navigation }) => {
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ width: '100%', height: '100%', justifyContent: "center", backgroundColor: "#000" }}>
+            <View style={{ width: '100%', height: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
               <Text style={styles.text}>{Name}</Text>
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
-                  <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50 }}></View>
+                  <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
                 </View>}
             </View>
           </View>
@@ -348,7 +361,7 @@ const Home = ({ navigation }) => {
         {index >= prev && index < next ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            Name={item.id}
+            Name={item.user}
             navigation={navigation}
           />
         </View> : null}
@@ -393,7 +406,7 @@ const Home = ({ navigation }) => {
                 style={styles.textInputStyle}
                 value={search}
                 placeholder="Search Customer"
-                placeholderTextColor="black"
+                placeholderTextColor="#DB4437"
                 onChangeText={text => searchFilter(text)}
               >
               </TextInput>
@@ -405,13 +418,16 @@ const Home = ({ navigation }) => {
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'flex-end' }}>
-              {prev == 0 ? <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
+              {prev == 0
+                ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
                   <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
-              {next > USER.length ? <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} /> : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
-                <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
-              </TouchableOpacity>}
+              {next > USER.length-1
+                ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
+                : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
+                  <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>}
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -547,7 +563,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   text: {
-    color: '#fff',
+    color: '#DB4437',
     fontSize: 25,
     alignSelf: 'center',
     fontWeight: 'bold'
@@ -564,7 +580,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 25,
-    backgroundColor: "#e90c59",
+    backgroundColor: "#DB4437",
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.34,
