@@ -229,7 +229,9 @@ const Customers = ({ route, navigation }) => {
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
-  const [user, setuser] = useState('');
+  const [user, setItemName] = useState('');
+  const [prize, setItemPrize] = useState('');
+  const [type, setItemType] = useState('');
   const [modelData, setmodelData] = useState([]);
   const [search, setsearch] = useState('');
   const [select, setselect] = useState(-1);
@@ -255,22 +257,27 @@ const Customers = ({ route, navigation }) => {
   const addItem = () => {
     if (user.trim() !== '') {
       ITEM.unshift({
-        user: user,
+        item: user,
+        prize: prize,
+        type: type,
       })
       setModel(false);
     }
-    setuser('');
+    setItemName('');
+    setItemPrize('');
+    setItemType('');
   }
   const DELETEITEM = () => {
     modelData.length = 0;
-    for (let i = 0; i < array.length; i++)
-      modelData.push(USER[array[i]].user);
+    for (let i = 0; i < array.length; i++){
+      modelData.push(ITEM[array[i]].item, ITEM[array[i]].prize, ITEM[array[i]].type);
+    }
     setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < USER.length; j++) {
-        if (ITEM[j].user === modelData[i]) {
+      for (let j = 0; j < ITEM.length; j++) {
+        if (ITEM[j].item === modelData[i]) {
           ITEM.splice(j, 1);
           break;
         }
@@ -308,7 +315,7 @@ const Customers = ({ route, navigation }) => {
         if (indexValues.indexOf(index) == -1) {
           indexValues.push(index);
         }
-        count = USER.length;
+        count = ITEM.length;
         long = 1;
         // if (index == USER.length - 1) {
         //   Snackbar.show({
@@ -550,22 +557,22 @@ const Customers = ({ route, navigation }) => {
             <TextInput
               style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Item Name"
-              placeholderTextColor="#2d333a"
-              onChangeText={(Name) => setuser(Name)}
+              placeholderTextColor="#DB4437"
+              onChangeText={(Name) => setItemName(Name)}
               autoComplete={'off'}
             />
             <TextInput
               style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Item Prize"
-              placeholderTextColor="#2d333a"
-              onChangeText={(Name) => setuser(Name)}
+              placeholderTextColor="#DB4437"
+              onChangeText={(prize) => setItemPrize(prize)}
               autoComplete={'off'}
             />
             <TextInput
               style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Item Type"
-              placeholderTextColor="#2d333a"
-              onChangeText={(Name) => setuser(Name)}
+              placeholderTextColor="#DB4437"
+              onChangeText={(type) => setItemType(type)}
               autoComplete={'off'}
             />
             <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
@@ -703,7 +710,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     paddingBottom: 10,
-    borderColor: 'gray',
+    borderColor: '#DB4437',
     paddingLeft: 10,
     borderWidth: 1,
     borderRadius: 8,
