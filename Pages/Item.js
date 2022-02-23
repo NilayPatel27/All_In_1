@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 let indexValues = [];
@@ -86,6 +87,348 @@ const Item = ({ route, navigation }) => {
     }
 
   ]);
+  const [ITEM, setITEM] = useState([
+    {
+      item: 'First',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'First',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 1',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 2',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 3',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 4',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 5',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 6',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 7',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 8',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 9',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 10',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 1',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 2',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 3',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 4',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 5',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 6',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 7',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 8',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 9',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 10',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    }
+
+  ]);
+  const [NEWITEM, setNEWITEM] = useState([
+    {
+      item: 'Item 1',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 2',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 3',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 4',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 5',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 6',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 7',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 8',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 9',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 10',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 1',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 2',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 3',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 4',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 5',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 6',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 7',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 8',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 9',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    },
+    {
+      item: 'Item 10',
+      prize: 10,
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
+    }
+
+  ]);
   const [search, setsearch] = useState('');
   const [user, setuser] = useState('');
   const searchFilter = text => {
@@ -160,10 +503,15 @@ const Item = ({ route, navigation }) => {
     <View style={{ justifyContent: 'flex-start', flexDirection: "row", height: '100%', alignItems: "center" }}>
       <Text style={{ color, fontSize: 20 }}>{text}</Text>
     </View>
-
+  const text = (Name, col, content) =>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25, marginVertical: 5 }}>
+      <Text style={styles.text}>{Name}</Text>
+      <Text style={styles.col}>{col}</Text>
+      <Text style={styles.text}>{content}</Text>
+    </View>
   const [select, setselect] = useState(-1);
 
-  const Item = ({ index, Name }) => {
+  const Item = ({ index, Name, Price, Type, Star, Color, WeightInKg }) => {
 
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
@@ -296,8 +644,13 @@ const Item = ({ route, navigation }) => {
       >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#ffd7ae" }}>
-              <Text style={styles.text}>{Name.toUpperCase()}</Text>
+            <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
+              {text('ItemName', ':', Name.toUpperCase())}
+              {text('ItemPrize', ':', Price)}
+              {text('ItemType', ':', Type.toUpperCase())}
+              {text('ItemStar', ':', Star)}
+              {text('ItemColor', ':', Color.toUpperCase())}
+              {text('ItemWeight', ':', WeightInKg)}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
@@ -312,18 +665,33 @@ const Item = ({ route, navigation }) => {
   const renderItem = ({ item, index }) => {
     return (
       <>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {item.item == ItemName ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            Name={item.user}
+            Name={item.item}
+            Price={item.prize}
+            Type={item.type}
+            Star={item.star}
+            Color={item.color}
+            WeightInKg={item.weightInKg}
           />
-        </View>
+        </View> : null}
+
       </>
     );
   };
-
+  const ratingCompleted = (rating) => {
+    console.log("Rating is: " + rating)
+  }
   return (
     <>
+      <Rating
+        type='star'
+        ratingCount={5}
+        imageSize={30}
+        // showRating
+        onFinishRating={ratingCompleted}
+      />
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
         {header(ItemName.toUpperCase())}
@@ -332,7 +700,7 @@ const Item = ({ route, navigation }) => {
         </TouchableOpacity>
 
       </View>
-      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center',paddingTop: 25 ,backgroundColor:'#fff'}}>
+      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
           <TextInput
             style={Customer.textInputStyle}
@@ -348,9 +716,9 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-      <View style={{ flex: 1}}>
+      <View style={{ flex: 1,backgroundColor:'red' }}>
         <FlatList
-          data={USER}
+          data={ITEM}
           renderItem={renderItem}
         />
       </View>
@@ -450,7 +818,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6.27,
     elevation: 10,
     backgroundColor: '#ADEFD1FF',
-    height: 60,
     marginVertical: 10,
   },
   story: {
@@ -464,7 +831,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#DB4437',
-    fontSize: 25,
+    fontSize: 10,
     alignSelf: 'center',
     fontWeight: 'bold'
   },

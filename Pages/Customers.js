@@ -11,7 +11,6 @@ import { useEffect } from 'react';
 import Snackbar from 'react-native-snackbar';
 import Modal from 'react-native-modal';
 
-
 let indexValues = [];
 let long = 0;
 let count = 0;
@@ -20,104 +19,172 @@ const Customers = ({ route, navigation }) => {
   
   const [ITEM, setITEM] = useState([
     {
-      item: 'Item 1',
+      item: 'First',
       prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits'
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 1',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 2',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 3',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 4',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 5',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 6',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 7',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 8',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 9',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 10',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 1',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 2',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 3',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 4',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 5',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 6',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 7',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 8',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 9',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
+    },
+    {
+      item: 'Item 10',
+      prize: 10,
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     }
 
   ]);
@@ -125,102 +192,162 @@ const Customers = ({ route, navigation }) => {
     {
       item: 'Item 1',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 2',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 3',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 4',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 5',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 6',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 7',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 8',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 9',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 10',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 1',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 2',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 3',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 4',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 5',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 6',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 7',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 8',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 9',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     },
     {
       item: 'Item 10',
       prize: 10,
-      type: 'fruits'
+      type: 'fruits',
+      star:0,
+      color:"yellow",
+      weightInKg:5
     }
 
   ]);
@@ -232,6 +359,9 @@ const Customers = ({ route, navigation }) => {
   const [user, setItemName] = useState('');
   const [prize, setItemPrize] = useState('');
   const [type, setItemType] = useState('');
+  const [star, setItemStar] = useState('');
+  const [color, setItemColor] = useState('');
+  const [weight, setItemWeight] = useState('');
   const [modelData, setmodelData] = useState([]);
   const [search, setsearch] = useState('');
   const [select, setselect] = useState(-1);
@@ -260,6 +390,9 @@ const Customers = ({ route, navigation }) => {
         item: user,
         prize: prize,
         type: type,
+        star: star,
+        color: color,
+        weightInKg: weight
       })
       setModel(false);
     }
@@ -299,7 +432,7 @@ const Customers = ({ route, navigation }) => {
   };
   const header = (text) =>
     <View style={{ justifyContent: 'flex-start', flexDirection: "row", alignItems: "center" }}>
-      <Text style={{ color: '#ffd7ae', fontSize: 20 }}>{text}</Text>
+      <Text style={{ color: '#fff', fontSize: 20 }}>{text}</Text>
     </View>
 
   const text = (Name, col, content) =>
@@ -308,7 +441,7 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation,ItemName,Prize,Type }) => {
+  const Item = ({ index, navigation,ItemName }) => {
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -443,8 +576,8 @@ const Customers = ({ route, navigation }) => {
         <View key={Date.now} style={Customer.listItem}>
                     <View style={Customer.details}>
                       {text('Name', ':', ItemName.toUpperCase())}
-                      {text('Prize', ':', Prize)}
-                      {text('Type', ':', Type.toUpperCase())}
+                      {/* {text('Prize', ':', Prize)}
+                      {text('Type', ':', Type.toUpperCase())} */}
                       {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -462,8 +595,8 @@ const Customers = ({ route, navigation }) => {
           <Item
             index={index}
             ItemName={item.item}
-            Prize={item.prize}
-            Type={item.type}
+            // Prize={item.prize}
+            // Type={item.type}
             navigation={navigation}
           />
         </View> : null}
@@ -575,6 +708,28 @@ const Customers = ({ route, navigation }) => {
               onChangeText={(type) => setItemType(type)}
               autoComplete={'off'}
             />
+            <TextInput
+              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Star"
+              placeholderTextColor="#DB4437"
+              onChangeText={(star) => setItemType(star)}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Item color"
+              placeholderTextColor="#DB4437"
+              onChangeText={(color) => setItemType(color)}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Item weightInKg"
+              placeholderTextColor="#DB4437"
+              onChangeText={(weight) => setItemType(weight)}
+              autoComplete={'off'}
+            />
+           
             <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
               <View style={styles.Add}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
