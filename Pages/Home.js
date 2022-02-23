@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
 import MenuButton from '../assates/svg/MenuButton.svg';
+import Left from '../assates/svg/Left.png';
+import Right from '../assates/svg/Right.png';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
@@ -16,35 +18,71 @@ const Home = ({ navigation }) => {
 
   const [USER, setUSER] = useState([
     {
-      user: 'nilay._.patel',
+      id: 1,
     },
     {
-      user: 'darshan',
+      id: 2,
     },
     {
-      user: 'harshil',
+      id: 3,
     },
     {
-      user: 'rahuulv23',
+      id: 4,
     },
     {
-      user: 'nilay',
+      id: 5,
     },
     {
-      user: 'nilay',
+      id: 6,
     },
     {
-      user: 'darshan',
+      id: 7,
     },
     {
-      user: 'harshil',
+      id: 8,
     },
     {
-      user: 'rahul',
+      id: 9,
     },
     {
-      user: 'nilay',
-    }
+      id: 10,
+    },
+    {
+      id: 11,
+    },
+    {
+      id: 12,
+    },
+    {
+      id: 13,
+    },
+    {
+      id: 14,
+    },
+    {
+      id: 15,
+    },
+    {
+      id: 16,
+    },
+    {
+      id: 17,
+    },
+    {
+      id: 18,
+    },
+    {
+      id: 19,
+    },
+    {
+      id: 20,
+    },
+    {
+      id: 21,
+    },
+    {
+      id: 22,
+    },
 
   ]);
   const [NEWUSER, setNEWUSER] = useState([
@@ -97,6 +135,8 @@ const Home = ({ navigation }) => {
   const [search, setsearch] = useState('');
   const [modelData, setmodelData] = useState([]);
   const [select, setselect] = useState(-1);
+  const [prev, setprev] = useState(0);
+  const [next, setnext] = useState(10)
 
   const searchFilter = text => {
     if (text.trim()) {
@@ -153,6 +193,7 @@ const Home = ({ navigation }) => {
     );
   };
   const Item = ({ index, Name, navigation }) => {
+    console.log(prev, next)
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -288,7 +329,7 @@ const Home = ({ navigation }) => {
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
         <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ flex: 1, justifyContent: "center", backgroundColor: "#000" }}>
+            <View style={{ width: '100%', height: '100%', justifyContent: "center", backgroundColor: "#000" }}>
               <Text style={styles.text}>{Name}</Text>
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
@@ -301,15 +342,17 @@ const Home = ({ navigation }) => {
     );
   };
   const renderItem = ({ item, navigation, index }) => {
+
     return (
       <>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {index >= prev && index < next ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            Name={item.user}
+            Name={item.id}
             navigation={navigation}
           />
-        </View>
+        </View> : null}
+
       </>
     );
   };
@@ -319,7 +362,7 @@ const Home = ({ navigation }) => {
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
           <View style={styles.header}>
             <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
-            <Menu onSelect={value => setselect(value)}>
+            <Menu onSelect={value => setselect(value)} >
               <MenuTrigger>
                 <MenuButton width={18} height={18} />
               </MenuTrigger>
@@ -358,6 +401,17 @@ const Home = ({ navigation }) => {
             </View>
             <View style={styles.Divider}>
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
+            <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              {prev == 0 ? <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
+                : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
+                  <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>}
+              {next > USER.length ? <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} /> : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
+                <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
+              </TouchableOpacity>}
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -506,10 +560,10 @@ const styles = StyleSheet.create({
   header: {
     height: '10%',
     width: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: 25,
+    paddingHorizontal: 25,
     backgroundColor: "#e90c59",
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
