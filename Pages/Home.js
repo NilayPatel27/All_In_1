@@ -6,6 +6,7 @@ import Snackbar from 'react-native-snackbar';
 import MenuButton from '../assates/svg/MenuButton.svg';
 import Left from '../assates/svg/Left.png';
 import Right from '../assates/svg/Right.png';
+import axios from 'axios';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
@@ -15,6 +16,31 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Home = ({ navigation }) => {
+  const [Post, setPost] = useState(); // set Api data
+  const [CopyPost, setCopyPost] = useState(''); // for show copy post
+  const [res, setres] = useState(0)
+
+  useEffect(() => {
+    console.log('DataBase Connected');
+    getPost();
+    
+  }, []);
+
+  //call API DATA
+  const getPost = () => {
+    axios.get('http://localhost:8081/AllData').then(res => {
+      if (res.data.length > 0) {
+        setPost(res.data);
+        setCopyPost(res.data);
+      } else {
+        setPost([]);
+        setError('No Post Found');
+      }
+    setres(1);
+    }
+    );
+  };
+
 
   const [USER, setUSER] = useState([
     {
@@ -361,7 +387,7 @@ const Home = ({ navigation }) => {
         {index >= prev && index < next ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            Name={item.user}
+            Name={item.name}
             navigation={navigation}
           />
         </View> : null}
@@ -431,10 +457,11 @@ const Home = ({ navigation }) => {
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          {res==1?
             <FlatList
-              data={USER}
+              data={Post[0]}
               renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-            />
+            />:null}
           </View>
         </View>
         <Modal
@@ -495,6 +522,7 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </Modal>
+        {res==1?console.log(Post[0][0]) : null}
       </MenuProvider>
     </>
   )

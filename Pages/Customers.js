@@ -6,16 +6,40 @@ import MenuButton from '../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import Back from '../assates/svg/BackWithcircle.svg';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View ,Dimensions} from 'react-native'
 import { useEffect } from 'react';
 import Snackbar from 'react-native-snackbar';
 import Modal from 'react-native-modal';
+import axios from 'axios';
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Customers = ({ route, navigation }) => {
+  const [Post, setPost] = useState(); // set Api data
+  const [CopyPost, setCopyPost] = useState(''); // for show copy post
+  const [res, setres] = useState(0)
+  useEffect(() => {
+    console.log('DataBase Connected');
+    getPost();
+    
+  }, []);
+
+  //call API DATA
+  const getPost = () => {
+    axios.get('http://localhost:8081/AllData').then(res => {
+      if (res.data.length > 0) {
+        setPost(res.data);
+        setCopyPost(res.data);
+      } else {
+        setPost([]);
+        setError('No Post Found');
+      }
+    setres(1);
+    }
+    );
+  };
   
   const [ITEM, setITEM] = useState([
     {
@@ -441,7 +465,7 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation,ItemName }) => {
+  const Item = ({ index, navigation,ItemName,name }) => {
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -572,10 +596,14 @@ const Customers = ({ route, navigation }) => {
     }
     return (
       // #ffffe0
+      <>
+      {name==Name?
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
+      {/* {console.log(index+'index')} */}
+
         <View key={Date.now} style={Customer.listItem}>
                     <View style={Customer.details}>
-                      {text('Name', ':', ItemName.toUpperCase())}
+                      {text('Name', ':', ItemName[0].toUpperCase())}
                       {/* {text('Prize', ':', Prize)}
                       {text('Type', ':', Type.toUpperCase())} */}
                       {indexValues.indexOf(index) == -1 ? null
@@ -584,22 +612,26 @@ const Customers = ({ route, navigation }) => {
                 </View>}
                     </View>
                   </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>:null}
+      </>
     );
   };
   const renderItem = ({ item, navigation, index }) => {
 
     return (
       <>
-        {index >= prev && index < next ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {/* {index >= prev && index < next ?  */}
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
             ItemName={item.item}
+            name={item.name}
             // Prize={item.prize}
             // Type={item.type}
             navigation={navigation}
           />
-        </View> : null}
+        </View>
+         {/* : null} */}
 
       </>
     );
@@ -669,10 +701,11 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          {res==1?
             <FlatList
-              data={ITEM}
+              data={Post[0]}
               renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-            />
+            />:null}
           </View>
         </View>
         <Modal

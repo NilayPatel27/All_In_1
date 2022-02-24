@@ -642,7 +642,7 @@ const Item = ({ route, navigation }) => {
         onLongPress={onLongPressButton}
         onPress={onPress}
       >
-        <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
+        <View style={{flex:1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
               {text('ItemName', ':', Name.toUpperCase())}
@@ -716,12 +716,10 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-      <View style={{ flex: 1,backgroundColor:'red' }}>
         <FlatList
           data={ITEM}
           renderItem={renderItem}
         />
-      </View>
       <Modal
         isVisible={model}
         animationType={'slide'}
