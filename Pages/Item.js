@@ -712,13 +712,13 @@ const Item = ({ route, navigation }) => {
   }
   return (
     <>
-      <Rating
+      {/* <Rating
         type='star'
         ratingCount={5}
         imageSize={30}
         // showRating
         onFinishRating={ratingCompleted}
-      />
+      /> */}
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
         {/* {header(ItemName.toUpperCase())} */}
