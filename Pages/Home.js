@@ -197,8 +197,6 @@ const Home = ({ navigation }) => {
     }
   };
   const addItem = () => {
-    console.log('addItem');
-    console.log(Post[0] instanceof Array );
     if (user.trim() !== '') {
       Post[0].unshift({
         name: user,
@@ -210,7 +208,6 @@ const Home = ({ navigation }) => {
     setuser('');
     setmodelid('');
     setmodelitems('');
-    console.log(Post[0]);
   }
   const DELETEITEM = () => {
     modelData.length = 0;
@@ -556,7 +553,6 @@ const Home = ({ navigation }) => {
             </View>
           </View>
         </Modal>
-        {res==1?console.log(Post[0][0]) : null}
       </MenuProvider>
     </>
   )

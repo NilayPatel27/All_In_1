@@ -748,7 +748,7 @@ const Item = ({ route, navigation }) => {
                 data={Post[0][indexofItem].item}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               /> : null}
-            {res == 1 ? console.log([Post[0][0].item]) : null}
+            {/* {res == 1 ? console.log([Post[0][0].item]) : null} */}
       <Modal
         isVisible={model}
         animationType={'slide'}

@@ -410,7 +410,7 @@ const Customers = ({ route, navigation }) => {
   ]);
 
   const { Name, IndexOf } = route.params;
-  console.log('IndexOf' + IndexOf);
+  
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
@@ -484,8 +484,6 @@ const Customers = ({ route, navigation }) => {
       for (let j = 0; j < Post[0][IndexOf].item.length; j++) {
         if (Post[0][IndexOf].item[j].name == modelData[i].name) {
           Post[0][IndexOf].item.splice(j, 1);
-          console.log('for')
-          console.log(Post[0][IndexOf].item);
         }
       }
     }
@@ -502,7 +500,6 @@ const Customers = ({ route, navigation }) => {
       <>
 
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          {console.log('modelData' + modelData, item)}
           <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>name : {item.name}</Text>
           <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>price : {item.price}</Text>
           <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>type : {item.type}</Text>
@@ -658,14 +655,9 @@ const Customers = ({ route, navigation }) => {
       <>
         {/* {name==Name? */}
         <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-          {/* {console.log(index+'index')} */}
-
           <View key={Date.now} style={Customer.listItem}>
             <View style={Customer.details}>
-              {console.log('ItemName' + ItemName)}
               {text('Name', ':', ItemName.toUpperCase())}
-              {/* {text('Prize', ':', Prize)}
-                      {text('Type', ':', Type.toUpperCase())} */}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -767,7 +759,6 @@ const Customers = ({ route, navigation }) => {
                 data={Post[0][IndexOf].item}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               /> : null}
-            {res == 1 ? console.log([Post[0][0].item]) : null}
           </View>
         </View>
         <Modal
