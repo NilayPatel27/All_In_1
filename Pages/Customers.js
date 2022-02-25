@@ -6,7 +6,7 @@ import MenuButton from '../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import Back from '../assates/svg/BackWithcircle.svg';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View ,Dimensions} from 'react-native'
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, Dimensions } from 'react-native'
 import { useEffect } from 'react';
 import Snackbar from 'react-native-snackbar';
 import Modal from 'react-native-modal';
@@ -19,11 +19,13 @@ let SnackBar = 0;
 const Customers = ({ route, navigation }) => {
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
-  const [res, setres] = useState(0)
+  const [res, setres] = useState(0);
+  const [flat, setflat] = useState();
+
   useEffect(() => {
     console.log('DataBase Connected');
     getPost();
-    
+
   }, []);
 
   //call API DATA
@@ -36,11 +38,42 @@ const Customers = ({ route, navigation }) => {
         setPost([]);
         setError('No Post Found');
       }
-    setres(1);
+      setres(1);
     }
     );
   };
-  
+  const deletePost = ID => {
+    let str = 'http://localhost:8081/AllData/' + ID;
+    axios
+      .delete(str)
+      .then(getPost());
+  };
+
+  //POST DATA
+  const sandPost = () => {
+    let add = {
+      userId: UserId,
+      id: Id,
+      title: Title,
+      body: Body,
+    };
+    axios
+      .post('http://localhost:8081/AllData', add)
+      .then(response => console.log(response.data));
+  };
+
+  //UPDATE DATA
+  const updatePost = ID => {
+    let update = {
+      userId: UserId,
+      id: Id,
+      title: Title,
+      body: Body,
+    };
+    let url = 'http://localhost:8081/AllData/' + ID;
+    axios.put(url, update).then(response => console.log(response.data));
+  };
+
   const [ITEM, setITEM] = useState([
     {
       item: 'First',
@@ -54,161 +87,161 @@ const Customers = ({ route, navigation }) => {
       item: 'Item 1',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 2',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 3',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 4',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 5',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 6',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 7',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 8',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 9',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 10',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 1',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 2',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 3',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 4',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 5',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 6',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 7',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 8',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 9',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 10',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     }
 
   ]);
@@ -217,166 +250,167 @@ const Customers = ({ route, navigation }) => {
       item: 'Item 1',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 2',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 3',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 4',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 5',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 6',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 7',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 8',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 9',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 10',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 1',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 2',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 3',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 4',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 5',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 6',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 7',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 8',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 9',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     },
     {
       item: 'Item 10',
       prize: 10,
       type: 'fruits',
-      star:0,
-      color:"yellow",
-      weightInKg:5
+      star: 0,
+      color: "yellow",
+      weightInKg: 5
     }
 
   ]);
 
-  const { Name } = route.params;
+  const { Name, IndexOf } = route.params;
+  console.log('IndexOf' + IndexOf);
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
@@ -391,6 +425,11 @@ const Customers = ({ route, navigation }) => {
   const [select, setselect] = useState(-1);
   const [prev, setprev] = useState(0);
   const [next, setnext] = useState(10);
+  //   useEffect(() => {
+  // {res==1?()=>{
+  //     setflat(Post[0][0])
+  //     console.log(flat)}:null}
+  //   }, [res==1]);
 
   const searchFilter = text => {
     if (text.trim()) {
@@ -410,9 +449,9 @@ const Customers = ({ route, navigation }) => {
   };
   const addItem = () => {
     if (user.trim() !== '') {
-      ITEM.unshift({
-        item: user,
-        prize: prize,
+      Post[0][0].item.unshift({
+        name: user,
+        price: prize,
         type: type,
         star: star,
         color: color,
@@ -426,17 +465,27 @@ const Customers = ({ route, navigation }) => {
   }
   const DELETEITEM = () => {
     modelData.length = 0;
-    for (let i = 0; i < array.length; i++){
-      modelData.push(ITEM[array[i]].item, ITEM[array[i]].prize, ITEM[array[i]].type);
+    for (let i = 0; i < array.length; i++) {
+      modelData.push(
+        {
+          name: Post[0][IndexOf].item[i].name,
+          price: Post[0][IndexOf].item[i].price,
+          type: Post[0][IndexOf].item[i].type,
+          star: Post[0][IndexOf].item[i].star,
+          color: Post[0][IndexOf].item[i].color,
+          weightInKg: Post[0][IndexOf].item[i].weightInKg
+        }
+      );
     }
     setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < ITEM.length; j++) {
-        if (ITEM[j].item === modelData[i]) {
-          ITEM.splice(j, 1);
-          break;
+      for (let j = 0; j < Post[0][IndexOf].item.length; j++) {
+        if (Post[0][IndexOf].item[j].name == modelData[i].name) {
+          Post[0][IndexOf].item.splice(j, 1);
+          console.log('for')
+          console.log(Post[0][IndexOf].item);
         }
       }
     }
@@ -446,12 +495,22 @@ const Customers = ({ route, navigation }) => {
     modelData.length = 0;
     long = 0;
     count = 0;
+    // console.log(Post[0][IndexOf].item.length)
   }
-  const modelitem = ({ index }) => {
+  const modelitem = ({ item, index }) => {
     return (
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>{modelData[index]}</Text>
-      </View>
+      <>
+
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          {console.log('modelData' + modelData, item)}
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>name : {item.name}</Text>
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>price : {item.price}</Text>
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>type : {item.type}</Text>
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>star : {item.star}</Text>
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>color :{item.color}</Text>
+          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>weightInKg : {item.weightInKg}</Text>
+        </View>
+      </>
     );
   };
   const header = (text) =>
@@ -465,7 +524,7 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation,ItemName,name }) => {
+  const Item = ({ index, navigation, ItemName, name }) => {
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -569,7 +628,7 @@ const Customers = ({ route, navigation }) => {
         }
       }
       else {
-        navigation.navigate('Item', { ItemName: ItemName})
+        navigation.navigate('Item', { IndexOfCustomer: IndexOf, indexofItem: index, ItemName: ItemName })
       }
 
       // if (SnackBar == 1) {
@@ -597,22 +656,24 @@ const Customers = ({ route, navigation }) => {
     return (
       // #ffffe0
       <>
-      {name==Name?
-      <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-      {/* {console.log(index+'index')} */}
+        {/* {name==Name? */}
+        <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
+          {/* {console.log(index+'index')} */}
 
-        <View key={Date.now} style={Customer.listItem}>
-                    <View style={Customer.details}>
-                      {text('Name', ':', ItemName[0].toUpperCase())}
-                      {/* {text('Prize', ':', Prize)}
+          <View key={Date.now} style={Customer.listItem}>
+            <View style={Customer.details}>
+              {console.log('ItemName' + ItemName)}
+              {text('Name', ':', ItemName.toUpperCase())}
+              {/* {text('Prize', ':', Prize)}
                       {text('Type', ':', Type.toUpperCase())} */}
-                      {indexValues.indexOf(index) == -1 ? null
+              {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
                 </View>}
-                    </View>
-                  </View>
-      </TouchableWithoutFeedback>:null}
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+        {/* :null} */}
       </>
     );
   };
@@ -624,14 +685,14 @@ const Customers = ({ route, navigation }) => {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            ItemName={item.item}
-            name={item.name}
+            ItemName={item.name}
+            name={item}
             // Prize={item.prize}
             // Type={item.type}
             navigation={navigation}
           />
         </View>
-         {/* : null} */}
+        {/* : null} */}
 
       </>
     );
@@ -701,11 +762,12 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          {res==1?
-            <FlatList
-              data={Post[0]}
-              renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-            />:null}
+            {res == 1 ?
+              <FlatList
+                data={Post[0][IndexOf].item}
+                renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+              /> : null}
+            {res == 1 ? console.log([Post[0][0].item]) : null}
           </View>
         </View>
         <Modal
@@ -762,7 +824,7 @@ const Customers = ({ route, navigation }) => {
               onChangeText={(weight) => setItemType(weight)}
               autoComplete={'off'}
             />
-           
+
             <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
               <View style={styles.Add}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>

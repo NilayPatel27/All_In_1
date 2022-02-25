@@ -172,6 +172,8 @@ const Home = ({ navigation }) => {
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
   const [user, setuser] = useState('');
+  const [modelid, setmodelid] = useState('');
+  const [modelitems, setmodelitems] = useState('')
   const [modelData, setmodelData] = useState([]);
   const [search, setsearch] = useState('');
   const [select, setselect] = useState(-1);
@@ -195,18 +197,35 @@ const Home = ({ navigation }) => {
     }
   };
   const addItem = () => {
+    console.log('addItem');
+    console.log(Post[0] instanceof Array );
     if (user.trim() !== '') {
-      USER.unshift({
-        user: user,
+      Post[0].unshift({
+        name: user,
+        id: modelid,
+        item:[{name:modelitems}]
       })
       setModel(false);
     }
     setuser('');
+    setmodelid('');
+    setmodelitems('');
+    console.log(Post[0]);
   }
   const DELETEITEM = () => {
     modelData.length = 0;
-    for (let i = 0; i < array.length; i++)
-      modelData.push(USER[array[i]].user);
+    for (let i = 0; i < array.length; i++) {
+      modelData.push(
+        {
+          name: Post[0].name,
+          // price: Post[0].price,
+          // type: Post[0].type,
+          // star: Post[0].star,
+          // color: Post[0].color,
+          // weightInKg: Post[0].weightInKg
+        }
+      );
+    }
     setDELETE(true);
   }
   const deleteItem = () => {
@@ -337,7 +356,8 @@ const Home = ({ navigation }) => {
       }
       else {
         navigation.navigate('Customers', {
-          Name: Name
+          Name: Name,
+          IndexOf:index
         });
       }
 
@@ -481,6 +501,20 @@ const Home = ({ navigation }) => {
               placeholder="Customer Name"
               placeholderTextColor="#2d333a"
               onChangeText={(Name) => setuser(Name)}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Customer Name"
+              placeholderTextColor="#2d333a"
+              onChangeText={(id) => setmodelid(id)}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Customer Name"
+              placeholderTextColor="#2d333a"
+              onChangeText={(item) => setmodelitems(item)}
               autoComplete={'off'}
             />
             <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>

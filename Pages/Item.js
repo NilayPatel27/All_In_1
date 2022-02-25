@@ -6,6 +6,7 @@ import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import axios from 'axios';
 import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 let indexValues = [];
@@ -13,11 +14,33 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
+  const { indexofItem,ItemName } = route.params;
+  const [Post, setPost] = useState(); // set Api data
+  const [CopyPost, setCopyPost] = useState(''); // for show copy post
+  const [res, setres] = useState(0);
+  useEffect(() => {
+    console.log('DataBase Connected');
+    getPost();
 
+  }, []);
+
+  //call API DATA
+  const getPost = () => {
+    axios.get('http://localhost:8081/AllData').then(res => {
+      if (res.data.length > 0) {
+        setPost(res.data);
+        setCopyPost(res.data);
+      } else {
+        setPost([]);
+        setError('No Post Found');
+      }
+      setres(1);
+    }
+    );
+  };
   const [array, setarray] = useState([]);
 
   let color = '#fff'
-  const { ItemName } = route.params;
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
 
@@ -511,8 +534,7 @@ const Item = ({ route, navigation }) => {
     </View>
   const [select, setselect] = useState(-1);
 
-  const Item = ({ index, Name, Price, Type, Star, Color, WeightInKg }) => {
-
+  const Item = ({ index, ItemName, ItemPrize,  ItemType, ItemStar, ItemColor, ItemWeight }) =>{
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
     //   if (select == 1) {
@@ -645,12 +667,12 @@ const Item = ({ route, navigation }) => {
         <View style={{flex:1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
-              {text('ItemName', ':', Name.toUpperCase())}
-              {text('ItemPrize', ':', Price)}
-              {text('ItemType', ':', Type.toUpperCase())}
-              {text('ItemStar', ':', Star)}
-              {text('ItemColor', ':', Color.toUpperCase())}
-              {text('ItemWeight', ':', WeightInKg)}
+              {text('Name', ':', ItemName.toUpperCase())}
+              {text('Prize', ':', ItemPrize)}
+              {text('Type', ':', ItemType.toUpperCase())}
+              {text('Star', ':', ItemStar)}
+              {text('Color', ':', ItemColor.toUpperCase())}
+              {text('Weight', ':', ItemWeight)}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
@@ -665,17 +687,22 @@ const Item = ({ route, navigation }) => {
   const renderItem = ({ item, index }) => {
     return (
       <>
-        {item.item == ItemName ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {item.name == ItemName ? 
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
-            index={index}
-            Name={item.item}
-            Price={item.prize}
-            Type={item.type}
-            Star={item.star}
-            Color={item.color}
-            WeightInKg={item.weightInKg}
+           index={index}
+            ItemName={item.name}
+            ItemPrize={item.price}
+            ItemType={item.type}
+            ItemStar={item.star}
+            ItemColor={item.color}
+            ItemWeight={item.weightInKg}
+            name={item}
+            
+            navigation={navigation}
           />
-        </View> : null}
+        </View> 
+        : null}
 
       </>
     );
@@ -694,7 +721,7 @@ const Item = ({ route, navigation }) => {
       />
       <View style={Customer.header}>
         {header('SUPPLIER NAME')}
-        {header(ItemName.toUpperCase())}
+        {/* {header(ItemName.toUpperCase())} */}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
           <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
         </TouchableOpacity>
@@ -716,10 +743,12 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-        <FlatList
-          data={ITEM}
-          renderItem={renderItem}
-        />
+      {res == 1 ?
+              <FlatList
+                data={Post[0][indexofItem].item}
+                renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+              /> : null}
+            {res == 1 ? console.log([Post[0][0].item]) : null}
       <Modal
         isVisible={model}
         animationType={'slide'}
@@ -833,6 +862,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold'
   },
+  col: {
+    position: "absolute",
+    left: "50%",
+    color: '#DB4437',
+    fontWeight: "bold",
+    paddingHorizontal: 25
+},
   Divider: {
     width: "100%",
     alignItems: 'center',
