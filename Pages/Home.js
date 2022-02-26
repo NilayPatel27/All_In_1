@@ -214,7 +214,7 @@ const Home = ({ navigation }) => {
     for (let i = 0; i < array.length; i++) {
       modelData.push(
         {
-          name: Post[0].name,
+          name: Post[0][0].name,
           // price: Post[0].price,
           // type: Post[0].type,
           // star: Post[0].star,
@@ -222,14 +222,15 @@ const Home = ({ navigation }) => {
           // weightInKg: Post[0].weightInKg
         }
       );
+      // console.log(Post[0][i].name);
     }
     setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < USER.length; j++) {
-        if (USER[j].user === modelData[i]) {
-          USER.splice(j, 1);
+      for (let j = 0; j < Post.length; j++) {
+        if (Post[0][j].user === modelData[i]) {
+          Post[0][j].splice(j, 1);
           break;
         }
       }
