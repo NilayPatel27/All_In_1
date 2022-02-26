@@ -653,7 +653,7 @@ const Customers = ({ route, navigation }) => {
     return (
       // #ffffe0
       <>
-        {/* {name==Name? */}
+        {name==Name?
         <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
           <View key={Date.now} style={Customer.listItem}>
             <View style={Customer.details}>
@@ -665,7 +665,7 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-        {/* :null} */}
+        :null}
       </>
     );
   };

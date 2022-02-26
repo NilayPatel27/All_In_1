@@ -14,7 +14,7 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
-  const { indexofItem,ItemName } = route.params;
+  const { IndexOfCustomer,indexofItem,ItemName } = route.params;
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
@@ -489,9 +489,9 @@ const Item = ({ route, navigation }) => {
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < USER.length; j++) {
-        if (USER[j].user === modelData[i]) {
-          USER.splice(j, 1);
+      for (let j = 0; j < Post.length; j++) {
+        if (Post[j].user === modelData[i]) {
+          Post.splice(j, 1);
           break;
         }
       }
@@ -687,6 +687,7 @@ const Item = ({ route, navigation }) => {
   const renderItem = ({ item, index }) => {
     return (
       <>
+      {console.log(item.name,ItemName)}
         {item.name == ItemName ? 
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
@@ -745,7 +746,7 @@ const Item = ({ route, navigation }) => {
       </View>
       {res == 1 ?
               <FlatList
-                data={Post[0][indexofItem].item}
+                data={Post[0][IndexOfCustomer].item}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               /> : null}
             {/* {res == 1 ? console.log([Post[0][0].item]) : null} */}
