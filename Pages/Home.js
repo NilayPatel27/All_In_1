@@ -250,6 +250,7 @@ const Home = ({ navigation }) => {
     );
   };
   const Item = ({ index, Name, navigation }) => {
+    const color = index % 2 === 0 ? 'red' : 'blue';
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -384,10 +385,10 @@ const Home = ({ navigation }) => {
     return (
       // #ffffe0
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-        <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
+        <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor:'#fff'}}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ width: '100%', height: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
-              <Text style={styles.text}>{Name}</Text>
+            <View style={{ width: '100%', height: '100%',justifyContent:'center', backgroundColor: "#005950" }}>
+              <Text style={styles.text}>{Name.length>10?Name.slice(0,7)+'...':Name}</Text>
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -402,13 +403,13 @@ const Home = ({ navigation }) => {
 
     return (
       <>
-        {index >= prev && index < next ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {index >= prev && index < next ?
           <Item
             index={index}
             Name={item.name}
             navigation={navigation}
           />
-        </View> : null}
+        : null}
 
       </>
     );
@@ -478,6 +479,8 @@ const Home = ({ navigation }) => {
           {res==1?
             <FlatList
               data={Post[0]}
+              numColumns={2}
+              horizontal={false}
               renderItem={({ item, index }) => renderItem({ navigation, item, index })}
             />:null}
           </View>
@@ -600,8 +603,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 25,
+    justifyContent: 'center',
+    // marginHorizontal: 25,
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
@@ -622,7 +625,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   text: {
-    color: '#DB4437',
+    color: '#fff',
     fontSize: 25,
     alignSelf: 'center',
     fontWeight: 'bold'
@@ -639,7 +642,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 25,
-    backgroundColor: "#DB4437",
+    backgroundColor: "#171515",
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.34,
