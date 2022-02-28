@@ -18,7 +18,87 @@ let SnackBar = 0;
 const Home = ({ navigation }) => {
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
-  const [res, setres] = useState(0)
+  const [res, setres] = useState(0);
+  const [alphabates, setalphabates] = useState([
+    {
+      name: 'A',
+    },
+    {
+      name: 'B',
+    },
+    {
+      name: 'C',
+    },
+    {
+      name: 'D',
+    },
+    {
+      name: 'E',
+    },
+    {
+      name: 'F',
+    },
+    {
+      name: 'G',
+    },
+    {
+      name: 'H'
+    },
+    {
+      name:'I'
+    },
+    {
+      name:'J'
+    },
+    {
+      name:'K'
+    },
+    {
+      name:'L'
+    },
+    {
+      name:'M'
+    },
+    {
+      name:'N'
+    },
+    {
+      name:'O'
+    },
+    {
+      name:'P'
+    },
+    {
+      name:'Q'
+    },
+    {
+      name:'R'
+    },
+    {
+      name:'S'
+    },
+    {
+      name:'T'
+    },
+    {
+      name:'U'
+    },
+    {
+      name:'V'
+    },
+    {
+      name:'W'
+    },
+    {
+      name:'X'
+    },
+    {
+      name:'Y'
+    },
+    {
+      name:'Z'
+    }
+  ])
 
   useEffect(() => {
     console.log('DataBase Connected');
@@ -178,7 +258,7 @@ const Home = ({ navigation }) => {
   const [search, setsearch] = useState('');
   const [select, setselect] = useState(-1);
   const [prev, setprev] = useState(0);
-  const [next, setnext] = useState(10)
+  const [next, setnext] = useState(12)
 
   const searchFilter = text => {
     if (text.trim()) {
@@ -461,28 +541,41 @@ const Home = ({ navigation }) => {
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
             </View>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
-            <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'flex-end' }}>
-              {prev == 0
-                ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
-                : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
-                  <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>}
-              {next > USER.length-1
-                ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
-                : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
-                  <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>}
-            </View>
-          </View>
-          <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          
+          <View style={{width:'100%', backgroundColor: 'red',flexDirection:'row',justifyContent:'center' }}>
           {res==1?
             <FlatList
               data={Post[0]}
               numColumns={2}
               horizontal={false}
               renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-            />:null}
+            />
+          
+            :null}
+            {/* <FlatList
+            data={alphabates}
+            numColumns={1}
+            horizontal={false}
+            renderItem={({ item, index }) =>
+            <TouchableOpacity onPress={()=>console.log('Pressed')}>
+            <Text>{item.name}</Text>
+            </TouchableOpacity>
+            }
+          /> */}
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5}}>
+            <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between' }}>
+              {prev == 0
+                ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
+                : <TouchableOpacity onPress={() => { setnext(next => next - 12); setprev(prev => prev - 12) }}>
+                  <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>}
+              {next > USER.length-1
+                ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
+                : <TouchableOpacity onPress={() => { setnext(next => next + 12); setprev(prev => prev + 12) }}>
+                  <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>}
+            </View>
           </View>
         </View>
         <Modal
