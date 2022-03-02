@@ -262,9 +262,9 @@ const Home = ({ navigation }) => {
 
   const searchFilter = text => {
     if (text.trim()) {
-      const newData = NEWUSER.filter(item => {
-        const itemData = item.user
-          ? item.user.trim().toUpperCase()
+      const newData = Post[0].filter(item => {
+        const itemData = item.name
+          ? item.name.trim().toUpperCase()
           : ''.toUpperCase();
         const textData = text.trim().toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -531,7 +531,7 @@ const Home = ({ navigation }) => {
                 style={styles.textInputStyle}
                 value={search}
                 placeholder="Search Customer"
-                placeholderTextColor="#DB4437"
+                placeholderTextColor="#2d333a"
                 onChangeText={text => searchFilter(text)}
               >
               </TextInput>
