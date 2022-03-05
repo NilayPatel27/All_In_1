@@ -653,7 +653,8 @@ const Customers = ({ route, navigation }) => {
     return (
       // #ffffe0
       <>
-        {/* {name==Name? */}
+    {  console.log(name,Name)}
+        {name==Name?
         <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
           <View key={Date.now} style={Customer.listItem}>
             <View style={Customer.details}>
@@ -665,7 +666,7 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-        {/* :null} */}
+        :null}
       </>
     );
   };
@@ -678,7 +679,7 @@ const Customers = ({ route, navigation }) => {
           <Item
             index={index}
             ItemName={item.name}
-            name={item}
+            name={Post[0][IndexOf].name}
             // Prize={item.prize}
             // Type={item.type}
             navigation={navigation}

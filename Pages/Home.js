@@ -18,7 +18,87 @@ let SnackBar = 0;
 const Home = ({ navigation }) => {
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
-  const [res, setres] = useState(0)
+  const [res, setres] = useState(0);
+  const [alphabates, setalphabates] = useState([
+    {
+      name: 'A',
+    },
+    {
+      name: 'B',
+    },
+    {
+      name: 'C',
+    },
+    {
+      name: 'D',
+    },
+    {
+      name: 'E',
+    },
+    {
+      name: 'F',
+    },
+    {
+      name: 'G',
+    },
+    {
+      name: 'H'
+    },
+    {
+      name:'I'
+    },
+    {
+      name:'J'
+    },
+    {
+      name:'K'
+    },
+    {
+      name:'L'
+    },
+    {
+      name:'M'
+    },
+    {
+      name:'N'
+    },
+    {
+      name:'O'
+    },
+    {
+      name:'P'
+    },
+    {
+      name:'Q'
+    },
+    {
+      name:'R'
+    },
+    {
+      name:'S'
+    },
+    {
+      name:'T'
+    },
+    {
+      name:'U'
+    },
+    {
+      name:'V'
+    },
+    {
+      name:'W'
+    },
+    {
+      name:'X'
+    },
+    {
+      name:'Y'
+    },
+    {
+      name:'Z'
+    }
+  ])
 
   useEffect(() => {
     console.log('DataBase Connected');
@@ -178,13 +258,13 @@ const Home = ({ navigation }) => {
   const [search, setsearch] = useState('');
   const [select, setselect] = useState(-1);
   const [prev, setprev] = useState(0);
-  const [next, setnext] = useState(10)
+  const [next, setnext] = useState(12)
 
   const searchFilter = text => {
     if (text.trim()) {
-      const newData = NEWUSER.filter(item => {
-        const itemData = item.user
-          ? item.user.trim().toUpperCase()
+      const newData = Post[0].filter(item => {
+        const itemData = item.name
+          ? item.name.trim().toUpperCase()
           : ''.toUpperCase();
         const textData = text.trim().toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -214,7 +294,7 @@ const Home = ({ navigation }) => {
     for (let i = 0; i < array.length; i++) {
       modelData.push(
         {
-          name: Post[0].name,
+          name: Post[0][0].name,
           // price: Post[0].price,
           // type: Post[0].type,
           // star: Post[0].star,
@@ -222,14 +302,15 @@ const Home = ({ navigation }) => {
           // weightInKg: Post[0].weightInKg
         }
       );
+      // console.log(Post[0][i].name);
     }
     setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < USER.length; j++) {
-        if (USER[j].user === modelData[i]) {
-          USER.splice(j, 1);
+      for (let j = 0; j < Post.length; j++) {
+        if (Post[0][j].user === modelData[i]) {
+          Post[0][j].splice(j, 1);
           break;
         }
       }
@@ -249,6 +330,7 @@ const Home = ({ navigation }) => {
     );
   };
   const Item = ({ index, Name, navigation }) => {
+    const color = index % 2 === 0 ? 'red' : 'blue';
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -383,10 +465,10 @@ const Home = ({ navigation }) => {
     return (
       // #ffffe0
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-        <View style={{ width: "100%", flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
+        <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor:'#fff'}}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ width: '100%', height: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
-              <Text style={styles.text}>{Name}</Text>
+            <View style={{ width: '100%', height: '100%',justifyContent:'center', backgroundColor: "#005950" }}>
+              <Text style={styles.text}>{Name.length>10?Name.slice(0,7)+'...':Name}</Text>
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -401,13 +483,13 @@ const Home = ({ navigation }) => {
 
     return (
       <>
-        {index >= prev && index < next ? <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {index >= prev && index < next ?
           <Item
             index={index}
             Name={item.name}
             navigation={navigation}
           />
-        </View> : null}
+        : null}
 
       </>
     );
@@ -449,7 +531,7 @@ const Home = ({ navigation }) => {
                 style={styles.textInputStyle}
                 value={search}
                 placeholder="Search Customer"
-                placeholderTextColor="#DB4437"
+                placeholderTextColor="#2d333a"
                 onChangeText={text => searchFilter(text)}
               >
               </TextInput>
@@ -459,26 +541,41 @@ const Home = ({ navigation }) => {
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
             </View>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
-            <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'flex-end' }}>
+          
+          <View style={{width:'100%', backgroundColor: 'red',flexDirection:'row',justifyContent:'center' }}>
+          {res==1?
+            <FlatList
+              data={Post[0]}
+              numColumns={2}
+              horizontal={false}
+              renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+            />
+          
+            :null}
+            {/* <FlatList
+            data={alphabates}
+            numColumns={1}
+            horizontal={false}
+            renderItem={({ item, index }) =>
+            <TouchableOpacity onPress={()=>console.log('Pressed')}>
+            <Text>{item.name}</Text>
+            </TouchableOpacity>
+            }
+          /> */}
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5}}>
+            <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between' }}>
               {prev == 0
                 ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
-                : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
+                : <TouchableOpacity onPress={() => { setnext(next => next - 12); setprev(prev => prev - 12) }}>
                   <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
               {next > USER.length-1
                 ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
-                : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
+                : <TouchableOpacity onPress={() => { setnext(next => next + 12); setprev(prev => prev + 12) }}>
                   <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
             </View>
-          </View>
-          <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          {res==1?
-            <FlatList
-              data={Post[0]}
-              renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-            />:null}
           </View>
         </View>
         <Modal
@@ -599,8 +696,8 @@ const styles = StyleSheet.create({
   },
   listItem: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 25,
+    justifyContent: 'center',
+    // marginHorizontal: 25,
     marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
@@ -621,7 +718,7 @@ const styles = StyleSheet.create({
     marginLeft: 15
   },
   text: {
-    color: '#DB4437',
+    color: '#fff',
     fontSize: 25,
     alignSelf: 'center',
     fontWeight: 'bold'
@@ -638,7 +735,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 25,
-    backgroundColor: "#DB4437",
+    backgroundColor: "#171515",
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.34,
