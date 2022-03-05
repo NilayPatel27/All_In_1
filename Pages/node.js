@@ -49,7 +49,7 @@ const Node = () => {
 
   return (
     isLoaded ? ( 
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator size="large" color="#0000ff"  style={{flex:1,justifyContent:'center',alignItems:'center'}} />
     ) : (
     <View>
       <Text style={styles.mainHeader}>List of Students</Text>
