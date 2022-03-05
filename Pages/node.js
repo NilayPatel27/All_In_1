@@ -19,7 +19,7 @@ const Node = () => {
     }
   };
 
-  useEffect(() => getUserData(), []);
+  useEffect(() =>{ getUserData()}, []);
 
   // render the students cards
   const showUserData = ({ item }) => {
