@@ -4,6 +4,8 @@ import Item from './Pages/Item';
 import Login from './Pages/Login';
 import Customers from './Pages/Customers';
 import SearchBarScreen from './Pages/SearchBarScreen';
+import Node from './Pages/node';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -17,12 +19,14 @@ const screenOptions = {
 const navigation = ({ navigation }) => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
+            <Stack.Navigator initialRouteName="Node" screenOptions={screenOptions}>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Customers" component={Customers} />
                 <Stack.Screen name="Item" component={Item} />
                 <Stack.Screen name="SearchBarScreen" component={SearchBarScreen} />
+                <Stack.Screen name="Node" component={Node} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     );
