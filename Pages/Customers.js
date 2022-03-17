@@ -741,13 +741,14 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
+
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'flex-end' }}>
               {prev == 0
                 ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
                   <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
-              {next > ITEM.length - 1
+              {res == 1 && next > Post[IndexOf].item.length - 1
                 ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
                   <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
