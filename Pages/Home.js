@@ -294,7 +294,7 @@ const Home = ({ navigation }) => {
     for (let i = 0; i < array.length; i++) {
       modelData.push(
         {
-          name: Post[i].name,
+          name: Post[array[i]].name,
           // price: Post[0].price,
           // type: Post[0].type,
           // star: Post[0].star,
@@ -470,7 +470,7 @@ const Home = ({ navigation }) => {
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ width: '100%', height: '100%',justifyContent:'center', backgroundColor: "#005950" }}>
               <Text style={styles.text}>{Name.length>10?Name.slice(0,7)+'...':Name}</Text>
-              {indexValues.indexOf(index) == -1 ? null
+              {!indexValues.includes(index) ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
                 </View>}
