@@ -14,7 +14,7 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
-  const { IndexOfCustomer,indexofItem,ItemName } = route.params;
+  const { IndexOfCustomer, indexofItem, ItemName } = route.params;
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
@@ -534,7 +534,7 @@ const Item = ({ route, navigation }) => {
     </View>
   const [select, setselect] = useState(-1);
 
-  const Item = ({ index, ItemName, ItemPrize,  ItemType, ItemStar, ItemColor, ItemWeight }) =>{
+  const Item = ({ index, ItemName, ItemPrize, ItemType, ItemStar, ItemColor, ItemWeight }) => {
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
     //   if (select == 1) {
@@ -664,7 +664,7 @@ const Item = ({ route, navigation }) => {
         onLongPress={onLongPressButton}
         onPress={onPress}
       >
-        <View style={{flex:1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
               {text('Name', ':', ItemName.toUpperCase())}
@@ -687,23 +687,23 @@ const Item = ({ route, navigation }) => {
   const renderItem = ({ item, index }) => {
     return (
       <>
-      {/* {console.log(item.name,ItemName)} */}
-        {item.name == ItemName ? 
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Item
-           index={index}
-            ItemName={item.name}
-            ItemPrize={item.price}
-            ItemType={item.type}
-            ItemStar={item.star}
-            ItemColor={item.color}
-            ItemWeight={item.weightInKg}
-            name={item}
-            
-            navigation={navigation}
-          />
-        </View> 
-        : null}
+        {/* {console.log(item.name,ItemName)} */}
+        {item.name == ItemName ?
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Item
+              index={index}
+              ItemName={item.name}
+              ItemPrize={item.price}
+              ItemType={item.type}
+              ItemStar={item.star}
+              ItemColor={item.color}
+              ItemWeight={item.weightInKg}
+              name={item}
+
+              navigation={navigation}
+            />
+          </View>
+          : null}
 
       </>
     );
@@ -745,11 +745,11 @@ const Item = ({ route, navigation }) => {
         </View>
       </View>
       {res == 1 ?
-              <FlatList
-                data={Post[IndexOfCustomer].item}
-                renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-              /> : null}
-            {/* {res == 1 ? console.log([Post[0][0].item]) : null} */}
+        <FlatList
+          data={Post[IndexOfCustomer].item}
+          renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+        /> : null}
+      {/* {res == 1 ? console.log([Post[0][0].item]) : null} */}
       <Modal
         isVisible={model}
         animationType={'slide'}
@@ -859,7 +859,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#DB4437',
-    fontSize: 10,
+    fontSize: 15,
     alignSelf: 'center',
     fontWeight: 'bold'
   },
@@ -869,7 +869,7 @@ const styles = StyleSheet.create({
     color: '#DB4437',
     fontWeight: "bold",
     paddingHorizontal: 25
-},
+  },
   Divider: {
     width: "100%",
     alignItems: 'center',

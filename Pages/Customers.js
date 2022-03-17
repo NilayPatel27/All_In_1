@@ -433,7 +433,7 @@ const Customers = ({ route, navigation }) => {
 
   const searchFilter = text => {
     if (text.trim()) {
-      const newData = NEWITEM.filter(item => {
+      const newData = Post.filter(item => {
         const itemData = item.item
           ? item.item.trim().toLowerCase()
           : ''.toUpperCase();
