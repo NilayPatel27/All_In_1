@@ -449,7 +449,7 @@ const Customers = ({ route, navigation }) => {
   };
   const addItem = () => {
     if (user.trim() !== '') {
-      Post[0][0].item.unshift({
+      Post[0].item.unshift({
         name: user,
         price: prize,
         type: type,
