@@ -19,7 +19,7 @@ const screenOptions = {
 const navigation = ({ navigation }) => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Node" screenOptions={screenOptions}>
+            <Stack.Navigator initialRouteName="Home" screenOptions={screenOptions}>
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Customers" component={Customers} />

@@ -410,7 +410,7 @@ const Customers = ({ route, navigation }) => {
   ]);
 
   const { Name, IndexOf } = route.params;
-  
+
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
@@ -468,12 +468,12 @@ const Customers = ({ route, navigation }) => {
     for (let i = 0; i < array.length; i++) {
       modelData.push(
         {
-          name: Post[0][IndexOf].item[i].name,
-          price: Post[0][IndexOf].item[i].price,
-          type: Post[0][IndexOf].item[i].type,
-          star: Post[0][IndexOf].item[i].star,
-          color: Post[0][IndexOf].item[i].color,
-          weightInKg: Post[0][IndexOf].item[i].weightInKg
+          name: Post[IndexOf].item[i].name,
+          price: Post[IndexOf].item[i].price,
+          type: Post[IndexOf].item[i].type,
+          star: Post[IndexOf].item[i].star,
+          color: Post[IndexOf].item[i].color,
+          weightInKg: Post[IndexOf].item[i].weightInKg
         }
       );
     }
@@ -481,9 +481,9 @@ const Customers = ({ route, navigation }) => {
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < Post[0][IndexOf].item.length; j++) {
-        if (Post[0][IndexOf].item[j].name == modelData[i].name) {
-          Post[0][IndexOf].item.splice(j, 1);
+      for (let j = 0; j < Post[IndexOf].item.length; j++) {
+        if (Post[IndexOf].item[j].name == modelData[i].name) {
+          Post[IndexOf].item.splice(j, 1);
         }
       }
     }
@@ -493,7 +493,7 @@ const Customers = ({ route, navigation }) => {
     modelData.length = 0;
     long = 0;
     count = 0;
-    // console.log(Post[0][IndexOf].item.length)
+    // console.log(Post[IndexOf].item.length)
   }
   const modelitem = ({ item, index }) => {
     return (
@@ -653,20 +653,20 @@ const Customers = ({ route, navigation }) => {
     return (
       // #ffffe0
       <>
-    {  console.log(name,Name)}
-        {name==Name?
-        <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-          <View key={Date.now} style={Customer.listItem}>
-            <View style={Customer.details}>
-              {text('Name', ':', ItemName.toUpperCase())}
-              {indexValues.indexOf(index) == -1 ? null
-                : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
-                  <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
-                </View>}
+        {/* {console.log(name, Name)} */}
+        {name == Name ?
+          <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
+            <View key={Date.now} style={Customer.listItem}>
+              <View style={Customer.details}>
+                {text('Name', ':', ItemName.toUpperCase())}
+                {indexValues.indexOf(index) == -1 ? null
+                  : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
+                    <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
+                  </View>}
+              </View>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
-        :null}
+          </TouchableWithoutFeedback>
+          : null}
       </>
     );
   };
@@ -679,7 +679,7 @@ const Customers = ({ route, navigation }) => {
           <Item
             index={index}
             ItemName={item.name}
-            name={Post[0][IndexOf].name}
+            name={Post[IndexOf].name}
             // Prize={item.prize}
             // Type={item.type}
             navigation={navigation}
@@ -757,7 +757,7 @@ const Customers = ({ route, navigation }) => {
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
             {res == 1 ?
               <FlatList
-                data={Post[0][IndexOf].item}
+                data={Post[IndexOf].item}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               /> : null}
           </View>

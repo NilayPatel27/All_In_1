@@ -262,23 +262,23 @@ const Home = ({ navigation }) => {
 
   const searchFilter = text => {
     if (text.trim()) {
-      const newData = Post[0].filter(item => {
+      const newData = Post.filter(item => {
         const itemData = item.name
           ? item.name.trim().toUpperCase()
           : ''.toUpperCase();
         const textData = text.trim().toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
-      setUSER(newData);
+      setPost(newData);
       setsearch(text);
     } else {
-      setUSER(NEWUSER);
+      setPost(CopyPost);
       setsearch(text);
     }
   };
   const addItem = () => {
     if (user.trim() !== '') {
-      Post[0].unshift({
+      Post.unshift({
         name: user,
         id: modelid,
         item:[{name:modelitems}]
@@ -294,13 +294,14 @@ const Home = ({ navigation }) => {
     for (let i = 0; i < array.length; i++) {
       modelData.push(
         {
-          name: Post[0][0].name,
+          name: Post[i].name,
           // price: Post[0].price,
           // type: Post[0].type,
           // star: Post[0].star,
           // color: Post[0].color,
           // weightInKg: Post[0].weightInKg
         }
+        // Post[0].name
       );
       // console.log(Post[0][i].name);
     }
@@ -309,8 +310,8 @@ const Home = ({ navigation }) => {
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
       for (let j = 0; j < Post.length; j++) {
-        if (Post[0][j].user === modelData[i]) {
-          Post[0][j].splice(j, 1);
+        if (Post[j].name === modelData[i].name) {
+          Post.splice(j, 1);
           break;
         }
       }
@@ -325,7 +326,7 @@ const Home = ({ navigation }) => {
   const modelitem = ({ index }) => {
     return (
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>{modelData[index]}</Text>
+        <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>{modelData[index].name}</Text>
       </View>
     );
   };
@@ -542,10 +543,10 @@ const Home = ({ navigation }) => {
             </View>
           </View>
           
-          <View style={{width:'100%', backgroundColor: 'red',flexDirection:'row',justifyContent:'center' }}>
+          <View style={{width:'100%', backgroundColor: 'white',flexDirection:'row',justifyContent:'center' }}>
           {res==1?
             <FlatList
-              data={Post[0]}
+              data={Post}
               numColumns={2}
               horizontal={false}
               renderItem={({ item, index }) => renderItem({ navigation, item, index })}

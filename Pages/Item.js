@@ -687,7 +687,7 @@ const Item = ({ route, navigation }) => {
   const renderItem = ({ item, index }) => {
     return (
       <>
-      {console.log(item.name,ItemName)}
+      {/* {console.log(item.name,ItemName)} */}
         {item.name == ItemName ? 
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
@@ -746,7 +746,7 @@ const Item = ({ route, navigation }) => {
       </View>
       {res == 1 ?
               <FlatList
-                data={Post[0][IndexOfCustomer].item}
+                data={Post[IndexOfCustomer].item}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               /> : null}
             {/* {res == 1 ? console.log([Post[0][0].item]) : null} */}
