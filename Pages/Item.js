@@ -526,10 +526,10 @@ const Item = ({ route, navigation }) => {
     <View style={{ justifyContent: 'flex-start', flexDirection: "row", height: '100%', alignItems: "center" }}>
       <Text style={{ color, fontSize: 20 }}>{text}</Text>
     </View>
-  const text = (Name, col, content) =>
+  const text = (Name, content) =>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 25, marginVertical: 5 }}>
       <Text style={styles.text}>{Name}</Text>
-      <Text style={styles.col}>{col}</Text>
+      <Text style={styles.col}>:</Text>
       <Text style={styles.text}>{content}</Text>
     </View>
   const [select, setselect] = useState(-1);
@@ -667,12 +667,12 @@ const Item = ({ route, navigation }) => {
         <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
-              {text('Name', ':', ItemName.toUpperCase())}
-              {text('Prize', ':', ItemPrize)}
-              {text('Type', ':', ItemType.toUpperCase())}
-              {text('Star', ':', ItemStar)}
-              {text('Color', ':', ItemColor.toUpperCase())}
-              {text('Weight', ':', ItemWeight)}
+              {text('Name', ItemName.toUpperCase())}
+              {text('Prize', ItemPrize)}
+              {text('Type', ItemType.toUpperCase())}
+              {text('Star', ItemStar)}
+              {text('Color', ItemColor.toUpperCase())}
+              {text('Weight', ItemWeight)}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
