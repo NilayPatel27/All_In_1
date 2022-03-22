@@ -291,12 +291,12 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         borderWidth: 0,
         borderRadius: 8,
-        color: '#2d333a',
+        color: '#fff',
         width: '80%'
     },
     first: {
         flex: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "purple",
         justifyContent: 'center',
         flexDirection: 'row',
         alignItems: "center"
@@ -304,14 +304,14 @@ const styles = StyleSheet.create({
     second: {
         width: '90%',
         height: "80%",
-        elevation: 10,
+        // elevation: 10,
         shadowRadius: 3.5,
-        shadowColor: 'blue',
-        shadowOpacity: 0.25,
+        // shadowColor: 'blue',
+        // shadowOpacity: 0.25,
         flexDirection: "row",
-        backgroundColor: "#fff",
+        // backgroundColor: "rgba(255,255,255, 0s)",
         justifyContent: "center",
-        shadowOffset: { width: 0, height: 5 }
+        // shadowOffset: { width: 0, height: 5 }
     },
     third: {
         flex: 1,

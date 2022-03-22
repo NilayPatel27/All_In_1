@@ -108,7 +108,7 @@ const Home = ({ navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get('http://localhost:8081/AllData').then(res => {
+    axios.get('https://localhost:44370/api/User/GetAllCustomer').then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
@@ -330,7 +330,7 @@ const Home = ({ navigation }) => {
       </View>
     );
   };
-  const Item = ({ index, Name, navigation }) => {
+  const Item = ({ index, Name, navigation,ID }) => {
     const color = index % 2 === 0 ? 'red' : 'blue';
     const [Index, setIndex] = useState(0);
     useEffect(() => {
@@ -437,7 +437,8 @@ const Home = ({ navigation }) => {
       else {
         navigation.navigate('Customers', {
           Name: Name,
-          IndexOf:index
+          IndexOf:index,
+          ID:ID
         });
       }
 
@@ -487,8 +488,9 @@ const Home = ({ navigation }) => {
         {index >= prev && index < next ?
           <Item
             index={index}
-            Name={item.name}
+            Name={item.userName}
             navigation={navigation}
+            ID={item.id}
           />
         : null}
 

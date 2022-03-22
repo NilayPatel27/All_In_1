@@ -17,6 +17,8 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Customers = ({ route, navigation }) => {
+  const { Name, IndexOf, ID } = route.params;
+
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
@@ -30,7 +32,7 @@ const Customers = ({ route, navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get('http://localhost:8081/AllData').then(res => {
+    axios.get('https://localhost:44370/api/User/GetCustomer?Id=' + `${ID}`).then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
@@ -409,7 +411,6 @@ const Customers = ({ route, navigation }) => {
 
   ]);
 
-  const { Name, IndexOf } = route.params;
 
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
@@ -498,14 +499,13 @@ const Customers = ({ route, navigation }) => {
   const modelitem = ({ item, index }) => {
     return (
       <>
-
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>name : {item.name}</Text>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>price : {item.price}</Text>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>type : {item.type}</Text>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>star : {item.star}</Text>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>color :{item.color}</Text>
-          <Text style={{ color: 'black', fontWeight: '400', justifyContent: 'center', alignItems: 'center', marginTop: 5 }}>weightInKg : {item.weightInKg}</Text>
+          <Text style={styles.modelitem}>name : {item.name}</Text>
+          <Text style={styles.modelitem}>price : {item.price}</Text>
+          <Text style={styles.modelitem}>type : {item.type}</Text>
+          <Text style={styles.modelitem}>star : {item.star}</Text>
+          <Text style={styles.modelitem}>color :{item.color}</Text>
+          <Text style={styles.modelitem}>weightInKg : {item.weightInKg}</Text>
         </View>
       </>
     );
@@ -873,6 +873,14 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 20
   },
+  modelitem: {
+    color: 'black',
+    fontWeight: '400',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5
+  },
+
   delete: {
     height: 50,
     width: '60%',
