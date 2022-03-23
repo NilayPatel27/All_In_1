@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Text, TextInput, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ const Login = ({ navigation }) => {
             "userName": email,
             "password": password
         }
-        axios.post('http://192.168.0.196:8080/api/login/LoginUser',auth )
+        axios.post('http://192.168.0.196:8080/api/login/RegisterSupplier',auth )
         .then(res => {
             console.log(res.data);
         })
