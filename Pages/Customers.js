@@ -38,7 +38,7 @@ const Customers = ({ route, navigation }) => {
   const getPost = async () => {
     await axios.get("http://192.168.0.196:8080/api/User/GetCustomer?Id=" + ID, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
-        setPost(res.data);
+        setPost([res.data]);
         setCopyPost(res.data);
         setres(1);
       }
@@ -190,7 +190,7 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation, Email, name }) => {
+  const Item = ({ index, navigation, Email, Address ,Phoneno,userID}) => {
     console.log(Email)
     const [Index, setIndex] = useState(0);
     useEffect(() => {
@@ -323,40 +323,44 @@ const Customers = ({ route, navigation }) => {
     return (
       // #ffffe0
       <>
-        {/* {console.log(name, Name)} */}
-        {name == Name ?
-          <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-            <View key={Date.now} style={Customer.listItem}>
-              <View style={Customer.details}>
-                {text('Name', ':', Email.toUpperCase())}
-                {indexValues.indexOf(index) == -1 ? null
-                  : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
-                    <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
-                  </View>}
-              </View>
+        {console.log(Email)}
+        {/* {name == Name ? */}
+        <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
+          <View key={Date.now} style={Customer.listItem}>
+            <View style={Customer.details}>
+              {text('Name', ':', Email.toUpperCase())}
+              {text('Address', ':', Address.toUpperCase())}
+              {text('Phoneno', ':', Phoneno.toUpperCase())}
+              {text('userID', ':', userID.toUpperCase())}
+
+              {indexValues.indexOf(index) == -1 ? null
+                : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
+                  <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
+                </View>}
             </View>
-          </TouchableWithoutFeedback>
-          : null}
+          </View>
+        </TouchableWithoutFeedback>
+        {/* : null} */}
       </>
     );
   };
   const renderItem = ({ item, navigation, index }) => {
-
     return (
       <>
+        {console.log('item' + item)}
         {/* {index >= prev && index < next ?  */}
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            Email={item.userEmail}
-            // name={Post[IndexOf].name}
-            // Prize={item.prize}
-            // Type={item.type}
+            Email={item[0].userEmail}
+            Address={item[0].userAddress}
+            Phoneno={item[0].userPhoneno}
+            userID={item[0].userID}
             navigation={navigation}
           />
         </View>
         {/* : null} */}
-{console.log(item.userEmail)}
+        {console.log(item)}
       </>
     );
   };
@@ -426,11 +430,12 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
-            {res == 1 ?
-              <FlatList
-                data={Post}
-                renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-              /> : null}
+            {/* {console.log("res",res,Post.userEmail)} */}
+            {res == 1 ? <FlatList
+              data={[Post]}
+              renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+            /> : null}
+
           </View>
         </View>
         <Modal
