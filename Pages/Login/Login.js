@@ -5,24 +5,39 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Text, TextInput, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [eye, seteye] = useState('eye-with-line');
     const [pass, setpass] = useState(true);
+    const [token, settoken] = useState('');
+    const [res, setres] = useState(0)
 
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
     const onPress = () => {
-        let auth ={
-            "userName": email,
-            "password": password
+        let auth = {
+            userName: email,
+            password: password
         }
-        axios.post('http://192.168.0.196:8080/api/login/RegisterSupplier',auth )
-        .then(res => {
-            console.log(res.data);
-        })
-        // email == 'admin' && password == 'admin' ? navigation.navigate('Home') : console.log("invalid")
+        axios.post('http://192.168.0.196:8080/api/login/LoginUser', auth)
+            .then(res => {
+                settoken(res.data.message);
+                setres(1)
+            })        // email == 'admin' && password == 'admin' ? navigation.navigate('Home') : console.log("invalid")
+    }
+    { res == 1 && navigation.navigate('Home',{token:token}) }
+    {
+        res == 1
+            ? axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType', { headers: { Authorization: `Bearer ${token}` } })
+                .then(console.log('done'))
+                .catch(error => console.log(error)).then(
+                    axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType').then(res => console.log(res.data))
+                )
+            : null
     }
     const onPressEye = () => {
         seteye(e => e == 'eye' ? 'eye-with-line' : 'eye')

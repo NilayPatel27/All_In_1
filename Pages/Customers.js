@@ -17,7 +17,7 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Customers = ({ route, navigation }) => {
-  const { Name, IndexOf, ID } = route.params;
+  const { Name, IndexOf, ID, token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
@@ -31,19 +31,24 @@ const Customers = ({ route, navigation }) => {
   }, []);
 
   //call API DATA
-  const getPost = () => {
-    axios.get('http://localhost:8081/AllData').then(res => {
-      if (res.data.length > 0) {
+  let auth = {
+    Id: ID,
+  }
+  console.log('id' + ID)
+  const getPost = async () => {
+    await axios.get("http://192.168.0.196:8080/api/User/GetCustomer?Id=" + ID, { headers: { Authorization: `Bearer ${token}` } })
+      .then(res => {
         setPost(res.data);
         setCopyPost(res.data);
-      } else {
-        setPost([]);
-        setError('No Post Found');
+        setres(1);
       }
-      setres(1);
-    }
-    );
+      ).catch(error => {
+        console.log(error);
+      });
   };
+
+  { res == 1 ? console.log("Post", Post.userEmail) : null }
+
   const deletePost = ID => {
     let str = 'http://localhost:8081/AllData/' + ID;
     axios
@@ -75,342 +80,6 @@ const Customers = ({ route, navigation }) => {
     let url = 'http://localhost:8081/AllData/' + ID;
     axios.put(url, update).then(response => console.log(response.data));
   };
-
-  const [ITEM, setITEM] = useState([
-    {
-      item: 'First',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    }
-
-  ]);
-  const [NEWITEM, setNEWITEM] = useState([
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    }
-
-  ]);
-
 
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
@@ -521,7 +190,8 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation, ItemName, name }) => {
+  const Item = ({ index, navigation, Email, name }) => {
+    console.log(Email)
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
@@ -625,7 +295,7 @@ const Customers = ({ route, navigation }) => {
         }
       }
       else {
-        navigation.navigate('Item', { IndexOfCustomer: IndexOf, indexofItem: index, ItemName: ItemName })
+        navigation.navigate('Item', { IndexOfCustomer: IndexOf, indexofItem: index, Email: Email })
       }
 
       // if (SnackBar == 1) {
@@ -658,7 +328,7 @@ const Customers = ({ route, navigation }) => {
           <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
             <View key={Date.now} style={Customer.listItem}>
               <View style={Customer.details}>
-                {text('Name', ':', ItemName.toUpperCase())}
+                {text('Name', ':', Email.toUpperCase())}
                 {indexValues.indexOf(index) == -1 ? null
                   : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                     <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -678,15 +348,15 @@ const Customers = ({ route, navigation }) => {
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Item
             index={index}
-            ItemName={item.name}
-            name={Post[IndexOf].name}
+            Email={item.userEmail}
+            // name={Post[IndexOf].name}
             // Prize={item.prize}
             // Type={item.type}
             navigation={navigation}
           />
         </View>
         {/* : null} */}
-
+{console.log(item.userEmail)}
       </>
     );
   };
@@ -748,17 +418,17 @@ const Customers = ({ route, navigation }) => {
                 : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
                   <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
-              {res == 1 && next > Post[IndexOf].item.length - 1
+              {/* {res == 1 && next > Post[IndexOf].item.length - 1
                 ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
                   <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>}
+                </TouchableOpacity>} */}
             </View>
           </View>
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
             {res == 1 ?
               <FlatList
-                data={Post[IndexOf].item}
+                data={Post}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               /> : null}
           </View>

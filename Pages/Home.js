@@ -9,16 +9,20 @@ import Right from '../assates/svg/Right.png';
 import axios from 'axios';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
+
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
-const Home = ({ navigation }) => {
+const Home = ({ navigation,route }) => {
+  const { token } = route.params;
+
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
+
   const [alphabates, setalphabates] = useState([
     {
       name: 'A',
@@ -108,7 +112,7 @@ const Home = ({ navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get('http://localhost:8081/AllData').then(res => {
+    axios.get('http://192.168.0.196:8080/api/User/GetAllCustomer',{ headers: { Authorization: `Bearer ${token}` } }).then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
@@ -121,7 +125,9 @@ const Home = ({ navigation }) => {
     );
   };
 
-
+{res===1?
+console.log("Post",Post[0].id):null
+}
   const [USER, setUSER] = useState([
     {
       user: 'nilay._.patel',
@@ -323,6 +329,10 @@ const Home = ({ navigation }) => {
     long = 0;
     count = 0;
   }
+//   {res==1 && 
+// console.log(Post)
+
+//   }
   const modelitem = ({ index }) => {
     return (
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -438,7 +448,8 @@ const Home = ({ navigation }) => {
         navigation.navigate('Customers', {
           Name: Name,
           IndexOf: index,
-          ID: ID
+          ID: ID,
+          token: token,
         });
       }
 
@@ -471,6 +482,7 @@ const Home = ({ navigation }) => {
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: "#005950" }}>
               <Text style={styles.text}>{Name.length > 10 ? Name.slice(0, 7) + '...' : Name}</Text>
+              <Text style={styles.text}>{ID}</Text>
               {!indexValues.includes(index) ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -488,12 +500,12 @@ const Home = ({ navigation }) => {
         {index >= prev && index < next ?
           <Item
             index={index}
-            Name={item.name}
+            Name={item.userName}
             navigation={navigation}
             ID={item.id}
           />
           : null}
-
+{console.log(item.userName)}
       </>
     );
   };
@@ -550,7 +562,7 @@ const Home = ({ navigation }) => {
           </View>
 
           <View style={{ width: '100%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'center' }}>
-            {res == 1 ?
+            {res == 1 ? 
               <FlatList
                 data={Post}
                 numColumns={2}
