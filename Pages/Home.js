@@ -45,70 +45,70 @@ const Home = ({ navigation }) => {
       name: 'H'
     },
     {
-      name:'I'
+      name: 'I'
     },
     {
-      name:'J'
+      name: 'J'
     },
     {
-      name:'K'
+      name: 'K'
     },
     {
-      name:'L'
+      name: 'L'
     },
     {
-      name:'M'
+      name: 'M'
     },
     {
-      name:'N'
+      name: 'N'
     },
     {
-      name:'O'
+      name: 'O'
     },
     {
-      name:'P'
+      name: 'P'
     },
     {
-      name:'Q'
+      name: 'Q'
     },
     {
-      name:'R'
+      name: 'R'
     },
     {
-      name:'S'
+      name: 'S'
     },
     {
-      name:'T'
+      name: 'T'
     },
     {
-      name:'U'
+      name: 'U'
     },
     {
-      name:'V'
+      name: 'V'
     },
     {
-      name:'W'
+      name: 'W'
     },
     {
-      name:'X'
+      name: 'X'
     },
     {
-      name:'Y'
+      name: 'Y'
     },
     {
-      name:'Z'
+      name: 'Z'
     }
   ])
 
   useEffect(() => {
     console.log('DataBase Connected');
     getPost();
-    
+
   }, []);
 
   //call API DATA
   const getPost = () => {
-    axios.get('https://localhost:44370/api/User/GetAllCustomer').then(res => {
+    axios.get('http://localhost:8081/AllData').then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
@@ -116,7 +116,7 @@ const Home = ({ navigation }) => {
         setPost([]);
         setError('No Post Found');
       }
-    setres(1);
+      setres(1);
     }
     );
   };
@@ -264,9 +264,9 @@ const Home = ({ navigation }) => {
     if (text.trim()) {
       const newData = Post.filter(item => {
         const itemData = item.name
-          ? item.name.trim().toUpperCase()
-          : ''.toUpperCase();
-        const textData = text.trim().toUpperCase();
+          ? item.name.trim().toLowerCase()
+          : ''.toLowerCase();
+        const textData = text.trim().toLowerCase();
         return itemData.indexOf(textData) > -1;
       });
       setPost(newData);
@@ -281,7 +281,7 @@ const Home = ({ navigation }) => {
       Post.unshift({
         name: user,
         id: modelid,
-        item:[{name:modelitems}]
+        item: [{ name: modelitems }]
       })
       setModel(false);
     }
@@ -330,7 +330,7 @@ const Home = ({ navigation }) => {
       </View>
     );
   };
-  const Item = ({ index, Name, navigation,ID }) => {
+  const Item = ({ index, Name, navigation, ID }) => {
     const color = index % 2 === 0 ? 'red' : 'blue';
     const [Index, setIndex] = useState(0);
     useEffect(() => {
@@ -437,8 +437,8 @@ const Home = ({ navigation }) => {
       else {
         navigation.navigate('Customers', {
           Name: Name,
-          IndexOf:index,
-          ID:ID
+          IndexOf: index,
+          ID: ID
         });
       }
 
@@ -467,10 +467,10 @@ const Home = ({ navigation }) => {
     return (
       // #ffffe0
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-        <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor:'#fff'}}>
+        <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor: '#fff' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
-            <View style={{ width: '100%', height: '100%',justifyContent:'center', backgroundColor: "#005950" }}>
-              <Text style={styles.text}>{Name.length>10?Name.slice(0,7)+'...':Name}</Text>
+            <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: "#005950" }}>
+              <Text style={styles.text}>{Name.length > 10 ? Name.slice(0, 7) + '...' : Name}</Text>
               {!indexValues.includes(index) ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -488,11 +488,11 @@ const Home = ({ navigation }) => {
         {index >= prev && index < next ?
           <Item
             index={index}
-            Name={item.userName}
+            Name={item.name}
             navigation={navigation}
             ID={item.id}
           />
-        : null}
+          : null}
 
       </>
     );
@@ -524,8 +524,12 @@ const Home = ({ navigation }) => {
                 </MenuOption>
               </MenuOptions>
             </Menu>
-            <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
-              <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
+            <TouchableOpacity
+              style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }}
+              onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
+              <Image
+                source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')}
+                style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
             </TouchableOpacity>
           </View>
           <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
@@ -544,17 +548,17 @@ const Home = ({ navigation }) => {
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
             </View>
           </View>
-          
-          <View style={{width:'100%', backgroundColor: 'white',flexDirection:'row',justifyContent:'center' }}>
-          {res==1?
-            <FlatList
-              data={Post}
-              numColumns={2}
-              horizontal={false}
-              renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-            />
-          
-            :null}
+
+          <View style={{ width: '100%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'center' }}>
+            {res == 1 ?
+              <FlatList
+                data={Post}
+                numColumns={2}
+                horizontal={false}
+                renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+              />
+
+              : null}
             {/* <FlatList
             data={alphabates}
             numColumns={1}
@@ -566,14 +570,14 @@ const Home = ({ navigation }) => {
             }
           /> */}
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5}}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
             <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between' }}>
               {prev == 0
                 ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next - 12); setprev(prev => prev - 12) }}>
                   <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
-              {next > USER.length-1
+              {next > USER.length - 1
                 ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next + 12); setprev(prev => prev + 12) }}>
                   <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />

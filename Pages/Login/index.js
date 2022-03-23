@@ -1,70 +1,27 @@
 import { styles } from './styles'
-import React, { useEffect, useState } from 'react';
-import Log from '../assates/svg/login.svg'
+import React, { useState } from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import axios from 'axios';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { Text, TextInput, TouchableOpacity, View,ImageBackground, Image } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
+import axios from 'axios';
 
 const Login = ({ navigation }) => {
-    const image = { uri: "https://reactjs.org/logo-og.png" };
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [eye, seteye] = useState('eye-with-line');
     const [pass, setpass] = useState(true);
-    const [CopyPost, setCopyPost] = useState(''); // for show copy post
-    const [Post, setPost] = useState([]); // set Api data
 
-    // RNFetchBlob.config({
-    //     trusty : true
-    //   })
- 
-    // const getPost = ( async () => {
-
-    //     await axios.post('https://192.168.0.163:44370/api/Login/LoginUser', {
-    //       "userName": "Nilay27",
-    //       "password": "123456789"
-    //     })
-    //     .then( res => { console.log("\n\n\n\n\n", res.data.message, "res") })
-    //     .catch(err => { console.log("\n\n\n\n\n", err, "\n\n\n\n\n") })
-    //   })()
-
-     const getPost = ( async () => {
-
-      try {
-      await axios.post('https://localhost:44370/api/Login/LoginUser', {
-        "userName": "Nilay27",
-        "password": "123456789"
-      })
-      .then( res => { console.log("\n\n\n\n\n", setPost(res.data.message), "res") })
-      .catch(err => { console.log("\n\n\n\n\n", err, "\n\n\n\n\n") })
-      } catch (error) {
-        console.log(error);
-      }
-    })()
-
-    const handleLogin = () => {
-        axiosInstance
-            .post('/api/Login/LoginUser', {
-                email,
-                password,
-            })
-            .then(res => {
-                console.log(res);
-                if (res.data.length > 0) {
-                    setPost(res.data);
-                    setCopyPost(res.data);
-                } else {
-                    setPost([]);
-                    setError('No Post Found');
-                }
-            });
-    };
-   
-    console.log(Post);
     const onPress = () => {
-        email == 'admin' && password == 'admin' ? navigation.navigate('Home') : console.log("invalid")
+        let auth ={
+            "userName": email,
+            "password": password
+        }
+        axios.post('http://192.168.0.196:8080/api/login/LoginUser',auth )
+        .then(res => {
+            console.log(res.data);
+        })
+        // email == 'admin' && password == 'admin' ? navigation.navigate('Home') : console.log("invalid")
     }
     const onPressEye = () => {
         seteye(e => e == 'eye' ? 'eye-with-line' : 'eye')
@@ -75,16 +32,9 @@ const Login = ({ navigation }) => {
     </View>
     return (
         <>
-            {/* <View style={{flex: 1,justifyContent: 'center',flexDirection: 'row',alignItems:'center'}}> */}
-            <ImageBackground source={require('../assates/13.jpg')} resizeMode="cover" style={{ height:'100%',width:'100%',justifyContent:'center',alignItems:'center'}}>
-    
+            <ImageBackground source={require('../../assates/13.jpg')} resizeMode="cover" style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
                 <View style={styles.second}>
                     <View style={styles.third}>
-                        {/* <View style={styles.logo}> */}
-                            {/* <Log name="user" style={{ flex: 1 }} /> */}
-                            {/* <Image source={require('../assates/logo.jpg')} style={{ width: '100%', height: '100%',backgroundColor:'red' }} /> */}
-
-                        {/* </View> */}
                         <View style={[styles.inputField, { justifyContent: "flex-start" }]}>
                             <Icon name="user" size={25} color="#fff" />
                             <TextInput
@@ -118,8 +68,7 @@ const Login = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-                </ImageBackground>
-            {/* </View> */}
+            </ImageBackground>
         </>
     )
 }

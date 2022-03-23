@@ -32,7 +32,7 @@ const Customers = ({ route, navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get('https://localhost:44370/api/User/GetCustomer?Id=' + `${ID}`).then(res => {
+    axios.get('http://localhost:8081/AllData').then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
