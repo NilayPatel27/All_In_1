@@ -1,11 +1,10 @@
 import { styles } from './styles'
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { Text, TextInput, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 import axios from 'axios';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -15,29 +14,38 @@ const Login = ({ navigation }) => {
     const [token, settoken] = useState('');
     const [res, setres] = useState(0)
 
+    const userRef = useRef(null);
+    const passRef = useRef(null);
+
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    const onPress = () => {
-        let auth = {
-            userName: email,
-            password: password
-        }
-        axios.post('http://192.168.0.196:8080/api/login/LoginUser', auth)
-            .then(res => {
-                settoken(res.data.message);
-                setres(1)
-            })        // email == 'admin' && password == 'admin' ? navigation.navigate('Home') : console.log("invalid")
+    let auth = {
+        userName: email,
+        password: password
     }
-    { res == 1 && navigation.navigate('Home',{token:token}) }
-    {
-        res == 1
-            ? axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType', { headers: { Authorization: `Bearer ${token}` } })
-                .then(console.log('done'))
-                .catch(error => console.log(error)).then(
-                    axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType').then(res => console.log(res.data))
-                )
-            : null
+    const onPress = () => {
+        if (email.trim() === '' || password.trim() === '') {
+            alert('Please fill all the fields');
+        } else {
+            setEmail(userRef.current.value);
+            setPassword(passRef.current.value);
+            axios.post('http://192.168.0.196:8080/api/login/LoginUser', auth)
+                .then(res => {
+                    settoken(res.data.message);
+                    setres(1)
+                })
+        }
+        { res == 1 && navigation.navigate('Home', { token: token }) }
+        {
+            res == 1
+                ? axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType', config)
+                    .then(console.log('done'))
+                    .catch(error => console.log(error)).then(
+                        axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType').then(res => console.log(res.data))
+                    )
+                : null
+        }
     }
     const onPressEye = () => {
         seteye(e => e == 'eye' ? 'eye-with-line' : 'eye')
@@ -57,7 +65,8 @@ const Login = ({ navigation }) => {
                                 style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
                                 placeholder="Email"
                                 placeholderTextColor="#fff"
-                                onChangeText={(email) => setEmail(email)}
+                                // onChangeText={(email) => setEmail(email)}
+                                ref={userRef}
                                 autoComplete={'off'}
                             />
                         </View>
@@ -69,7 +78,8 @@ const Login = ({ navigation }) => {
                                 placeholder="Password"
                                 secureTextEntry={pass}
                                 placeholderTextColor="#fff"
-                                onChangeText={(password) => setPassword(password)}
+                                // onChangeText={(password) => setPassword(password)}
+                                ref={passRef}
                                 autoComplete={'off'}
                             />
                             <TouchableOpacity onPress={onPressEye}>
