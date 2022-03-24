@@ -54,7 +54,7 @@ const Login = ({ navigation }) => {
     </View>
     return (
         <>
-            <ImageBackground source={require('../../assates/13.jpg')} resizeMode="cover" style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            <ImageBackground source={require('../../assates/13.jpg')} resizeMode="cover" style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
                 <View style={styles.second}>
                     <View style={styles.third}>
                         <View style={[styles.inputField, { justifyContent: "flex-start" }]}>
