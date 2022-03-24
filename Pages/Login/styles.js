@@ -2,12 +2,13 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     textInput: {
-        paddingBottom: 10,
+        // paddingBottom: 10,
         borderColor: 'gray',
         paddingLeft: 10,
         borderWidth: 0,
         borderRadius: 8,
-        color: '#fff',
+        color: '#2D333A',
+        borderWidth: 1,
         width: '80%'
     },
     first: {
@@ -21,18 +22,19 @@ export const styles = StyleSheet.create({
         width: '90%',
         height: "80%",
         // elevation: 10,
-        shadowRadius: 3.5,
+        // shadowRadius: 3.5,
         // shadowColor: 'blue',
         // shadowOpacity: 0.25,
         flexDirection: "row",
-        // backgroundColor: "rgba(255,255,255, 0s)",
+        // backgroundColor: "red",
         justifyContent: "center",
+        alignItems: "center"
         // shadowOffset: { width: 0, height: 5 }
     },
     third: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     Divider: {
         width: "100%",

@@ -8,16 +8,20 @@ import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import axios from 'axios';
 import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import SelectDropdown from 'react-native-select-dropdown'
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
-  const { IndexOfCustomer, indexofItem, ItemName } = route.params;
+  const { IndexOfCustomer, ItemName, ID, token } = route.params;
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
+  const [categoryNames, setcategoryNames] = useState([]);
+  // const [arr, setarr] = useState(0);
+  let arr = []
   useEffect(() => {
     console.log('DataBase Connected');
     getPost();
@@ -26,432 +30,25 @@ const Item = ({ route, navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get('http://localhost:8081/AllData').then(res => {
-      if (res.data.length > 0) {
+    axios.get("http://192.168.0.196:8080/api/Category/GetAllCategory", { headers: { Authorization: `Bearer ${token}` } })
+      .then(res => {
         setPost(res.data);
         setCopyPost(res.data);
-      } else {
-        setPost([]);
-        setError('No Post Found');
-      }
-      setres(1);
-    }
-    );
+        setres(1);
+      })
+      .catch(error => console.log(error));
   };
+  if (res == 1) {
+    for (let i = 0; i < Post.length; i++) {
+      categoryNames.push[Post[i].categoryName];
+    }
+  }
   const [array, setarray] = useState([]);
 
   let color = '#fff'
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
 
-  const [USER, setUSER] = useState([
-    {
-      user: 'ITEM 1',
-    },
-    {
-      user: 'ITEM 2',
-    },
-    {
-      user: 'ITEM 3',
-    },
-    {
-      user: 'ITEM 4',
-    },
-    {
-      user: 'ITEM 5',
-    },
-    {
-      user: 'ITEM 6',
-    },
-    {
-      user: 'ITEM 7',
-    },
-    {
-      user: 'ITEM 8',
-    },
-    {
-      user: 'ITEM 9',
-    },
-    {
-      user: 'ITEM 10',
-    }
-
-  ]);
-  const [NEWUSER, setNEWUSER] = useState([
-    {
-      user: 'ITEM 1',
-    },
-    {
-      user: 'ITEM 2',
-    },
-    {
-      user: 'ITEM 3',
-    },
-    {
-      user: 'ITEM 4',
-    },
-    {
-      user: 'ITEM 5',
-    },
-    {
-      user: 'ITEM 6',
-    },
-    {
-      user: 'ITEM 7',
-    },
-    {
-      user: 'ITEM 8',
-    },
-    {
-      user: 'ITEM 9',
-    },
-    {
-      user: 'ITEM 10',
-    }
-
-  ]);
-  const [ITEM, setITEM] = useState([
-    {
-      item: 'First',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'First',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    }
-
-  ]);
-  const [NEWITEM, setNEWITEM] = useState([
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 1',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 2',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 3',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 4',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 5',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 6',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 7',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 8',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 9',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    },
-    {
-      item: 'Item 10',
-      prize: 10,
-      type: 'fruits',
-      star: 0,
-      color: "yellow",
-      weightInKg: 5
-    }
-
-  ]);
   const [search, setsearch] = useState('');
   const [user, setuser] = useState('');
   const searchFilter = text => {
@@ -470,15 +67,20 @@ const Item = ({ route, navigation }) => {
       setsearch(text);
     }
   };
+  // const [c, setc] = useState(test)
+  // console.log(Post[0].id)
+  let nameofCategory = {
+    id:"bae4aede-3f5f-4607-3b3a-08da07cfdce9",
+    categoryName:"Shoes"
+  }
   const addItem = () => {
-    if (user.trim() !== '') {
-      USER.unshift({
-        user: user,
-      })
-      setModel(false);
+    axios.put('http://192.168.0.196:8080/api/Category/UpdateCategory?id=bae4aede-3f5f-4607-3b3a-08da07cfdce9', nameofCategory, { headers: { Authorization: `Bearer ${token}` } }).then(res => {
+      console.log(res);
     }
-    setuser('');
-
+    ).catch(err => {
+      console.log(err);
+    }
+    )
   }
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
@@ -534,7 +136,8 @@ const Item = ({ route, navigation }) => {
     </View>
   const [select, setselect] = useState(-1);
 
-  const Item = ({ index, ItemName, ItemPrize, ItemType, ItemStar, ItemColor, ItemWeight }) => {
+  const Item = ({ index, categoryName, navigation }) => {
+    arr.push(categoryName);
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
     //   if (select == 1) {
@@ -667,17 +270,11 @@ const Item = ({ route, navigation }) => {
         <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
-              {text('Name', ItemName.toUpperCase())}
-              {text('Prize', ItemPrize)}
-              {text('Type', ItemType.toUpperCase())}
-              {text('Star', ItemStar)}
-              {text('Color', ItemColor.toUpperCase())}
-              {text('Weight', ItemWeight)}
+              {text('categoryName', categoryName.toUpperCase())}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
                 </View>}
-
             </View>
           </View>
         </View>
@@ -685,25 +282,16 @@ const Item = ({ route, navigation }) => {
     );
   };
   const renderItem = ({ item, index }) => {
+
     return (
       <>
-        {/* {console.log(item.name,ItemName)} */}
-        {item.name == ItemName ?
-          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Item
-              index={index}
-              ItemName={item.name}
-              ItemPrize={item.price}
-              ItemType={item.type}
-              ItemStar={item.star}
-              ItemColor={item.color}
-              ItemWeight={item.weightInKg}
-              name={item}
-
-              navigation={navigation}
-            />
-          </View>
-          : null}
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Item
+            index={index}
+            categoryName={item.categoryName}
+            navigation={navigation}
+          />
+        </View>
 
       </>
     );
@@ -721,7 +309,7 @@ const Item = ({ route, navigation }) => {
         onFinishRating={ratingCompleted}
       /> */}
       <View style={Customer.header}>
-        {header('SUPPLIER NAME')}
+        {header('Category Names')}
         {/* {header(ItemName.toUpperCase())} */}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
           <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
@@ -744,12 +332,13 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
+
+
       {res == 1 ?
         <FlatList
-          data={Post[IndexOfCustomer].item}
+          data={Post}
           renderItem={({ item, index }) => renderItem({ navigation, item, index })}
         /> : null}
-      {/* {res == 1 ? console.log([Post[0][0].item]) : null} */}
       <Modal
         isVisible={model}
         animationType={'slide'}
@@ -772,8 +361,27 @@ const Item = ({ route, navigation }) => {
             paddingTop: 20,
             backgroundColor: 'white'
           }}>
+          {res == 1 ?
+            <SelectDropdown
+              data={arr}
+              defaultButtonText={'Select Category'}
+              dropdownStyle={{ width: '50%', backgroundColor: 'white' }}
+              onSelect={(selectedItem, index) => {
+                console.log(selectedItem, index)
+              }}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                // text represented after item is selected
+                // if data array is an array of objects then return selectedItem.property to render after item is selected
+                return selectedItem
+              }}
+              rowTextForSelection={(item, index) => {
+                // text represented for each item in dropdown
+                // if data array is an array of objects then return item.property to represent item in dropdown
+                return item
+              }}
+            /> : null}
           <TextInput
-            style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+            style={[styles.textInput, { width: '90%', marginLeft: 5, marginTop: 10 }]}
             placeholder="Item Name"
             placeholderTextColor="#2d333a"
             onChangeText={(Name) => setuser(Name)}

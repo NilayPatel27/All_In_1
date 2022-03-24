@@ -190,7 +190,7 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation, Email, Address ,Phoneno,userID}) => {
+  const Item = ({ index, navigation, Email, Address ,Phoneno,userID,Photo}) => {
     console.log(Email)
     const [Index, setIndex] = useState(0);
     useEffect(() => {
@@ -295,7 +295,7 @@ const Customers = ({ route, navigation }) => {
         }
       }
       else {
-        navigation.navigate('Item', { IndexOfCustomer: IndexOf, indexofItem: index, Email: Email })
+        navigation.navigate('Item', { IndexOfCustomer: IndexOf, token:token, Email: Email,ID:ID })
       }
 
       // if (SnackBar == 1) {
@@ -323,15 +323,17 @@ const Customers = ({ route, navigation }) => {
     return (
       // #ffffe0
       <>
-        {console.log(Email)}
-        {/* {name == Name ? */}
         <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
           <View key={Date.now} style={Customer.listItem}>
             <View style={Customer.details}>
-              {text('Name', ':', Email.toUpperCase())}
-              {text('Address', ':', Address.toUpperCase())}
-              {text('Phoneno', ':', Phoneno.toUpperCase())}
-              {text('userID', ':', userID.toUpperCase())}
+              {text('Name', ':', Email)}
+              {text('Address', ':', Address)}
+              {text('Phoneno', ':', Phoneno)}
+              {text('userID', ':', userID)}
+              {/* <Image 
+              source={{uri:Photo}}
+              style={{width:100,height:100,borderRadius:50}}
+              /> */}
 
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
@@ -340,7 +342,6 @@ const Customers = ({ route, navigation }) => {
             </View>
           </View>
         </TouchableWithoutFeedback>
-        {/* : null} */}
       </>
     );
   };
@@ -356,6 +357,7 @@ const Customers = ({ route, navigation }) => {
             Address={item[0].userAddress}
             Phoneno={item[0].userPhoneno}
             userID={item[0].userID}
+            Photo={item[0].userPhoto}
             navigation={navigation}
           />
         </View>
