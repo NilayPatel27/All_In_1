@@ -1,6 +1,68 @@
 import { StyleSheet } from 'react-native'
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
+    Add: {
+        height: 50,
+        width: '60%',
+        marginVertical: 10,
+        flexDirection: 'row',
+        alignItems: "center",
+        backgroundColor: "green",
+        justifyContent: 'center',
+        borderRadius: 25
+      },
+    cancle: {
+        height: 50,
+        width: '60%',
+        marginVertical: 10,
+        flexDirection: 'row',
+        alignItems: "center",
+        borderWidth: 1,
+        justifyContent: 'center',
+        borderRadius: 25
+      },
+    delete: {
+        height: 50,
+        width: '60%',
+        marginVertical: 10,
+        flexDirection: 'row',
+        alignItems: "center",
+        backgroundColor: "green",
+        justifyContent: 'center',
+        borderRadius: 25
+      },
+    modelview: {
+        flexDirection: 'column',
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+        width: '100%',
+        paddingTop: 20
+      },
+      modelitem: {
+        color: 'black',
+        fontWeight: '400',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 5
+      },
+      customerTextInput: {
+        paddingBottom: 10,
+        borderColor: '#DB4437',
+        paddingLeft: 10,
+        borderWidth: 1,
+        borderRadius: 8,
+        color: '#2d333a',
+        width: '80%',
+        marginBottom: 10
+      },
+    text: {
+        color: '#DB4437',
+        fontSize: 15,
+        alignSelf: 'center',
+        fontWeight: 'bold'
+    },
     textInput: {
         // paddingBottom: 10,
         borderColor: 'gray',
@@ -41,6 +103,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "center"
     },
+    textInputStyle: {
+        height: 40,
+        color: 'black',
+        borderRadius: 20,
+        width: '90%'
+    },
     button: {
         height: 50,
         width: '90%',
@@ -64,21 +132,38 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginHorizontal: 20,
         marginVertical: 5
-    }
-})
-
-const Customer = StyleSheet.create({
-    textInputStyle: {
-        height: 40,
-        color: 'black',
-        borderRadius: 20,
-        width: '90%'
     },
-    Divider: {
-        width: "100%",
-        alignItems: 'center',
+    col: {
+        position: "absolute",
+        left: "50%",
+        color: '#DB4437',
+        fontWeight: "bold",
+        paddingHorizontal: 25
+    },
+    details: {
+        flex: 1,
         justifyContent: "center",
+        backgroundColor: "#ffd7ae",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
     },
+    customerListItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 25,
+        marginBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+        backgroundColor: '#ADEFD1FF',
+        height: 60,
+        marginVertical: 10,
+      },
     listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -91,51 +176,6 @@ const Customer = StyleSheet.create({
         elevation: 10,
         // height: 60,
         marginVertical: 10,
-    },
-    details: {
-        flex: 1,
-        justifyContent: "center",
-        backgroundColor: "#ffd7ae",
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.34,
-        shadowRadius: 6.27,
-        elevation: 10,
-    },
-    item: {
-        paddingVertical: 10,
-        marginVertical: 8,
-        marginHorizontal: 16,
-        flexDirection: 'row',
-        borderRadius: 6,
-    },
-    story: {
-        width: 55,
-        height: 55,
-        borderRadius: 50,
-        borderWidth: 1,
-        borderColor: '#00203FFF',
-        margin: 5,
-        marginLeft: 15
-    },
-    title: {
-        fontSize: 18,
-        marginLeft: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    text: {
-        color: '#DB4437',
-        fontSize: 15,
-        alignSelf: 'center',
-        fontWeight: 'bold'
-    },
-    col: {
-        position: "absolute",
-        left: "50%",
-        color: '#DB4437',
-        fontWeight: "bold",
-        paddingHorizontal: 25
     },
     header: {
         height: '10%',
@@ -152,4 +192,4 @@ const Customer = StyleSheet.create({
         elevation: 10
     },
 })
-export { styles, Customer }
+
