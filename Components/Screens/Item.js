@@ -1,5 +1,5 @@
 import React from 'react'
-import { Customer } from './styles'
+import { styles } from './styles'
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
@@ -268,7 +268,7 @@ const Item = ({ route, navigation }) => {
         onPress={onPress}
       >
         <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
-          <View key={index} style={[styles.listItem, { width: '85%' }]}>
+          <View key={index} style={[styles.itemListItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
               {text('categoryName', categoryName.toUpperCase())}
               {indexValues.indexOf(index) == -1 ? null
@@ -308,7 +308,7 @@ const Item = ({ route, navigation }) => {
         // showRating
         onFinishRating={ratingCompleted}
       /> */}
-      <View style={Customer.header}>
+      <View style={styles.itemHeader}>
         {header('Category Names')}
         {/* {header(ItemName.toUpperCase())} */}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
@@ -319,7 +319,7 @@ const Item = ({ route, navigation }) => {
       <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
           <TextInput
-            style={Customer.textInputStyle}
+            style={styles.textInputStyle}
             value={search}
             placeholder="Search Item"
             placeholderTextColor="#DB4437"
@@ -328,7 +328,7 @@ const Item = ({ route, navigation }) => {
           </TextInput>
           <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
         </View>
-        <View style={Customer.Divider}>
+        <View style={styles.Divider}>
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
@@ -381,7 +381,7 @@ const Item = ({ route, navigation }) => {
               }}
             /> : null}
           <TextInput
-            style={[styles.textInput, { width: '90%', marginLeft: 5, marginTop: 10 }]}
+            style={[styles.homeTextInput, { width: '90%', marginLeft: 5, marginTop: 10 }]}
             placeholder="Item Name"
             placeholderTextColor="#2d333a"
             onChangeText={(Name) => setuser(Name)}
@@ -440,107 +440,4 @@ const Item = ({ route, navigation }) => {
   )
 }
 
-export default Item
-
-const styles = StyleSheet.create({
-  listItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 25,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-    backgroundColor: '#ADEFD1FF',
-    marginVertical: 10,
-  },
-  story: {
-    width: 55,
-    height: 55,
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: '#00203FFF',
-    margin: 5,
-    marginLeft: 15
-  },
-  text: {
-    color: '#DB4437',
-    fontSize: 15,
-    alignSelf: 'center',
-    fontWeight: 'bold'
-  },
-  col: {
-    position: "absolute",
-    left: "50%",
-    color: '#DB4437',
-    fontWeight: "bold",
-    paddingHorizontal: 25
-  },
-  Divider: {
-    width: "100%",
-    alignItems: 'center',
-    justifyContent: "center"
-  },
-  header: {
-    height: '10%',
-    width: '100%',
-    justifyContent: 'flex-start',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 25,
-    backgroundColor: "#e90c59",
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10
-  },
-  textInput: {
-    paddingBottom: 10,
-    borderColor: 'gray',
-    paddingLeft: 10,
-    borderWidth: 1,
-    borderRadius: 8,
-    color: '#2d333a',
-    width: '80%',
-    marginBottom: 10
-  },
-  delete: {
-    height: 50,
-    width: '60%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    backgroundColor: "green",
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  Add: {
-    height: 50,
-    width: '60%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    backgroundColor: "green",
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  cancle: {
-    height: 50,
-    width: '60%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    borderWidth: 1,
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  textInputStyle: {
-    height: 40,
-    color: 'black',
-    borderRadius: 20,
-    width: '90%'
-  },
-});
+export default Item;
