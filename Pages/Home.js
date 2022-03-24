@@ -1,118 +1,33 @@
 import React from 'react'
+import axios from 'axios';
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
 import MenuButton from '../assates/svg/MenuButton.svg';
-import Left from '../assates/svg/Left.png';
-import Right from '../assates/svg/Right.png';
-import axios from 'axios';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
-
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
-const Home = ({ navigation,route }) => {
+const Home = ({ navigation, route }) => {
   const { token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
 
-  const [alphabates, setalphabates] = useState([
-    {
-      name: 'A',
-    },
-    {
-      name: 'B',
-    },
-    {
-      name: 'C',
-    },
-    {
-      name: 'D',
-    },
-    {
-      name: 'E',
-    },
-    {
-      name: 'F',
-    },
-    {
-      name: 'G',
-    },
-    {
-      name: 'H'
-    },
-    {
-      name: 'I'
-    },
-    {
-      name: 'J'
-    },
-    {
-      name: 'K'
-    },
-    {
-      name: 'L'
-    },
-    {
-      name: 'M'
-    },
-    {
-      name: 'N'
-    },
-    {
-      name: 'O'
-    },
-    {
-      name: 'P'
-    },
-    {
-      name: 'Q'
-    },
-    {
-      name: 'R'
-    },
-    {
-      name: 'S'
-    },
-    {
-      name: 'T'
-    },
-    {
-      name: 'U'
-    },
-    {
-      name: 'V'
-    },
-    {
-      name: 'W'
-    },
-    {
-      name: 'X'
-    },
-    {
-      name: 'Y'
-    },
-    {
-      name: 'Z'
-    }
-  ])
-
   useEffect(() => {
     console.log('DataBase Connected');
     getPost();
-
   }, []);
 
   //call API DATA
   const getPost = () => {
-    axios.get('http://192.168.0.196:8080/api/User/GetAllCustomer',{ headers: { Authorization: `Bearer ${token}` } }).then(res => {
+    axios.get('http://192.168.0.196:8080/api/User/GetAllCustomer', { headers: { Authorization: `Bearer ${token}` } }).then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
@@ -125,135 +40,6 @@ const Home = ({ navigation,route }) => {
     );
   };
 
-{res===1?
-console.log("Post",Post[0].id):null
-}
-  const [USER, setUSER] = useState([
-    {
-      user: 'nilay._.patel',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahuulv23',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahul',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'nilay._.patel',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahuulv23',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahul',
-    },
-    {
-      user: 'nilay',
-    }
-
-  ]);
-  const [NEWUSER, setNEWUSER] = useState([
-    {
-      user: 'nilay._.patel',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahuulv23',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahul',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'nilay._.patel',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahuulv23',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'nilay',
-    },
-    {
-      user: 'darshan',
-    },
-    {
-      user: 'harshil',
-    },
-    {
-      user: 'rahul',
-    },
-    {
-      user: 'nilay',
-    }
-
-  ]);
   const [array, setarray] = useState([]);
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
@@ -329,10 +115,6 @@ console.log("Post",Post[0].id):null
     long = 0;
     count = 0;
   }
-//   {res==1 && 
-// console.log(Post)
-
-//   }
   const modelitem = ({ index }) => {
     return (
       <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -341,14 +123,13 @@ console.log("Post",Post[0].id):null
     );
   };
   const Item = ({ index, Name, navigation, ID }) => {
-    const color = index % 2 === 0 ? 'red' : 'blue';
     const [Index, setIndex] = useState(0);
     useEffect(() => {
       if (select == 1) {
         if (indexValues.indexOf(index) == -1) {
           indexValues.push(index);
         }
-        count = USER.length;
+        count = Post.length;
         long = 1;
         // if (index == USER.length - 1) {
         //   Snackbar.show({
@@ -482,7 +263,6 @@ console.log("Post",Post[0].id):null
           <View key={index} style={[styles.listItem, { width: '85%' }]}>
             <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: "#005950" }}>
               <Text style={styles.text}>{Name.length > 10 ? Name.slice(0, 7) + '...' : Name}</Text>
-              <Text style={styles.text}>{ID}</Text>
               {!indexValues.includes(index) ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -494,7 +274,6 @@ console.log("Post",Post[0].id):null
     );
   };
   const renderItem = ({ item, navigation, index }) => {
-
     return (
       <>
         {index >= prev && index < next ?
@@ -505,7 +284,6 @@ console.log("Post",Post[0].id):null
             ID={item.id}
           />
           : null}
-{console.log(item.userName)}
       </>
     );
   };
@@ -560,27 +338,15 @@ console.log("Post",Post[0].id):null
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
             </View>
           </View>
-
           <View style={{ width: '100%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'center' }}>
-            {res == 1 ? 
+            {res == 1 ?
               <FlatList
                 data={Post}
                 numColumns={2}
                 horizontal={false}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
               />
-
               : null}
-            {/* <FlatList
-            data={alphabates}
-            numColumns={1}
-            horizontal={false}
-            renderItem={({ item, index }) =>
-            <TouchableOpacity onPress={()=>console.log('Pressed')}>
-            <Text>{item.name}</Text>
-            </TouchableOpacity>
-            }
-          /> */}
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
             <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -589,11 +355,11 @@ console.log("Post",Post[0].id):null
                 : <TouchableOpacity onPress={() => { setnext(next => next - 12); setprev(prev => prev - 12) }}>
                   <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
-              {next > USER.length - 1
+              {/* {next > USER.length - 1
                 ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next + 12); setprev(prev => prev + 12) }}>
                   <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>}
+                </TouchableOpacity>} */}
             </View>
           </View>
         </View>
