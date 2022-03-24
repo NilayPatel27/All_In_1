@@ -47,6 +47,12 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 5
       },
+      homeText: {
+        color: '#fff',
+        fontSize: 25,
+        alignSelf: 'center',
+        fontWeight: 'bold'
+      },
       customerTextInput: {
         paddingBottom: 10,
         borderColor: '#DB4437',
@@ -73,6 +79,16 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         width: '80%'
     },
+    homeTextInput: {
+        paddingBottom: 10,
+        borderColor: 'gray',
+        paddingLeft: 10,
+        borderWidth: 1,
+        borderRadius: 8,
+        color: '#2d333a',
+        width: '80%',
+        marginBottom: 10
+      },
     first: {
         flex: 1,
         backgroundColor: "purple",
@@ -164,6 +180,20 @@ export const styles = StyleSheet.create({
         height: 60,
         marginVertical: 10,
       },
+      HomeListItem: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        // marginHorizontal: 25,
+        marginBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+        backgroundColor: '#ADEFD1FF',
+        height: 60,
+        marginVertical: 10,
+      },
     listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -191,5 +221,19 @@ export const styles = StyleSheet.create({
         shadowRadius: 6.27,
         elevation: 10
     },
+    homeHeader: {
+        height: '10%',
+        width: '100%',
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 25,
+        backgroundColor: "#171515",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10
+      },
 })
 

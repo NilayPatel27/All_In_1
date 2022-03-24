@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import { styles } from './styles';
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
@@ -260,9 +261,9 @@ const Home = ({ navigation, route }) => {
       // #ffffe0
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
         <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor: '#fff' }}>
-          <View key={index} style={[styles.listItem, { width: '85%' }]}>
+          <View key={index} style={[styles.HomeListItem, { width: '85%' }]}>
             <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: "#005950" }}>
-              <Text style={styles.text}>{Name.length > 10 ? Name.slice(0, 7) + '...' : Name}</Text>
+              <Text style={styles.homeText}>{Name.length > 10 ? Name.slice(0, 7) + '...' : Name}</Text>
               {!indexValues.includes(index) ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: '#DB4437', borderRadius: 50 }}></View>
@@ -291,7 +292,7 @@ const Home = ({ navigation, route }) => {
     <>
       <MenuProvider>
         <View style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View style={styles.header}>
+          <View style={styles.homeHeader}>
             <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
             <Menu onSelect={value => setselect(value)} >
               <MenuTrigger>
@@ -376,21 +377,21 @@ const Home = ({ navigation, route }) => {
         >
           <View style={styles.modelview}>
             <TextInput
-              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Customer Name"
               placeholderTextColor="#2d333a"
               onChangeText={(Name) => setuser(Name)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Customer Name"
               placeholderTextColor="#2d333a"
               onChangeText={(id) => setmodelid(id)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.textInput, { width: '90%', marginLeft: 5 }]}
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Customer Name"
               placeholderTextColor="#2d333a"
               onChangeText={(item) => setmodelitems(item)}
@@ -439,121 +440,5 @@ const Home = ({ navigation, route }) => {
     </>
   )
 }
-const styles = StyleSheet.create({
-  modelview: {
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-    width: '100%',
-    paddingTop: 20
-  },
-  delete: {
-    height: 50,
-    width: '60%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    backgroundColor: "green",
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  cancle: {
-    height: 50,
-    width: '60%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    borderWidth: 1,
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  Add: {
-    height: 50,
-    width: '60%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    backgroundColor: "green",
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  listItem: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    // marginHorizontal: 25,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10,
-    backgroundColor: '#ADEFD1FF',
-    height: 60,
-    marginVertical: 10,
-  },
-  story: {
-    width: 55,
-    height: 55,
-    borderRadius: 50,
-    borderWidth: 1,
-    borderColor: '#00203FFF',
-    margin: 5,
-    marginLeft: 15
-  },
-  text: {
-    color: '#fff',
-    fontSize: 25,
-    alignSelf: 'center',
-    fontWeight: 'bold'
-  },
-  Divider: {
-    width: "100%",
-    alignItems: 'center',
-    justifyContent: "center"
-  },
-  header: {
-    height: '10%',
-    width: '100%',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 25,
-    backgroundColor: "#171515",
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-    elevation: 10
-  },
-  textInput: {
-    paddingBottom: 10,
-    borderColor: 'gray',
-    paddingLeft: 10,
-    borderWidth: 1,
-    borderRadius: 8,
-    color: '#2d333a',
-    width: '80%',
-    marginBottom: 10
-  },
-  button: {
-    height: 50,
-    width: '50%',
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: "center",
-    marginHorizontal: 20,
-    backgroundColor: "green",
-    justifyContent: 'center',
-    borderRadius: 25
-  },
-  textInputStyle: {
-    height: 40,
-    color: 'black',
-    borderRadius: 20,
-    width: '90%'
-  },
-});
 
 export default Home
