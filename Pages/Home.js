@@ -55,8 +55,8 @@ const Home = ({ navigation, route }) => {
   const searchFilter = text => {
     if (text.trim()) {
       const newData = Post.filter(item => {
-        const itemData = item.name
-          ? item.name.trim().toLowerCase()
+        const itemData = item.userName
+          ? item.userName.trim().toLowerCase()
           : ''.toLowerCase();
         const textData = text.trim().toLowerCase();
         return itemData.indexOf(textData) > -1;
