@@ -1,23 +1,17 @@
+import axios from 'axios';
 import { styles } from './styles'
+import Modal from 'react-native-modal';
 import React, { useState } from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { Text, TextInput, TouchableOpacity, View, ImageBackground, Image } from 'react-native';
-import axios from 'axios';
-import Modal from 'react-native-modal';
-// import * as ImagePicker from 'react-native-image-crop-picker';
-// import ImagePicker from 'react-native-image-picker';
-
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('mansi');
     const [password, setPassword] = useState('mansi1234');
     const [eye, seteye] = useState('eye-with-line');
     const [pass, setpass] = useState(true);
-    const [token, settoken] = useState('');
-    const [res, setres] = useState(0);
     const [model, setModel] = useState(false);
 
     const choosePhotoFromCamera = () => {
@@ -26,9 +20,9 @@ const Login = ({ navigation }) => {
             width: 300,
             height: 400,
             cropping: true,
-          }).then(image => {
+        }).then(image => {
             console.log(image);
-          });
+        });
     };
     const choosePhotoFromGalary = () => {
         console.warn('choosePhotoFromGalary');
@@ -36,12 +30,9 @@ const Login = ({ navigation }) => {
             width: 300,
             height: 400,
             cropping: true
-          }).then(image => {
+        }).then(image => {
             console.log(image);
-          });
-    };
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
+        });
     };
     const onPress = () => {
         let auth = {
@@ -49,20 +40,7 @@ const Login = ({ navigation }) => {
             password: password
         }
         axios.post('http://192.168.0.196:8080/api/login/LoginUser', auth)
-            .then(res => {
-                settoken(res.data.message);
-                setres(1)
-            })        // email == 'admin' && password == 'admin' ? navigation.navigate('Home') : console.log("invalid")
-    }
-    { res == 1 && navigation.navigate('Home', { token: token }) }
-    {
-        res == 1
-            ? axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType', { headers: { Authorization: `Bearer ${token}` } })
-                .then(console.log('done'))
-                .catch(error => console.log(error)).then(
-                    axios.get('http://192.168.0.196:8080/api/UserType/GetAllUserType').then(res => console.log(res.data))
-                )
-            : null
+            .then(res => navigation.navigate('Home', { token: res.data.message }))
     }
     const onPressEye = () => {
         seteye(e => e == 'eye' ? 'eye-with-line' : 'eye')
@@ -192,7 +170,7 @@ const Login = ({ navigation }) => {
                                 backgroundColor: '#DDDDDD',
                                 padding: 5
                             }}
-                            onPress={()=>choosePhotoFromCamera}>
+                            onPress={() => choosePhotoFromCamera}>
                             <Text style={{
                                 padding: 10,
                                 color: 'black',
@@ -208,7 +186,7 @@ const Login = ({ navigation }) => {
                                 backgroundColor: '#DDDDDD',
                                 padding: 5
                             }}
-                            onPress={()=>choosePhotoFromGalary}>
+                            onPress={() => choosePhotoFromGalary}>
                             <Text style={{
                                 padding: 10,
                                 color: 'black',
