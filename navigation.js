@@ -1,10 +1,10 @@
 import React from 'react'
-import Home from './Pages/Home';
-import Item from './Pages/Item';
-import Login from './Pages/Login/Login';
-import Customers from './Pages/Customers';
-import SearchBarScreen from './Pages/SearchBarScreen';
-import Node from './Pages/node';
+import Home from './Components/Screens/Home';
+import Item from './Components/Screens/Item';
+import Login from './Components/Screens/Login';
+import Customers from './Components/Screens/Customers';
+import SearchBarScreen from './Components/SearchBarScreen';
+import Node from './Components/node';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

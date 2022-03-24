@@ -1,16 +1,15 @@
-import React from 'react'
-import { Customer } from './styles'
-import { useState } from 'react';
+import React from 'react';
+import axios from 'axios';
+import { Customer } from './styles';
+import Modal from 'react-native-modal';
+import { useEffect, useState } from 'react';
 import Cross from '../assates/svg/Cross.svg';
+import Snackbar from 'react-native-snackbar';
+import Back from '../assates/svg/BackWithcircle.svg';
 import MenuButton from '../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-import Back from '../assates/svg/BackWithcircle.svg';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View, Dimensions } from 'react-native'
-import { useEffect } from 'react';
-import Snackbar from 'react-native-snackbar';
-import Modal from 'react-native-modal';
-import axios from 'axios';
+import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 
 let indexValues = [];
 let long = 0;
@@ -190,7 +189,7 @@ const Customers = ({ route, navigation }) => {
       <Text style={Customer.col}>{col}</Text>
       <Text style={Customer.text}>{content}</Text>
     </View>
-  const Item = ({ index, navigation, Email, Address ,Phoneno,userID,Photo}) => {
+  const Item = ({ index, navigation, Email, Address, Phoneno, userID, Photo }) => {
     console.log(Email)
     const [Index, setIndex] = useState(0);
     useEffect(() => {
@@ -295,7 +294,7 @@ const Customers = ({ route, navigation }) => {
         }
       }
       else {
-        navigation.navigate('Item', { IndexOfCustomer: IndexOf, token:token, Email: Email,ID:ID })
+        navigation.navigate('Item', { IndexOfCustomer: IndexOf, token: token, Email: Email, ID: ID })
       }
 
       // if (SnackBar == 1) {
