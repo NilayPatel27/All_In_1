@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
         backgroundColor: "green",
         justifyContent: 'center',
         borderRadius: 25
-      },
+    },
     cancle: {
         height: 50,
         width: '60%',
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         justifyContent: 'center',
         borderRadius: 25
-      },
+    },
     delete: {
         height: 50,
         width: '60%',
@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
         backgroundColor: "green",
         justifyContent: 'center',
         borderRadius: 25
-      },
+    },
     modelview: {
         flexDirection: 'column',
         backgroundColor: 'white',
@@ -39,30 +39,31 @@ export const styles = StyleSheet.create({
         borderRadius: 20,
         width: '100%',
         paddingTop: 20
-      },
-      modelitem: {
+    },
+    modelitem: {
         color: 'black',
         fontWeight: '400',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 5
-      },
-      homeText: {
+    },
+    homeText: {
         color: '#fff',
         fontSize: 25,
         alignSelf: 'center',
         fontWeight: 'bold'
-      },
-      customerTextInput: {
+    },
+    customerTextInput: {
         paddingBottom: 10,
         borderColor: '#DB4437',
         paddingLeft: 10,
         borderWidth: 1,
         borderRadius: 8,
         color: '#2d333a',
-        width: '80%',
+        width: '90%',
+        marginLeft: 5,
         marginBottom: 10
-      },
+    },
     text: {
         color: '#DB4437',
         fontSize: 15,
@@ -79,7 +80,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         width: '80%'
     },
-    homeTextInput: {
+    itemTextInput: {
         paddingBottom: 10,
         borderColor: 'gray',
         paddingLeft: 10,
@@ -88,7 +89,7 @@ export const styles = StyleSheet.create({
         color: '#2d333a',
         width: '80%',
         marginBottom: 10
-      },
+    },
     first: {
         flex: 1,
         backgroundColor: "purple",
@@ -179,8 +180,8 @@ export const styles = StyleSheet.create({
         backgroundColor: '#ADEFD1FF',
         height: 60,
         marginVertical: 10,
-      },
-      itemListItem: {
+    },
+    itemListItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginHorizontal: 25,
@@ -192,8 +193,8 @@ export const styles = StyleSheet.create({
         elevation: 10,
         backgroundColor: '#ADEFD1FF',
         marginVertical: 10,
-      },
-      HomeListItem: {
+    },
+    HomeListItem: {
         flexDirection: 'row',
         justifyContent: 'center',
         // marginHorizontal: 25,
@@ -206,7 +207,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#ADEFD1FF',
         height: 60,
         marginVertical: 10,
-      },
+    },
     listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -247,8 +248,8 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10
-      },
-      itemHeader: {
+    },
+    itemHeader: {
         height: '10%',
         width: '100%',
         justifyContent: 'flex-start',
@@ -261,6 +262,6 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.34,
         shadowRadius: 6.27,
         elevation: 10
-      },
+    },
 })
 

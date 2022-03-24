@@ -385,49 +385,48 @@ const Customers = ({ route, navigation }) => {
         >
           <View style={styles.modelview}>
             <TextInput
-              style={[styles.customerTextInput, { width: '90%', marginLeft: 5 }]}
+              style={styles.customerTextInput}
               placeholder="Item Name"
               placeholderTextColor="#DB4437"
               onChangeText={(Name) => setItemName(Name)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.customerTextInput, { width: '90%', marginLeft: 5 }]}
+              style={styles.customerTextInput}
               placeholder="Item Prize"
               placeholderTextColor="#DB4437"
               onChangeText={(prize) => setItemPrize(prize)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.customerTextInput, { width: '90%', marginLeft: 5 }]}
+              style={styles.customerTextInput}
               placeholder="Item Type"
               placeholderTextColor="#DB4437"
               onChangeText={(type) => setItemType(type)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.customerTextInput, { width: '90%', marginLeft: 5 }]}
+              style={styles.customerTextInput}
               placeholder="Star"
               placeholderTextColor="#DB4437"
               onChangeText={(star) => setItemType(star)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.customerTextInput, { width: '90%', marginLeft: 5 }]}
+              style={styles.customerTextInput}
               placeholder="Item color"
               placeholderTextColor="#DB4437"
               onChangeText={(color) => setItemType(color)}
               autoComplete={'off'}
             />
             <TextInput
-              style={[styles.customerTextInput, { width: '90%', marginLeft: 5 }]}
+              style={styles.customerTextInput}
               placeholder="Item weightInKg"
               placeholderTextColor="#DB4437"
               onChangeText={(weight) => setItemType(weight)}
               autoComplete={'off'}
             />
-
-            <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+            <TouchableOpacity onPress={addItem} style={{ flexDirection: "row", justifyContent: "center" }}>
               <View style={styles.Add}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
               </View>

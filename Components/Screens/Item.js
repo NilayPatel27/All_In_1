@@ -1,14 +1,13 @@
 import React from 'react'
+import axios from 'axios';
 import { styles } from './styles'
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Cross from '../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
-import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { Rating, AirbnbRating } from 'react-native-ratings';
-import axios from 'axios';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown'
+import { Divider } from 'react-native-elements/dist/divider/Divider';
+import { FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 let indexValues = [];
 let long = 0;
@@ -70,8 +69,8 @@ const Item = ({ route, navigation }) => {
   // const [c, setc] = useState(test)
   // console.log(Post[0].id)
   let nameofCategory = {
-    id:"bae4aede-3f5f-4607-3b3a-08da07cfdce9",
-    categoryName:"Shoes"
+    id: "bae4aede-3f5f-4607-3b3a-08da07cfdce9",
+    categoryName: "Shoes"
   }
   const addItem = () => {
     axios.put('http://192.168.0.196:8080/api/Category/UpdateCategory?id=bae4aede-3f5f-4607-3b3a-08da07cfdce9', nameofCategory, { headers: { Authorization: `Bearer ${token}` } }).then(res => {
@@ -195,22 +194,6 @@ const Item = ({ route, navigation }) => {
         setselect(-1);
         Snackbar.dismiss();
       }
-
-      // if (long === 1 && count < 2 || SnackBar == 1) {
-      //   Snackbar.show({
-      //     text: 'Delete Item',
-      //     duration: Snackbar.LENGTH_INDEFINITE,
-      //     action: {
-      //       text: 'DELETE',
-      //       textColor: '#e90c59',
-      //       onPress: () => {
-      //         if (indexValues.length != 0) {
-      //           SnackBar = 1;
-      //         }
-      //       },
-      //     },
-      //   })
-      // }
       if (select == 1) {
         setselect(-1);
       }
@@ -239,23 +222,6 @@ const Item = ({ route, navigation }) => {
           setIndex(!Index);
         }
       };
-      // if (SnackBar == 1) {
-      //   Snackbar.show({
-      //     text: 'Delete Item',
-      //     duration: Snackbar.LENGTH_INDEFINITE,
-      //     action: {
-      //       text: 'DELETE',
-      //       textColor: '#e90c59',
-      //       onPress: () => {
-      //         if (indexValues.length != 0) {
-      //           SnackBar = 1;
-      //           console.log('SnackBar' + SnackBar);
-      //         }
-      //       },
-      //     },
-      //   })
-      //   SnackBar = 0;
-      // }
       if (select == 1) {
         setselect(-1);
       }
@@ -282,7 +248,6 @@ const Item = ({ route, navigation }) => {
     );
   };
   const renderItem = ({ item, index }) => {
-
     return (
       <>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -292,7 +257,6 @@ const Item = ({ route, navigation }) => {
             navigation={navigation}
           />
         </View>
-
       </>
     );
   };
@@ -301,16 +265,8 @@ const Item = ({ route, navigation }) => {
   }
   return (
     <>
-      {/* <Rating
-        type='star'
-        ratingCount={5}
-        imageSize={30}
-        // showRating
-        onFinishRating={ratingCompleted}
-      /> */}
       <View style={styles.itemHeader}>
         {header('Category Names')}
-        {/* {header(ItemName.toUpperCase())} */}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
           <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
         </TouchableOpacity>
@@ -332,8 +288,6 @@ const Item = ({ route, navigation }) => {
           <Divider width={2} style={{ width: '85%' }} color={'pink'} />
         </View>
       </View>
-
-
       {res == 1 ?
         <FlatList
           data={Post}
@@ -370,18 +324,14 @@ const Item = ({ route, navigation }) => {
                 console.log(selectedItem, index)
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
-                // text represented after item is selected
-                // if data array is an array of objects then return selectedItem.property to render after item is selected
                 return selectedItem
               }}
               rowTextForSelection={(item, index) => {
-                // text represented for each item in dropdown
-                // if data array is an array of objects then return item.property to represent item in dropdown
                 return item
               }}
             /> : null}
           <TextInput
-            style={[styles.homeTextInput, { width: '90%', marginLeft: 5, marginTop: 10 }]}
+            style={[styles.itemTextInput, { width: '90%', marginLeft: 5, marginTop: 10 }]}
             placeholder="Item Name"
             placeholderTextColor="#2d333a"
             onChangeText={(Name) => setuser(Name)}
