@@ -3,7 +3,7 @@ import axios from 'axios';
 import { styles } from './styles'
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
-import Cross from '../assates/svg/Cross.svg';
+import Cross from '../../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
 import SelectDropdown from 'react-native-select-dropdown'
 import { Divider } from 'react-native-elements/dist/divider/Divider';
@@ -268,7 +268,7 @@ const Item = ({ route, navigation }) => {
       <View style={styles.itemHeader}>
         {header('Category Names')}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
-          <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
+          <Image source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
         </TouchableOpacity>
 
       </View>

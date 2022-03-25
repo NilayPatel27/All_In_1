@@ -3,9 +3,9 @@ import axios from 'axios';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
-import Cross from '../assates/svg/Cross.svg';
+import Cross from '../../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
-import MenuButton from '../assates/svg/MenuButton.svg';
+import MenuButton from '../../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
@@ -270,7 +270,7 @@ const Home = ({ navigation, route }) => {
               style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }}
               onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
               <Image
-                source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')}
+                source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')}
                 style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
             </TouchableOpacity>
           </View>
@@ -303,14 +303,14 @@ const Home = ({ navigation, route }) => {
           <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
             <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between' }}>
               {prev == 0
-                ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
+                ? <Image source={require('../../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next - 12); setprev(prev => prev - 12) }}>
-                  <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
+                  <Image source={require('../../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
               {/* {next > USER.length - 1
-                ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
+                ? <Image source={require('../../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next + 12); setprev(prev => prev + 12) }}>
-                  <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
+                  <Image source={require('../../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>} */}
             </View>
           </View>

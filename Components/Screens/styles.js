@@ -178,7 +178,7 @@ export const styles = StyleSheet.create({
         shadowRadius: 6.27,
         elevation: 10,
         backgroundColor: '#ADEFD1FF',
-        height: 60,
+        // height: 60,
         marginVertical: 10,
     },
     itemListItem: {

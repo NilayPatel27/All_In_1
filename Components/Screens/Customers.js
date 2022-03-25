@@ -3,10 +3,10 @@ import axios from 'axios';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
 import { useEffect, useState } from 'react';
-import Cross from '../assates/svg/Cross.svg';
+import Cross from '../../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
-import Back from '../assates/svg/BackWithcircle.svg';
-import MenuButton from '../assates/svg/MenuButton.svg';
+import Back from '../../assates/svg/BackWithcircle.svg';
+import MenuButton from '../../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
 import { FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
@@ -330,7 +330,7 @@ const Customers = ({ route, navigation }) => {
               </MenuOptions>
             </Menu>
             <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
-              <Image source={array.length == 0 ? require('../assates/svg/Plus.png') : require('../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
+              <Image source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
             </TouchableOpacity>
           </View>
           <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
@@ -353,14 +353,14 @@ const Customers = ({ route, navigation }) => {
 
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'flex-end' }}>
               {prev == 0
-                ? <Image source={require('../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
+                ? <Image source={require('../../assates/svg/BlankLeft.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next - 10); setprev(prev => prev - 10) }}>
-                  <Image source={require('../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
+                  <Image source={require('../../assates/svg/Left.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>}
               {/* {res == 1 && next > Post[IndexOf].item.length - 1
-                ? <Image source={require('../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
+                ? <Image source={require('../../assates/svg/BlankRight.png')} style={{ height: 25, width: 25 }} />
                 : <TouchableOpacity onPress={() => { setnext(next => next + 10); setprev(prev => prev + 10) }}>
-                  <Image source={require('../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
+                  <Image source={require('../../assates/svg/Right.png')} style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>} */}
             </View>
           </View>
