@@ -1,20 +1,23 @@
-import React, { useCallback } from 'react'
 import axios from 'axios';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
-import Cross from '../../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
+import Cross from '../../assates/svg/Cross.svg';
+import {ThemeContext} from '../Context/themeContext';
+import React, { useCallback, useContext } from 'react';
 import MenuButton from '../../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { View, Image, FlatList, TouchableWithoutFeedback, StyleSheet, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Image, FlatList, TouchableWithoutFeedback, Text, TouchableOpacity, TextInput } from 'react-native';
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Home = ({ navigation, route }) => {
+  const {back,text} = useContext(ThemeContext);
+  console.log("text",text);
   const { token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
@@ -239,11 +242,11 @@ const Home = ({ navigation, route }) => {
       </>
     );
   };
- const keyExtractor = useCallback((item, index) => index.toString(), []);
+  const keyExtractor = useCallback((item, index) => index.toString(), []);
   return (
     <>
       <MenuProvider>
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <View style={{ flex: 1, backgroundColor: back }}>
           <View style={styles.homeHeader}>
             <Text style={{ color: '#fff', fontSize: 30 }}>Customers List</Text>
             <Menu onSelect={value => setselect(value)} >
