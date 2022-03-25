@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import axios from 'axios';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
@@ -239,6 +239,7 @@ const Home = ({ navigation, route }) => {
       </>
     );
   };
+ const keyExtractor = useCallback((item, index) => index.toString(), []);
   return (
     <>
       <MenuProvider>
@@ -297,6 +298,7 @@ const Home = ({ navigation, route }) => {
                 numColumns={2}
                 horizontal={false}
                 renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+                keyExtractor={keyExtractor}
               />
               : null}
           </View>
@@ -370,7 +372,7 @@ const Home = ({ navigation, route }) => {
             <Text style={{ color: 'red' }}>Are you sure ?</Text>
             <FlatList
               data={modelData}
-              // keyExtractor={( index) => index}
+              keyExtractor={keyExtractor}
               renderItem={modelitem}
             />
             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>

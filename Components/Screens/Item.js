@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import axios from 'axios';
 import { styles } from './styles'
 import Modal from 'react-native-modal';
@@ -260,6 +260,8 @@ const Item = ({ route, navigation }) => {
       </>
     );
   };
+ const keyExtractor = useCallback((item, index) => index.toString(), []);
+
   const ratingCompleted = (rating) => {
     console.log("Rating is: " + rating)
   }
@@ -292,6 +294,7 @@ const Item = ({ route, navigation }) => {
         <FlatList
           data={Post}
           renderItem={({ item, index }) => renderItem({ navigation, item, index })}
+          keyExtractor={keyExtractor}
         /> : null}
       <Modal
         isVisible={model}
@@ -369,7 +372,7 @@ const Item = ({ route, navigation }) => {
           <Text style={{ color: 'red' }}>Are you sure ?</Text>
           <FlatList
             data={modelData}
-            // keyExtractor={( index) => index}
+            keyExtractor={keyExtractor}
             renderItem={modelitem}
           />
           <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
