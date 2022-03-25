@@ -7,8 +7,7 @@ export const ThemeProvider = ({ children }) => {
     const scheme = useColorScheme();
     let text = scheme === 'dark' ? 'white' : '#2d333a';
     let back = scheme === 'dark' ? '#2d333a' : 'white';
-    const [theme, setTheme] = useState(scheme);
-    console.log("scheme",scheme);
+   
     return (
         <ThemeContext.Provider value={{ back ,text}}>
             {children}

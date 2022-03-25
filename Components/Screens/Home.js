@@ -17,7 +17,6 @@ let count = 0;
 let SnackBar = 0;
 const Home = ({ navigation, route }) => {
   const {back,text} = useContext(ThemeContext);
-  console.log("text",text);
   const { token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
