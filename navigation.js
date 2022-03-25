@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import Home from './Components/Screens/Home';
-import Item from './Components/Screens/Item';
-import Login from './Components/Screens/Login';
-import Customers from './Components/Screens/Customers';
+import Home from './src/Components/Screens/Home';
+import Item from './src/Components/Screens/Item';
+import Login from './src/Components/Screens/Login';
+import Customers from './src/Components/Screens/Customers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 

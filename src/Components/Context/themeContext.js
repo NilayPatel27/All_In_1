@@ -1,4 +1,4 @@
-import React,{ createContext, useState } from 'react';
+import React,{ createContext } from 'react';
 import { useColorScheme } from 'react-native';
 
 export const ThemeContext = createContext();
@@ -15,17 +15,3 @@ export const ThemeProvider = ({ children }) => {
 
     )
 };
-
-
-
-// const theme = {
-//     dark: {
-//         background: '#2d333a',
-//         text: '#fff',
-
-//     },
-//     light: {
-//         background: '#fff',
-//         text: '#2d333a',
-//     }
-// }
