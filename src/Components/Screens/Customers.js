@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import axios from 'axios';
 import { styles } from './styles';
 import Modal from 'react-native-modal';
@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Cross from '../../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
 import Back from '../../assates/svg/BackWithcircle.svg';
+import {ThemeContext} from '../Context/themeContext';
 import MenuButton from '../../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
@@ -16,6 +17,8 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Customers = ({ route, navigation }) => {
+  const {back,textColor} = useContext(ThemeContext);
+
   const { Name, IndexOf, ID, token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
@@ -304,7 +307,7 @@ const Customers = ({ route, navigation }) => {
   return (
     <>
       <MenuProvider>
-        <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <View style={{ flex: 1, backgroundColor: back }}>
           <View style={styles.header}>
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Back height={25} width={25} />
@@ -335,14 +338,15 @@ const Customers = ({ route, navigation }) => {
               <Image source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
             </TouchableOpacity>
           </View>
-          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
+          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: back }}>
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
               <TextInput
-                style={styles.customerTextInputStyle}
+                style={styles.textInputStyle}
                 value={search}
                 placeholder="Search Item"
-                placeholderTextColor="#DB4437"
+                placeholderTextColor={textColor}
                 onChangeText={text => searchFilter(text)}
+                color={textColor}
               >
               </TextInput>
               <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
@@ -366,7 +370,7 @@ const Customers = ({ route, navigation }) => {
                 </TouchableOpacity>} */}
             </View>
           </View>
-          <View style={{ flex: 1, backgroundColor: '#fff' }}>
+          <View style={{ flex: 1, backgroundColor:back }}>
             {res == 1 ? <FlatList
               data={[Post]}
               renderItem={({ item, index }) => renderItem({ navigation, item, index })}

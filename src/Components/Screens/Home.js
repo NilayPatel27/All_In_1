@@ -16,7 +16,7 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Home = ({ navigation, route }) => {
-  const {back,text} = useContext(ThemeContext);
+  const {back,textColor} = useContext(ThemeContext);
   const { token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
@@ -211,11 +211,10 @@ const Home = ({ navigation, route }) => {
       { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
     }
     return (
-      // #ffffe0
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
-        <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor: '#fff' }}>
+        <View style={{ width: "50%", flexDirection: "row", justifyContent: "center", backgroundColor: back }}>
           <View key={index} style={[styles.HomeListItem, { width: '85%' }]}>
-            <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: "#005950" }}>
+            <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: '#fff' }}>
               <Text style={styles.homeText}>{Name.length > 10 ? Name.slice(0, 7) + '...' : Name}</Text>
               {!indexValues.includes(index) ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
@@ -277,14 +276,15 @@ const Home = ({ navigation, route }) => {
                 style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
             </TouchableOpacity>
           </View>
-          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
+          <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: back }}>
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
               <TextInput
                 style={styles.textInputStyle}
                 value={search}
                 placeholder="Search Customer"
-                placeholderTextColor="#2d333a"
+                placeholderTextColor={textColor}
                 onChangeText={text => searchFilter(text)}
+                color={textColor}
               >
               </TextInput>
               <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
@@ -293,7 +293,7 @@ const Home = ({ navigation, route }) => {
               <Divider width={2} style={{ width: '85%' }} color={'pink'} />
             </View>
           </View>
-          <View style={{ width: '100%', backgroundColor: 'white', flexDirection: 'row', justifyContent: 'center' }}>
+          <View style={{ width: '100%', backgroundColor: back, flexDirection: 'row', justifyContent: 'center' }}>
             {res == 1 ?
               <FlatList
                 data={Post}

@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
         marginTop: 5
     },
     homeText: {
-        color: '#fff',
+        color: '#000',
         fontSize: 25,
         alignSelf: 'center',
         fontWeight: 'bold'
@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
         marginBottom: 10
     },
     text: {
-        color: '#DB4437',
+        color: '#000',
         fontSize: 15,
         alignSelf: 'center',
         fontWeight: 'bold'
@@ -160,7 +160,7 @@ export const styles = StyleSheet.create({
     details: {
         flex: 1,
         justifyContent: "center",
-        backgroundColor: "#ffd7ae",
+        backgroundColor: "#fff",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.34,
@@ -222,13 +222,13 @@ export const styles = StyleSheet.create({
         marginVertical: 10,
     },
     header: {
-        height: '10%',
+        height: '8%',
         width: '100%',
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 25,
-        backgroundColor: "#DB4437",
+        backgroundColor: "#e90c59",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.34,
@@ -236,13 +236,13 @@ export const styles = StyleSheet.create({
         elevation: 10
     },
     homeHeader: {
-        height: '10%',
+        height: '8%',
         width: '100%',
         justifyContent: 'space-between',
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 25,
-        backgroundColor: "#171515",
+        backgroundColor: "#e90c59",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.34,
@@ -250,7 +250,7 @@ export const styles = StyleSheet.create({
         elevation: 10
     },
     itemHeader: {
-        height: '10%',
+        height: '8%',
         width: '100%',
         justifyContent: 'flex-start',
         flexDirection: 'row',

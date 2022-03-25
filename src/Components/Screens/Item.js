@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import axios from 'axios';
 import { styles } from './styles'
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Cross from '../../assates/svg/Cross.svg';
 import Snackbar from 'react-native-snackbar';
-import SelectDropdown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown';
+import { ThemeContext } from '../Context/themeContext';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
@@ -14,6 +15,7 @@ let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
+  const {back,textColor} = useContext(ThemeContext);
   const { IndexOfCustomer, ItemName, ID, token } = route.params;
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
@@ -233,9 +235,9 @@ const Item = ({ route, navigation }) => {
         onLongPress={onLongPressButton}
         onPress={onPress}
       >
-        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: 'white' }}>
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: back }}>
           <View key={index} style={[styles.itemListItem, { width: '85%' }]}>
-            <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: "#ffd7ae" }}>
+            <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: '#fff' }}>
               {text('categoryName', categoryName.toUpperCase())}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
@@ -267,6 +269,7 @@ const Item = ({ route, navigation }) => {
   }
   return (
     <>
+    <View style={{flex:1,backgroundColor:back}}>
       <View style={styles.itemHeader}>
         {header('Category Names')}
         <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
@@ -274,14 +277,15 @@ const Item = ({ route, navigation }) => {
         </TouchableOpacity>
 
       </View>
-      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: '#fff' }}>
+      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: back }}>
         <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
           <TextInput
             style={styles.textInputStyle}
             value={search}
             placeholder="Search Item"
-            placeholderTextColor="#DB4437"
+            placeholderTextColor={textColor}
             onChangeText={text => searchFilter(text)}
+            color={textColor}
           >
           </TextInput>
           <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
@@ -389,6 +393,7 @@ const Item = ({ route, navigation }) => {
           </View>
         </View>
       </Modal>
+      </View>
     </>
   )
 }

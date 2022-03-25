@@ -5,11 +5,11 @@ export const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
     
     const scheme = useColorScheme();
-    let text = scheme === 'dark' ? 'white' : '#2d333a';
-    let back = scheme === 'dark' ? '#2d333a' : 'white';
+    let textColor = scheme === 'dark' ? 'white' : '#2d333a';
+    let back = scheme === 'dark' ? '#000' : 'white';
    
     return (
-        <ThemeContext.Provider value={{ back ,text}}>
+        <ThemeContext.Provider value={{ back ,textColor}}>
             {children}
         </ThemeContext.Provider>
 
