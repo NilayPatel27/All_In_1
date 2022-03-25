@@ -74,14 +74,14 @@ const Item = ({ route, navigation }) => {
     id: "bae4aede-3f5f-4607-3b3a-08da07cfdce9",
     categoryName: "Shoes"
   }
-  const addItem = () => {
-    axios.put('http://192.168.0.196:8080/api/Category/UpdateCategory?id=bae4aede-3f5f-4607-3b3a-08da07cfdce9', nameofCategory, { headers: { Authorization: `Bearer ${token}` } }).then(res => {
+  const addItem = async() => {
+   await axios.put('http://192.168.0.196:5001/api/Category/UpdateCategory', nameofCategory, { headers: { Authorization: `Bearer ${token}` } })
+    .then(res => {
       console.log(res);
     }
-    ).catch(err => {
-      console.log(err);
-    }
     )
+    .catch(error => console.log(error));
+
   }
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
@@ -91,7 +91,7 @@ const Item = ({ route, navigation }) => {
     setDELETE(true);
   }
   const deleteItem = () => {
-    for (let i = 0; i < modelData.length; i++) {
+    for (let i = 0; i < modelData.length; i++) {  
       for (let j = 0; j < Post.length; j++) {
         if (Post[j].user === modelData[i]) {
           Post.splice(j, 1);

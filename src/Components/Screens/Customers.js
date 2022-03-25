@@ -41,7 +41,9 @@ const Customers = ({ route, navigation }) => {
         console.log(error);
       });
   };
-
+{res==1?
+console.log(Post):null
+}
   const deletePost = ID => {
     let str = 'http://localhost:8081/AllData/' + ID;
     axios
