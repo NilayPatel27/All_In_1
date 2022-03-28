@@ -51,23 +51,24 @@ const Item = ({ route, navigation }) => {
   let color = '#fff'
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
-  const [ItemNames, setItemName] = useState('')
+  const [ItemNames, setItemName] = useState('');
+  const [Edit, setEdit] = useState(false);
 
   const [search, setsearch] = useState('');
   const [user, setuser] = useState('');
   const searchFilter = text => {
     if (text.trim()) {
-      const newData = NEWUSER.filter(item => {
-        const itemData = item.user
-          ? item.user.trim().toLowerCase()
+      const newData = Post.filter(item => {
+        const itemData = item.categoryName
+          ? item.categoryName.trim().toLowerCase()
           : ''.toUpperCase();
         const textData = text.trim().toLowerCase();
         return itemData.indexOf(textData) > -1;
       });
-      setUSER(newData);
+      setPost(newData);
       setsearch(text);
     } else {
-      setUSER(NEWUSER);
+      setPost(CopyPost);
       setsearch(text);
     }
   };
@@ -77,48 +78,49 @@ const Item = ({ route, navigation }) => {
     // id: "bae4aede-3f5f-4607-3b3a-08da07cfdce9"
     categoryName: "Darshan"
   }
-  
+
   const addItem = async () => {
     let formData = new FormData();
-    formData.append('CategoryName',`${ItemNames}`),
+    formData.append('CategoryName', `${ItemNames}`),
 
-    console.log(ItemNames)
+      fetch('http://192.168.0.196:8080/api/Category/InsertCategory', {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
+        },
+        body: formData
+      })
+        .then(response => console.log(response.json()))
+  }
+  const updateItem = async (updateID) => {
+    let formDatas = new FormData();
+    formDatas.append('CategoryName', `${ItemNames}`),
+      formDatas.append('id', updateID),
+      fetch('http://192.168.0.196:8080/api/Category/UpdateCategory', {
+        method: "PUT",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`
+        },
+        body: formDatas
+      })
+        .then(response => console.log(response.json()))
+        .then(() => {
+          getPost();
+          setEdit(false);
+        })
+  }
 
-
-    fetch('http://192.168.0.196:8080/api/Category/InsertCategory', {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${token}`
-    },
-    body: formData
-  })
-  .then(response => console.log(response.json()))
-
-//     fetch(
-//       'http://192.168.0.196:8080/api/Category/InsertCategory',
-//       method:'POST',
-//       headers:{Authorization: `Bearer ${token}` ,'Content-Type': 'multipart/form-data'
-//       },
-//       body:formData
-//   }) .then(res => {
-//     console.log(res);
-//   }
-//   )
-//   .catch(error => console.log(error));
-// }
-  //   await axios.post("http://192.168.0.196:8080/api/Category/InsertCategory", {body:formData},  { headers: { Authorization: `Bearer ${token}` ,  'Content-Type': 'multipart/form-data'} })
-     
-  // }
-
-}
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
-    modelData.length = 0;
-    for (let i = 0; i < array.length; i++)
-      modelData.push(USER[array[i]].user);
-    setDELETE(true);
+    console.log(arr)
+    // modelData.length = 0;
+    // for (let i = 0; i < array.length; i++)
+    //   modelData.push(USER[array[i]].user);
+    // setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
@@ -166,9 +168,10 @@ const Item = ({ route, navigation }) => {
       <Text style={styles.text}>{content}</Text>
     </View>
   const [select, setselect] = useState(-1);
+  const [updateID, setupdateID] = useState('')
 
-  const Item = ({ index, categoryName, navigation }) => {
-    arr.push(categoryName);
+  const Item = ({ index, categoryName, navigation,id }) => {
+    arr.push(id);
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
     //   if (select == 1) {
@@ -253,8 +256,13 @@ const Item = ({ route, navigation }) => {
           }
           setIndex(!Index);
         }
-      };
+      }else{
+        setEdit(true);
+        setupdateID(id);
+        console.log(id);
+      }
       if (select == 1) {
+       
         setselect(-1);
       }
       { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
@@ -283,10 +291,12 @@ const Item = ({ route, navigation }) => {
     return (
       <>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {/* {console.log(item.id)} */}
           <Item
             index={index}
             categoryName={item.categoryName}
             navigation={navigation}
+            id={item.id}
           />
         </View>
       </>
@@ -367,38 +377,57 @@ const Item = ({ route, navigation }) => {
                   return item
                 }}
               /> : null}
-            {/* <Formik
-              initialValues={{ categoryName: '' }}
-              onSubmit={value=>addItem(value)}
-            >
-              {({ handleChange, handleBlur, handleSubmit, values }) => (
-                <View>
-                  <TextInput
-                    onChangeText={handleChange('categoryName')}
-                    onBlur={handleBlur('categoryName')}
-                    value={values.categoryName}
-                  />
-                  <Button onPress={handleSubmit} title="Submit" />
-                </View>
-              )}
-            </Formik> */}
-
             <View>
-                  <TextInput
-                    style={styles.textInputStyle}
-                   
-                    placeholder="Category Name"
-                    placeholderTextColor={textColor}
-                    onChangeText={texts => setItemName(texts)}
-                    color={textColor}
-                    
-                  />
-                 
-                </View>
-
+              <TextInput
+                style={styles.textInputStyle}
+                placeholder="Category Name"
+                placeholderTextColor={textColor}
+                onChangeText={texts => setItemName(texts)}
+                color={textColor}
+              />
+            </View>
             <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
               <View style={styles.Add}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+        <Modal
+          isVisible={Edit}
+          animationType={'slide'}
+          transparent={true}
+          onRequestClose={() => {
+            setEdit(false);
+          }}
+          onBackdropPress={() => {
+            setEdit(false);
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'column',
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 20,
+              width: '100%',
+              paddingTop: 20,
+              backgroundColor: 'white'
+            }}>
+            <Text style={{color:'red'}}>{updateID}</Text>
+            <View>
+              <TextInput
+                style={styles.textInputStyle}
+                placeholder="Update Name"
+                placeholderTextColor={textColor}
+                onChangeText={texts => setItemName(texts)}
+                color={textColor}
+              />
+            </View>
+            <TouchableOpacity onPress={()=>updateItem(updateID)} style={{ justifyContent: "center", flexDirection: "row" }}>
+              <View style={styles.Add}>
+                <Text style={{ color: "#fff", fontSize: 20 }}>Update</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -423,7 +452,6 @@ const Item = ({ route, navigation }) => {
               borderRadius: 20,
               width: '100%',
               paddingTop: 20,
-
             }}>
             <Text style={{ color: 'red' }}>Are you sure ?</Text>
             <FlatList
