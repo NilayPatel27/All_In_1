@@ -4,23 +4,25 @@ import { styles } from './styles'
 import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Cross from '../../assates/svg/Cross.svg';
+import { Formik } from 'formik';
 import Snackbar from 'react-native-snackbar';
 import SelectDropdown from 'react-native-select-dropdown';
 import { ThemeContext } from '../Context/themeContext';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Item = ({ route, navigation }) => {
-  const {back,textColor} = useContext(ThemeContext);
+  const { back, textColor } = useContext(ThemeContext);
   const { IndexOfCustomer, ItemName, ID, token } = route.params;
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
   const [categoryNames, setcategoryNames] = useState([]);
+
   // const [arr, setarr] = useState(0);
   let arr = []
   useEffect(() => {
@@ -49,6 +51,7 @@ const Item = ({ route, navigation }) => {
   let color = '#fff'
   const [model, setModel] = useState(false);
   const [DELETE, setDELETE] = useState(false);
+  const [ItemNames, setItemName] = useState('')
 
   const [search, setsearch] = useState('');
   const [user, setuser] = useState('');
@@ -71,18 +74,45 @@ const Item = ({ route, navigation }) => {
   // const [c, setc] = useState(test)
   // console.log(Post[0].id)
   let nameofCategory = {
-    id: "bae4aede-3f5f-4607-3b3a-08da07cfdce9",
-    categoryName: "Shoes"
+    // id: "bae4aede-3f5f-4607-3b3a-08da07cfdce9"
+    categoryName: "Darshan"
   }
-  const addItem = async() => {
-   await axios.put('http://192.168.0.196:5001/api/Category/UpdateCategory', nameofCategory, { headers: { Authorization: `Bearer ${token}` } })
-    .then(res => {
-      console.log(res);
-    }
-    )
-    .catch(error => console.log(error));
+  
+  const addItem = async () => {
+    let formData = new FormData();
+    formData.append('CategoryName',`${ItemNames}`),
 
-  }
+    console.log(ItemNames)
+
+
+    fetch('http://192.168.0.196:8080/api/Category/InsertCategory', {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`
+    },
+    body: formData
+  })
+  .then(response => console.log(response.json()))
+
+//     fetch(
+//       'http://192.168.0.196:8080/api/Category/InsertCategory',
+//       method:'POST',
+//       headers:{Authorization: `Bearer ${token}` ,'Content-Type': 'multipart/form-data'
+//       },
+//       body:formData
+//   }) .then(res => {
+//     console.log(res);
+//   }
+//   )
+//   .catch(error => console.log(error));
+// }
+  //   await axios.post("http://192.168.0.196:8080/api/Category/InsertCategory", {body:formData},  { headers: { Authorization: `Bearer ${token}` ,  'Content-Type': 'multipart/form-data'} })
+     
+  // }
+
+}
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
     modelData.length = 0;
@@ -91,7 +121,7 @@ const Item = ({ route, navigation }) => {
     setDELETE(true);
   }
   const deleteItem = () => {
-    for (let i = 0; i < modelData.length; i++) {  
+    for (let i = 0; i < modelData.length; i++) {
       for (let j = 0; j < Post.length; j++) {
         if (Post[j].user === modelData[i]) {
           Post.splice(j, 1);
@@ -262,137 +292,159 @@ const Item = ({ route, navigation }) => {
       </>
     );
   };
- const keyExtractor = useCallback((item, index) => index.toString(), []);
+  const keyExtractor = useCallback((item, index) => index.toString(), []);
 
   const ratingCompleted = (rating) => {
     console.log("Rating is: " + rating)
   }
   return (
     <>
-    <View style={{flex:1,backgroundColor:back}}>
-      <View style={styles.itemHeader}>
-        {header('Category Names')}
-        <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
-          <Image source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
-        </TouchableOpacity>
-
-      </View>
-      <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: back }}>
-        <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
-          <TextInput
-            style={styles.textInputStyle}
-            value={search}
-            placeholder="Search Item"
-            placeholderTextColor={textColor}
-            onChangeText={text => searchFilter(text)}
-            color={textColor}
-          >
-          </TextInput>
-          <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
-        </View>
-        <View style={styles.Divider}>
-          <Divider width={2} style={{ width: '85%' }} color={'pink'} />
-        </View>
-      </View>
-      {res == 1 ?
-        <FlatList
-          data={Post}
-          renderItem={({ item, index }) => renderItem({ navigation, item, index })}
-          keyExtractor={keyExtractor}
-        /> : null}
-      <Modal
-        isVisible={model}
-        animationType={'slide'}
-        transparent={true}
-        onRequestClose={() => {
-          setModel(false);
-        }}
-        onBackdropPress={() => {
-          setModel(false);
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'column',
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 20,
-            width: '100%',
-            paddingTop: 20,
-            backgroundColor: 'white'
-          }}>
-          {res == 1 ?
-            <SelectDropdown
-              data={arr}
-              defaultButtonText={'Select Category'}
-              dropdownStyle={{ width: '50%', backgroundColor: 'white' }}
-              onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index)
-              }}
-              buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem
-              }}
-              rowTextForSelection={(item, index) => {
-                return item
-              }}
-            /> : null}
-          <TextInput
-            style={[styles.itemTextInput, { width: '90%', marginLeft: 5, marginTop: 10 }]}
-            placeholder="Item Name"
-            placeholderTextColor="#2d333a"
-            onChangeText={(Name) => setuser(Name)}
-            autoComplete={'off'}
-          />
-          <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
-            <View style={styles.Add}>
-              <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
-            </View>
+      <View style={{ flex: 1, backgroundColor: back }}>
+        <View style={styles.itemHeader}>
+          {header('Category Names')}
+          <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
+            <Image source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
           </TouchableOpacity>
-        </View>
-      </Modal>
-      <Modal
-        isVisible={DELETE}
-        animationType={'slide'}
-        transparent={true}
-        onRequestClose={() => {
-          setDELETE(false);
-        }}
-        onBackdropPress={() => {
-          setDELETE(false);
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'column',
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 20,
-            width: '100%',
-            paddingTop: 20,
 
-          }}>
-          <Text style={{ color: 'red' }}>Are you sure ?</Text>
+        </View>
+        <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: back }}>
+          <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
+            <TextInput
+              style={styles.textInputStyle}
+              value={search}
+              placeholder="Search Item"
+              placeholderTextColor={textColor}
+              onChangeText={text => searchFilter(text)}
+              color={textColor}
+            >
+            </TextInput>
+            <Cross width={search != '' ? 15 : 0} height={search != '' ? 15 : 0} onPress={() => { searchFilter('') }} />
+          </View>
+          <View style={styles.Divider}>
+            <Divider width={2} style={{ width: '85%' }} color={'pink'} />
+          </View>
+        </View>
+        {res == 1 ?
           <FlatList
-            data={modelData}
+            data={Post}
+            renderItem={({ item, index }) => renderItem({ navigation, item, index })}
             keyExtractor={keyExtractor}
-            renderItem={modelitem}
-          />
-          <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
-            <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
-              <View style={styles.delete}>
-                <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
-              <View style={styles.cancle}>
-                <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
+          /> : null}
+        <Modal
+          isVisible={model}
+          animationType={'slide'}
+          transparent={true}
+          onRequestClose={() => {
+            setModel(false);
+          }}
+          onBackdropPress={() => {
+            setModel(false);
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'column',
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 20,
+              width: '100%',
+              paddingTop: 20,
+              backgroundColor: 'white'
+            }}>
+            {res == 1 ?
+              <SelectDropdown
+                data={arr}
+                defaultButtonText={'Select Category'}
+                dropdownStyle={{ width: '50%', backgroundColor: 'white' }}
+                onSelect={(selectedItem, index) => {
+                  console.log(selectedItem, index)
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  return selectedItem
+                }}
+                rowTextForSelection={(item, index) => {
+                  return item
+                }}
+              /> : null}
+            {/* <Formik
+              initialValues={{ categoryName: '' }}
+              onSubmit={value=>addItem(value)}
+            >
+              {({ handleChange, handleBlur, handleSubmit, values }) => (
+                <View>
+                  <TextInput
+                    onChangeText={handleChange('categoryName')}
+                    onBlur={handleBlur('categoryName')}
+                    value={values.categoryName}
+                  />
+                  <Button onPress={handleSubmit} title="Submit" />
+                </View>
+              )}
+            </Formik> */}
+
+            <View>
+                  <TextInput
+                    style={styles.textInputStyle}
+                   
+                    placeholder="Category Name"
+                    placeholderTextColor={textColor}
+                    onChangeText={texts => setItemName(texts)}
+                    color={textColor}
+                    
+                  />
+                 
+                </View>
+
+            <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+              <View style={styles.Add}>
+                <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
               </View>
             </TouchableOpacity>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+        <Modal
+          isVisible={DELETE}
+          animationType={'slide'}
+          transparent={true}
+          onRequestClose={() => {
+            setDELETE(false);
+          }}
+          onBackdropPress={() => {
+            setDELETE(false);
+          }}
+        >
+          <View
+            style={{
+              flexDirection: 'column',
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 20,
+              width: '100%',
+              paddingTop: 20,
+
+            }}>
+            <Text style={{ color: 'red' }}>Are you sure ?</Text>
+            <FlatList
+              data={modelData}
+              keyExtractor={keyExtractor}
+              renderItem={modelitem}
+            />
+            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+              <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+                <View style={styles.delete}>
+                  <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+                <View style={styles.cancle}>
+                  <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </View>
     </>
   )
