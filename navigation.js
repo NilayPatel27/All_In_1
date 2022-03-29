@@ -6,7 +6,7 @@ import App from './src/Components/Screens/App';
 import Customers from './src/Components/Screens/Customers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AddItem from './src/Components/Screens/addItem';
+import AddItem from './src/Components/Screens/AddItem';
 
 const Stack = createNativeStackNavigator();
 

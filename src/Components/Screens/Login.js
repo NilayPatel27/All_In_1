@@ -8,8 +8,8 @@ import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 
 const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('mansi');
-    const [password, setPassword] = useState('mansi1234');
+    const [email, setEmail] = useState('Nilay');
+    const [password, setPassword] = useState('123456789');
     const [eye, seteye] = useState('eye-with-line');
     const [pass, setpass] = useState(true);
     const [model, setModel] = useState(false);
@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
             userName: email,
             password: password
         }
-        axios.post('http://192.168.0.196:8080/api/login/LoginUser', auth)
+        axios.post('http://192.168.0.104:8080/api/login/LoginUser', auth)
             .then(res => navigation.navigate('Home', { token: res.data.message }))
     }
     const onPressEye = () => {

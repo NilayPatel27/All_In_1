@@ -31,7 +31,7 @@ const Customers = ({ route, navigation }) => {
   }, []);
 
   const getPost = async () => {
-    await axios.get("http://192.168.0.196:8080/api/User/GetCustomer?Id=" + ID, { headers: { Authorization: `Bearer ${token}` } })
+    await axios.get("http://192.168.0.104:8080/api/User/GetCustomer?Id=" + ID, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setPost([res.data]);
         setCopyPost(res.data);

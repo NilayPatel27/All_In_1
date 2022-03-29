@@ -34,7 +34,7 @@ const Item = ({ route, navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get("http://192.168.0.196:8080/api/Category/GetAllCategory", { headers: { Authorization: `Bearer ${token}` } })
+    axios.get("http://192.168.0.104:8080/api/Category/GetAllCategory", { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setPost(res.data);
         setCopyPost(res.data);
@@ -82,9 +82,8 @@ const Item = ({ route, navigation }) => {
 
   const addItem = async () => {
     let formData = new FormData();
-    formData.append('CategoryName', `${ItemNames}`),
-
-      fetch('http://192.168.0.196:8080/api/Category/InsertCategory', {
+    formData.append('categoryName', `${ItemNames}`),
+      fetch('http://192.168.0.104:8080/api/Category/InsertCategory', {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -93,18 +92,19 @@ const Item = ({ route, navigation }) => {
         },
         body: formData
       })
-        .then(response => console.log(response.json()))
-        .then(() => {
+        .then(response => console.log(response))
+        .then(()=>{
           getPost();
           setModel(false);
-        }
-        )
+            
+        })
+        .catch(error => console.log(error));
   }
   const updateItem = async (updateID) => {
     let formDatas = new FormData();
     formDatas.append('CategoryName', `${ItemNames}`),
       formDatas.append('id', updateID),
-      fetch('http://192.168.0.196:8080/api/Category/UpdateCategory', {
+      fetch('http://192.168.0.104:8080/api/Category/UpdateCategory', {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -131,7 +131,7 @@ const Item = ({ route, navigation }) => {
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
       console.log(modelData[i]);
-      fetch('http://192.168.0.196:8080/api/Category/DeleteCategory?id='+modelData[i], {
+      fetch('http://192.168.0.104:8080/api/Category/DeleteCategory?id='+modelData[i], {
         method: "DELETE",
         headers: {
           Accept: "application/json",
@@ -276,10 +276,10 @@ const Item = ({ route, navigation }) => {
           setIndex(!Index);
         }
       } else {
-        // setEdit(true);
-        // setupdateID(id);
-        // console.log(id);
-        navigation.navigate('AddItem', { ID: id ,token:token});
+        setEdit(true);
+        setupdateID(id);
+        console.log(id);
+        // navigation.navigate('AddItem', { ID: id ,token:token});
       }
       if (select == 1) {
 

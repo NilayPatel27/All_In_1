@@ -44,7 +44,7 @@ const Home = ({ navigation, route }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get('http://192.168.0.196:8080/api/User/GetAllCustomer', { headers: { Authorization: `Bearer ${token}` } }).then(res => {
+    axios.get('http://192.168.0.104:8080/api/User/GetAllCustomer', { headers: { Authorization: `Bearer ${token}` } }).then(res => {
       if (res.data.length > 0) {
         setPost(res.data);
         setCopyPost(res.data);
@@ -117,7 +117,7 @@ const Home = ({ navigation, route }) => {
       name: setSingleFile.fileName,
     });
     formDatas.append('IsActive', register.IsActive);
-    fetch('http://192.168.0.196:9090/api/Login/RegisterCustomer', {
+    fetch('http://192.168.0.104:9090/api/Login/RegisterCustomer', {
       method: "POST",
       headers: {
         'Content-Type': 'multipart/form-data',
