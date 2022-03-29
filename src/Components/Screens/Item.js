@@ -83,41 +83,62 @@ const Item = ({ route, navigation }) => {
   const addItem = async () => {
     let formData = new FormData();
     formData.append('categoryName', `${ItemNames}`),
-      fetch('http://192.168.0.104:8080/api/Category/InsertCategory', {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`
-        },
-        body: formData
-      })
-        .then(response => console.log(response))
-        .then(()=>{
+      // fetch('http://192.168.0.104:8080/api/Category/InsertCategory', {
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "multipart/form-data",
+      //     Authorization: `Bearer ${token}`
+      //   },
+      //   body: formData
+      // })
+      //   .then(response => console.log(response))
+      //   .then(()=>{
+      //     getPost();
+      //     setModel(false);
+            
+      //   })
+      //   .catch(error => console.log(error));
+
+        axios.post('http://192.168.0.104:8080/api/Category/InsertCategory', {
+          categoryName: `${ItemNames}`
+        }, { headers: { Authorization: `Bearer ${token}` } })
+
+        .then(res => {
+          console.log(res)
           getPost();
           setModel(false);
-            
-        })
-        .catch(error => console.log(error));
+        }
+          )
   }
   const updateItem = async (updateID) => {
     let formDatas = new FormData();
     formDatas.append('CategoryName', `${ItemNames}`),
       formDatas.append('id', updateID),
-      fetch('http://192.168.0.104:8080/api/Category/UpdateCategory', {
-        method: "PUT",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`
-        },
-        body: formDatas
-      })
-        .then(response => console.log(response.json()))
-        .then(() => {
+      // fetch('http://192.168.0.104:8080/api/Category/UpdateCategory', {
+      //   method: "PUT",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "multipart/form-data",
+      //     Authorization: `Bearer ${token}`
+      //   },
+      //   body: formDatas
+      // })
+      //   .then(response => console.log(response.json()))
+      //   .then(() => {
+      //     getPost();
+      //     setEdit(false);
+      //   })
+      axios.put('http://192.168.0.104:8080/api/Category/UpdateCategory', {
+        CategoryName: `${ItemNames}`,
+        id: updateID
+      }, { headers: { Authorization: `Bearer ${token}` } })
+        .then(res => {
+          console.log(res)
           getPost();
           setEdit(false);
-        })
+        }
+          )
   }
 
   const [modelData, setmodelData] = useState([]);
@@ -131,19 +152,33 @@ const Item = ({ route, navigation }) => {
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
       console.log(modelData[i]);
-      fetch('http://192.168.0.104:8080/api/Category/DeleteCategory?id='+modelData[i], {
-        method: "DELETE",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`
-        }
+      // fetch('http://192.168.0.104:8080/api/Category/DeleteCategory?id='+modelData[i], {
+      //   method: "DELETE",
+      //   headers: {
+      //     Accept: "application/json",
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // })
+      //   .then(response => console.log(response.json()))
+      //   .then(() => {
+      //     getPost();
+      //     setDELETE(false);
+      //   })
+
+      axios.delete('http://192.168.0.104:8080/api/Category/DeleteCategory?id='+modelData[i],{
+        headers: { Authorization: `Bearer ${token}` }
       })
-        .then(response => console.log(response.json()))
-        .then(() => {
+
+        .then(res => {
+          console.log(res)
           getPost();
           setDELETE(false);
-        })
-    }
+        }
+          )
+
+      }
+
+    
     setDELETE(false);
     setarray([]);
     indexValues.length = 0;
