@@ -12,6 +12,7 @@ import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Button, FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 let indexValues = [];
+let idValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
@@ -93,6 +94,11 @@ const Item = ({ route, navigation }) => {
         body: formData
       })
         .then(response => console.log(response.json()))
+        .then(() => {
+          getPost();
+          setModel(false);
+        }
+        )
   }
   const updateItem = async (updateID) => {
     let formDatas = new FormData();
@@ -116,24 +122,32 @@ const Item = ({ route, navigation }) => {
 
   const [modelData, setmodelData] = useState([]);
   const DELETEITEM = () => {
-    console.log(arr)
-    // modelData.length = 0;
-    // for (let i = 0; i < array.length; i++)
-    //   modelData.push(USER[array[i]].user);
-    // setDELETE(true);
+    console.log(idValues);
+    modelData.length = 0;
+    for (let i = 0; i < array.length; i++)
+      modelData.push(idValues[i]);
+    setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      for (let j = 0; j < Post.length; j++) {
-        if (Post[j].user === modelData[i]) {
-          Post.splice(j, 1);
-          break;
+      console.log(modelData[i]);
+      fetch('http://192.168.0.196:8080/api/Category/DeleteCategory?id='+modelData[i], {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`
         }
-      }
+      })
+        .then(response => console.log(response.json()))
+        .then(() => {
+          getPost();
+          setDELETE(false);
+        })
     }
     setDELETE(false);
-    array.length = 0;
+    setarray([]);
     indexValues.length = 0;
+    idValues.length = 0;
     modelData.length = 0;
     long = 0;
     count = 0;
@@ -170,7 +184,7 @@ const Item = ({ route, navigation }) => {
   const [select, setselect] = useState(-1);
   const [updateID, setupdateID] = useState('')
 
-  const Item = ({ index, categoryName, navigation,id }) => {
+  const Item = ({ index, categoryName, navigation, id }) => {
     arr.push(id);
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
@@ -210,15 +224,18 @@ const Item = ({ route, navigation }) => {
 
     const onLongPressButton = () => {
 
-      let idx = indexValues.indexOf(index);
+      let idxValues = indexValues.indexOf(index);
+
       long = 1;
-      if (idx > -1) {
-        indexValues.splice(idx, 1);
+      if (idxValues > -1) {
+        indexValues.splice(idxValues, 1);
+        idValues.splice(idxValues, 1);
         count = count - 1;
         setIndex(!Index);
       }
       else {
-        indexValues.push(index)
+        indexValues.push(index);
+        idValues.push(id);
         count = count + 1;
         setIndex(!Index);
       }
@@ -241,11 +258,13 @@ const Item = ({ route, navigation }) => {
         if (indexValues.indexOf(index) == -1) {
           count = count + 1;
           indexValues.push(index);
+          idValues.push(id);
           setIndex(!Index);
         } else {
           let id = indexValues.indexOf(index);
           if (id > -1) {
             indexValues.splice(id, 1);
+            idValues.splice(id, 1);
             count = count - 1;
             if (indexValues.length === 0) {
               long = 0;
@@ -256,13 +275,14 @@ const Item = ({ route, navigation }) => {
           }
           setIndex(!Index);
         }
-      }else{
-        setEdit(true);
-        setupdateID(id);
-        console.log(id);
+      } else {
+        // setEdit(true);
+        // setupdateID(id);
+        // console.log(id);
+        navigation.navigate('AddItem', { ID: id ,token:token});
       }
       if (select == 1) {
-       
+
         setselect(-1);
       }
       { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
@@ -291,7 +311,7 @@ const Item = ({ route, navigation }) => {
     return (
       <>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-        {/* {console.log(item.id)} */}
+          {/* {console.log(item.id)} */}
           <Item
             index={index}
             categoryName={item.categoryName}
@@ -340,140 +360,140 @@ const Item = ({ route, navigation }) => {
             renderItem={({ item, index }) => renderItem({ navigation, item, index })}
             keyExtractor={keyExtractor}
           /> : null}
-        <Modal
-          isVisible={model}
-          animationType={'slide'}
-          transparent={true}
-          onRequestClose={() => {
-            setModel(false);
-          }}
-          onBackdropPress={() => {
-            setModel(false);
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'column',
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 20,
-              width: '100%',
-              paddingTop: 20,
-              backgroundColor: 'white'
-            }}>
-            {res == 1 ?
-              <SelectDropdown
-                data={arr}
-                defaultButtonText={'Select Category'}
-                dropdownStyle={{ width: '50%', backgroundColor: 'white' }}
-                onSelect={(selectedItem, index) => {
-                  console.log(selectedItem, index)
-                }}
-                buttonTextAfterSelection={(selectedItem, index) => {
-                  return selectedItem
-                }}
-                rowTextForSelection={(item, index) => {
-                  return item
-                }}
-              /> : null}
-            <View>
-              <TextInput
-                style={styles.textInputStyle}
-                placeholder="Category Name"
-                placeholderTextColor={textColor}
-                onChangeText={texts => setItemName(texts)}
-                color={textColor}
-              />
-            </View>
-            <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
-              <View style={styles.Add}>
-                <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-        <Modal
-          isVisible={Edit}
-          animationType={'slide'}
-          transparent={true}
-          onRequestClose={() => {
-            setEdit(false);
-          }}
-          onBackdropPress={() => {
-            setEdit(false);
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'column',
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 20,
-              width: '100%',
-              paddingTop: 20,
-              backgroundColor: 'white'
-            }}>
-            <Text style={{color:'red'}}>{updateID}</Text>
-            <View>
-              <TextInput
-                style={styles.textInputStyle}
-                placeholder="Update Name"
-                placeholderTextColor={textColor}
-                onChangeText={texts => setItemName(texts)}
-                color={textColor}
-              />
-            </View>
-            <TouchableOpacity onPress={()=>updateItem(updateID)} style={{ justifyContent: "center", flexDirection: "row" }}>
-              <View style={styles.Add}>
-                <Text style={{ color: "#fff", fontSize: 20 }}>Update</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </Modal>
-        <Modal
-          isVisible={DELETE}
-          animationType={'slide'}
-          transparent={true}
-          onRequestClose={() => {
-            setDELETE(false);
-          }}
-          onBackdropPress={() => {
-            setDELETE(false);
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'column',
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 20,
-              width: '100%',
-              paddingTop: 20,
-            }}>
-            <Text style={{ color: 'red' }}>Are you sure ?</Text>
-            <FlatList
-              data={modelData}
-              keyExtractor={keyExtractor}
-              renderItem={modelitem}
-            />
-            <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
-              <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
-                <View style={styles.delete}>
-                  <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
-                </View>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
-                <View style={styles.cancle}>
-                  <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
       </View>
+      <Modal
+        isVisible={model}
+        animationType={'slide'}
+        transparent={true}
+        onRequestClose={() => {
+          setModel(false);
+        }}
+        onBackdropPress={() => {
+          setModel(false);
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'column',
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 20,
+            width: '100%',
+            paddingTop: 20,
+            backgroundColor: 'white'
+          }}>
+          {res == 1 ?
+            <SelectDropdown
+              data={arr}
+              defaultButtonText={'Select Category'}
+              dropdownStyle={{ width: '50%', backgroundColor: 'white' }}
+              onSelect={(selectedItem, index) => {
+                console.log(selectedItem, index)
+              }}
+              buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem
+              }}
+              rowTextForSelection={(item, index) => {
+                return item
+              }}
+            /> : null}
+          <View>
+            <TextInput
+              style={styles.textInputStyle}
+              placeholder="Category Name"
+              placeholderTextColor={textColor}
+              onChangeText={texts => setItemName(texts)}
+              color={textColor}
+            />
+          </View>
+          <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+            <View style={styles.Add}>
+              <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+      <Modal
+        isVisible={Edit}
+        animationType={'slide'}
+        transparent={true}
+        onRequestClose={() => {
+          setEdit(false);
+        }}
+        onBackdropPress={() => {
+          setEdit(false);
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'column',
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 20,
+            width: '100%',
+            paddingTop: 20,
+            backgroundColor: 'white'
+          }}>
+          <Text style={{ color: 'red' }}>{updateID}</Text>
+          <View>
+            <TextInput
+              style={styles.textInputStyle}
+              placeholder="Update Name"
+              placeholderTextColor={textColor}
+              onChangeText={texts => setItemName(texts)}
+              color={textColor}
+            />
+          </View>
+          <TouchableOpacity onPress={() => updateItem(updateID)} style={{ justifyContent: "center", flexDirection: "row" }}>
+            <View style={styles.Add}>
+              <Text style={{ color: "#fff", fontSize: 20 }}>Update</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </Modal>
+      <Modal
+        isVisible={DELETE}
+        animationType={'slide'}
+        transparent={true}
+        onRequestClose={() => {
+          setDELETE(false);
+        }}
+        onBackdropPress={() => {
+          setDELETE(false);
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'column',
+            backgroundColor: 'white',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 20,
+            width: '100%',
+            paddingTop: 20,
+          }}>
+          <Text style={{ color: 'red' }}>Are you sure ?</Text>
+          <FlatList
+            data={modelData}
+            keyExtractor={keyExtractor}
+            renderItem={modelitem}
+          />
+          <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
+            <TouchableOpacity onPress={deleteItem} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+              <View style={styles.delete}>
+                <Text style={{ color: "#fff", fontSize: 20 }}>DELETE</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setDELETE(false)} style={{ justifyContent: "center", flexDirection: "row", width: '50%' }}>
+              <View style={styles.cancle}>
+                <Text style={{ color: "#2d333a", fontSize: 20 }}>CANCEL</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </>
   )
 }

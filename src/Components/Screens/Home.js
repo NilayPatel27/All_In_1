@@ -4,24 +4,38 @@ import Modal from 'react-native-modal';
 import { useState, useEffect } from 'react';
 import Snackbar from 'react-native-snackbar';
 import Cross from '../../assates/svg/Cross.svg';
-import {ThemeContext} from '../Context/themeContext';
+import { ThemeContext } from '../Context/themeContext';
 import React, { useCallback, useContext } from 'react';
 import MenuButton from '../../assates/svg/MenuButton.svg';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Menu, MenuOptions, MenuOption, MenuTrigger, MenuProvider } from 'react-native-popup-menu';
-import { View, Image, FlatList, TouchableWithoutFeedback, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, Image, FlatList, TouchableWithoutFeedback, Text, TouchableOpacity, TextInput, Button, Switch } from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
 
 let indexValues = [];
 let long = 0;
 let count = 0;
 let SnackBar = 0;
 const Home = ({ navigation, route }) => {
-  const {back,textColor} = useContext(ThemeContext);
+  const { back, textColor } = useContext(ThemeContext);
   const { token } = route.params;
 
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => {setIsEnabled(previousState => !previousState) 
+    setregister({...register, IsActive: !isEnabled})
+  }
+  const [register, setregister] = useState({
+    userID: '',
+    userName: '',
+    userEmail: '',
+   userAddress: '',
+    userPhone: '',
+    userPhoto:'',
+    IsActive: '',
+  });
 
   useEffect(() => {
     console.log('DataBase Connected');
@@ -54,7 +68,26 @@ const Home = ({ navigation, route }) => {
   const [select, setselect] = useState(-1);
   const [prev, setprev] = useState(0);
   const [next, setnext] = useState(12)
-
+  const [singleFile, setSingleFile] = useState()
+  const openDocumentFile = async () => {
+    try {
+      const file = await DocumentPicker.pickSingle({
+        type: [DocumentPicker.types.images]
+      })
+      console.log('file : ' + JSON.stringify(file))
+      setregister({ ...register, userPhoto: file.uri })
+      setSingleFile(file)
+    }
+    catch (err) {
+      setSingleFile(null)
+      if (DocumentPicker.isCancel(err)) {
+        alert('Canceled')
+      } else {
+        alert('unknown error: ' + JSON.stringify(err))
+        throw err
+      }
+    }
+  }
   const searchFilter = text => {
     if (text.trim()) {
       const newData = Post.filter(item => {
@@ -71,18 +104,32 @@ const Home = ({ navigation, route }) => {
       setsearch(text);
     }
   };
-  const addItem = () => {
-    if (user.trim() !== '') {
-      Post.unshift({
-        name: user,
-        id: modelid,
-        item: [{ name: modelitems }]
-      })
-      setModel(false);
-    }
-    setuser('');
-    setmodelid('');
-    setmodelitems('');
+  const registerCustomer = () => {
+    let formDatas = new FormData();
+    formDatas.append('userID', register.userID);
+    formDatas.append('userName', register.userName);
+    formDatas.append('userEmail', register.userEmail);
+    formDatas.append('userAddress', register.userAddress);
+    formDatas.append('userPhone', register.userPhone);
+    formDatas.append('userPhoto', {
+      uri: setSingleFile.uri,
+      type: setSingleFile.type,
+      name: setSingleFile.fileName,
+    });
+    formDatas.append('IsActive', register.IsActive);
+    fetch('http://192.168.0.196:9090/api/Login/RegisterCustomer', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+      },
+      body: formDatas
+    })
+      .then(response => console.log(response.json()))
+      .then(() => {
+        getPost();
+        setModel(false);
+      }).catch(err => console.log(err))
   }
   const DELETEITEM = () => {
     modelData.length = 0;
@@ -333,26 +380,52 @@ const Home = ({ navigation, route }) => {
           <View style={styles.modelview}>
             <TextInput
               style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
-              placeholder="Customer Name"
+              placeholder="Customer id"
               placeholderTextColor="#2d333a"
-              onChangeText={(Name) => setuser(Name)}
+              onChangeText={(userID) => setregister({ ...register, userID })}
               autoComplete={'off'}
             />
             <TextInput
               style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
               placeholder="Customer Name"
               placeholderTextColor="#2d333a"
-              onChangeText={(id) => setmodelid(id)}
+              onChangeText={(userName) => setregister({ ...register, userName })}
               autoComplete={'off'}
             />
             <TextInput
               style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
-              placeholder="Customer Name"
+              placeholder="Customer Email"
               placeholderTextColor="#2d333a"
-              onChangeText={(item) => setmodelitems(item)}
+              onChangeText={(userEmail) => setregister({ ...register, userEmail })}
               autoComplete={'off'}
             />
-            <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
+            <TextInput
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Customer Address"
+              placeholderTextColor="#2d333a"
+              onChangeText={(userAddress) => setregister({ ...register, userAddress })}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Customer Phoneno"
+              placeholderTextColor="#2d333a"
+              onChangeText={(userPhoneno) => setregister({ ...register, userPhoneno })} 
+              autoComplete={'off'}
+            />
+            <Button
+              title="Open Document Picker"
+              onPress={openDocumentFile}
+            />
+            <Switch
+        trackColor={{ false: "#767577", true: "#81b0ff" }}
+        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+
+      />
+            <TouchableOpacity onPress={registerCustomer} style={{ justifyContent: "center", flexDirection: "row" }}>
               <View style={styles.Add}>
                 <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
               </View>
