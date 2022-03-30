@@ -252,6 +252,7 @@ console.log(Post):null
         }
       }
       else {
+        console.log(ID +'ID')
         navigation.navigate('Item', { IndexOfCustomer: IndexOf, token: token, Email: Email, ID: ID })
       }
       if (select == 1) {

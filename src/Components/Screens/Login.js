@@ -8,7 +8,7 @@ import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { Text, TextInput, TouchableOpacity, View, ImageBackground } from 'react-native';
 
 const Login = ({ navigation }) => {
-    const [email, setEmail] = useState('Nilay');
+    const [email, setEmail] = useState('NilayPatel');
     const [password, setPassword] = useState('123456789');
     const [eye, seteye] = useState('eye-with-line');
     const [pass, setpass] = useState(true);

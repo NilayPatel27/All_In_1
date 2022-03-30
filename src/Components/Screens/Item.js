@@ -34,7 +34,8 @@ const Item = ({ route, navigation }) => {
 
   //call API DATA
   const getPost = () => {
-    axios.get("http://192.168.0.104:8080/api/Category/GetAllCategory", { headers: { Authorization: `Bearer ${token}` } })
+    console.log(ID)
+    axios.get("http://192.168.0.104:8080/api/Item/GetAllItemByCustomer?Id="+ID, { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         setPost(res.data);
         setCopyPost(res.data);
@@ -46,6 +47,7 @@ const Item = ({ route, navigation }) => {
     for (let i = 0; i < Post.length; i++) {
       categoryNames.push[Post[i].categoryName];
     }
+    console.log(Post)
   }
   const [array, setarray] = useState([]);
 
@@ -218,8 +220,8 @@ const Item = ({ route, navigation }) => {
     </View>
   const [select, setselect] = useState(-1);
   const [updateID, setupdateID] = useState('')
-
-  const Item = ({ index, categoryName, navigation, id }) => {
+  
+  const Item = ({ index, itemName, navigation, id,itemPrice }) => {
     arr.push(id);
     const [Index, setIndex] = useState(0);
     // useEffect(() => {
@@ -331,7 +333,8 @@ const Item = ({ route, navigation }) => {
         <View style={{ flex: 1, flexDirection: "row", justifyContent: "space-evenly", backgroundColor: back }}>
           <View key={index} style={[styles.itemListItem, { width: '85%' }]}>
             <View style={{ height: '100%', width: '100%', justifyContent: "center", backgroundColor: '#fff' }}>
-              {text('categoryName', categoryName.toUpperCase())}
+              {text('Name', itemName.toUpperCase())}
+              {text('Price', itemPrice)}
               {indexValues.indexOf(index) == -1 ? null
                 : <View style={{ height: '100%', width: "100%", justifyContent: 'center', alignItems: 'center', position: 'absolute', right: '-48%', top: '-40%' }}>
                   <View style={{ height: 25, width: 25, backgroundColor: 'lightgreen', borderRadius: 50, zIndex: 100 }}></View>
@@ -346,12 +349,12 @@ const Item = ({ route, navigation }) => {
     return (
       <>
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          {/* {console.log(item.id)} */}
           <Item
             index={index}
-            categoryName={item.categoryName}
+            itemName={item.itemName}
+            itemPrice={item.itemPrice}
             navigation={navigation}
-            id={item.id}
+            id={item.itemId}
           />
         </View>
       </>
@@ -359,14 +362,11 @@ const Item = ({ route, navigation }) => {
   };
   const keyExtractor = useCallback((item, index) => index.toString(), []);
 
-  const ratingCompleted = (rating) => {
-    console.log("Rating is: " + rating)
-  }
   return (
     <>
       <View style={{ flex: 1, backgroundColor: back }}>
         <View style={styles.itemHeader}>
-          {header('Category Names')}
+          {header('Items')}
           <TouchableOpacity style={{ top: '50%', position: 'absolute', right: '15%', height: "100%", justifyContent: "center" }} onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
             <Image source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')} style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
           </TouchableOpacity>
@@ -394,6 +394,9 @@ const Item = ({ route, navigation }) => {
             data={Post}
             renderItem={({ item, index }) => renderItem({ navigation, item, index })}
             keyExtractor={keyExtractor}
+            // ListEmptyComponent={() => <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'red' }}>
+            //   <Text style={{ fontSize: 20, color: '#000' }}>No Item Found</Text>
+            // </View>}
           /> : null}
       </View>
       <Modal
