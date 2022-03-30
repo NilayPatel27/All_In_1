@@ -9,7 +9,8 @@ import Snackbar from 'react-native-snackbar';
 import SelectDropdown from 'react-native-select-dropdown';
 import { ThemeContext } from '../Context/themeContext';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-import { Button, FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Button, FlatList, Image, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View ,Switch} from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
 
 let indexValues = [];
 let idValues = [];
@@ -22,6 +23,11 @@ const Item = ({ route, navigation }) => {
   const [Post, setPost] = useState(); // set Api data
   const [CopyPost, setCopyPost] = useState(''); // for show copy post
   const [res, setres] = useState(0);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => {
+    setIsEnabled(previousState => !previousState)
+    setregister({ ...register, IsActive: !isEnabled })
+  }
   const [categoryNames, setcategoryNames] = useState([]);
 
   // const [arr, setarr] = useState(0);
@@ -59,6 +65,67 @@ const Item = ({ route, navigation }) => {
 
   const [search, setsearch] = useState('');
   const [user, setuser] = useState('');
+  const [singleFile, setSingleFile] = useState([])
+
+  const openDocumentFile = async () => {
+    try {
+      const file = await DocumentPicker.pickSingle({
+        type: [DocumentPicker.types.images]
+      })
+      // setregister({ ...register, userPhoto: file.uri })
+      setSingleFile(file);
+      // console.log(file instanceof Object)
+    }
+    catch (err) {
+      setSingleFile(null)
+      if (DocumentPicker.isCancel(err)) {
+        alert('Canceled')
+      } else {
+        alert('unknown error: ' + JSON.stringify(err))
+        throw err
+      }
+    }
+  }
+  const [register, setregister] = useState({
+    ItemCode: '',
+    ItemName: '',
+    ItemDescription: '',
+    ItemPrice: '',
+    CategoryId:'',
+    UserId: '',
+    ItemImage: '',
+    IsActive: '',
+  });
+  const registerCustomer = () => {
+    let formDatas = new FormData();
+   
+    formDatas.append('ItemCode', register.ItemCode);
+    formDatas.append('ItemName', register.ItemName);
+    formDatas.append('ItemDescription', register.ItemDescription);
+    formDatas.append('ItemPrice', register.ItemPrice);
+    formDatas.append('CategoryId', register.CategoryId);
+    formDatas.append('UserId', ID);
+    formDatas.append('ItemImage', {
+      uri: singleFile.uri,
+      name: singleFile.name,
+      type: singleFile.type
+    });
+    formDatas.append('IsActive', register.IsActive);
+    
+    fetch('http://192.168.0.104:8080/api/Login/RegisterCustomer', {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      body: formDatas
+    })
+      .then(response => console.log(response))
+      .then(() => {
+        getPost();
+        setModel(false);
+      }).catch(err => console.log(err))
+  }
+  
   const searchFilter = text => {
     if (text.trim()) {
       const newData = Post.filter(item => {
@@ -75,13 +142,6 @@ const Item = ({ route, navigation }) => {
       setsearch(text);
     }
   };
-  // const [c, setc] = useState(test)
-  // console.log(Post[0].id)
-  let nameofCategory = {
-    // id: "bae4aede-3f5f-4607-3b3a-08da07cfdce9"
-    categoryName: "Darshan"
-  }
-
   const addItem = async () => {
     let formData = new FormData();
     formData.append('categoryName', `${ItemNames}`),
@@ -437,19 +497,62 @@ const Item = ({ route, navigation }) => {
               }}
             /> : null}
           <View>
+          <View style={styles.modelview}>
             <TextInput
-              style={styles.textInputStyle}
-              placeholder="Category Name"
-              placeholderTextColor={textColor}
-              onChangeText={texts => setItemName(texts)}
-              color={textColor}
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Item Code"
+              placeholderTextColor="#2d333a"
+              onChangeText={(ItemCode) => setregister({ ...register, ItemCode })}
+              autoComplete={'off'}
             />
+            <TextInput
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Item Name"
+              placeholderTextColor="#2d333a"
+              onChangeText={(ItemName) => setregister({ ...register, ItemName })}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Item Description"
+              placeholderTextColor="#2d333a"
+              onChangeText={(ItemDescription) => setregister({ ...register, ItemDescription })}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Item Price"
+              placeholderTextColor="#2d333a"
+              onChangeText={(ItemPrice) => setregister({ ...register, ItemPrice })}
+              autoComplete={'off'}
+            />
+            <TextInput
+              style={[styles.homeTextInput, { width: '90%', marginLeft: 5 }]}
+              placeholder="Category id"
+              placeholderTextColor="#2d333a"
+              onChangeText={(CategoryId) => setregister({ ...register, CategoryId })}
+              autoComplete={'off'}
+            />
+
+            <Button
+              title="Open Document Picker"
+              onPress={openDocumentFile}
+            />
+            <Switch
+              trackColor={{ false: "#767577", true: "#81b0ff" }}
+              thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+
+            />
+            <TouchableOpacity onPress={registerCustomer} style={{ justifyContent: "center", flexDirection: "row" }}>
+              <View style={styles.Add}>
+                <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
+              </View>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={addItem} style={{ justifyContent: "center", flexDirection: "row" }}>
-            <View style={styles.Add}>
-              <Text style={{ color: "#fff", fontSize: 20 }}>ADD</Text>
-            </View>
-          </TouchableOpacity>
+          </View>
         </View>
       </Modal>
       <Modal

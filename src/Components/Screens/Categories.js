@@ -100,7 +100,7 @@ const Item = ({ route, navigation }) => {
       //   })
       //   .catch(error => console.log(error));
 
-        axios.post('http://192.168.0.104:8080/api/Category/InsertCategory', {
+        axios.post('http://192.168.0.104:8080/api/Item/AddCustomerItem', {
           categoryName: `${ItemNames}`
         }, { headers: { Authorization: `Bearer ${token}` } })
 
