@@ -7,6 +7,8 @@ import Customers from './src/Components/Screens/Customers';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AddItem from './src/Components/Screens/AddItem';
+import DrawerNavigation, { Profile } from './src/Components/Screens/DrawerContent';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -17,6 +19,7 @@ const navigation = ({ navigation }) => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="Login" screenOptions={screenOptions}>
+                <Stack.Screen name="DrawerNavigation" component={DrawerNavigation} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Home" component={Home} />
                 <Stack.Screen name="Customers" component={Customers} />
