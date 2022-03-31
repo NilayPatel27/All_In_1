@@ -226,7 +226,7 @@ console.log(Post):null
       if (select == 1) {
         setselect(-1);
       }
-      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+      { indexValues.length == 0 ? setarray([]) : setarray([...indexValues]) }
     };
 
     const onPress = () => {
@@ -258,7 +258,7 @@ console.log(Post):null
       if (select == 1) {
         setselect(-1);
       }
-      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+      { indexValues.length == 0 ? setarray([]) : setarray([...indexValues]) }
     }
     return (
       // #ffffe0

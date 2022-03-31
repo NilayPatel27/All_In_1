@@ -109,7 +109,7 @@ const Home = ({ navigation, route }) => {
   };
   const registerCustomer = () => {
     let formDatas = new FormData();
-   
+
     formDatas.append('UserID', register.userID);
     formDatas.append('UserName', register.userName);
     formDatas.append('Email', register.userEmail);
@@ -122,7 +122,7 @@ const Home = ({ navigation, route }) => {
       type: singleFile.type
     });
     formDatas.append('IsActive', register.IsActive);
-    
+
     fetch('http://192.168.0.104:8080/api/Login/RegisterCustomer', {
       method: "POST",
       headers: {
@@ -140,19 +140,19 @@ const Home = ({ navigation, route }) => {
     console.log(idValues);
     modelData.length = 0;
     for (let i = 0; i < array.length; i++)
-    modelData.push(idValues[i]);
+      modelData.push(idValues[i]);
     console.log(modelData);
-  setDELETE(true);
+    setDELETE(true);
   }
   const deleteItem = () => {
     for (let i = 0; i < modelData.length; i++) {
-      axios.delete('http://192.168.0.104:8080/api/User/DeleteCustomer?id='+modelData[i],{
+      axios.delete('http://192.168.0.104:8080/api/User/DeleteCustomer?id=' + modelData[i], {
         headers: { Authorization: `Bearer ${token}` }
       }).then(res => {
-          console.log(res)
-          getPost();
-          setDELETE(false);
-        })
+        console.log(res)
+        getPost();
+        setDELETE(false);
+      })
     }
     setDELETE(false);
     setarray([]);
@@ -216,10 +216,10 @@ const Home = ({ navigation, route }) => {
         setselect(-1);
         Snackbar.dismiss();
       }
-      if (select == 1) {
+      if (select == 1)
         setselect(-1);
-      }
-      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+
+      { indexValues.length == 0 ? setarray([]) : setarray([...indexValues]) }
     };
 
     const onPress = () => {
@@ -254,10 +254,10 @@ const Home = ({ navigation, route }) => {
           token: token,
         });
       }
-      if (select == 1) {
+      if (select == 1)
         setselect(-1);
-      }
-      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+
+      { indexValues.length == 0 ? setarray([]) : setarray([...indexValues]) }
     }
     return (
       <TouchableWithoutFeedback onLongPress={onLongPressButton} onPress={onPress} >
@@ -301,19 +301,11 @@ const Home = ({ navigation, route }) => {
                 <MenuButton width={18} height={18} />
               </MenuTrigger>
               <MenuOptions style={{ backgroundColor: 'white', height: 80 }}>
-                <MenuOption
-                  value={1}
-                  style={{ height: '50%', justifyContent: 'center' }}>
-                  <Text style={{ color: '#2d333a', textAlign: 'center' }}>
-                    Select All
-                  </Text>
+                <MenuOption value={1} style={{ height: '50%', justifyContent: 'center' }}>
+                  <Text style={{ color: '#2d333a', textAlign: 'center' }}>Select All</Text>
                 </MenuOption>
-                <MenuOption
-                  value={0}
-                  style={{ height: '50%', justifyContent: 'center' }}>
-                  <Text style={{ color: '#2d333a', textAlign: 'center' }}>
-                    Deselect All
-                  </Text>
+                <MenuOption value={0} style={{ height: '50%', justifyContent: 'center' }}>
+                  <Text style={{ color: '#2d333a', textAlign: 'center' }}>Deselect All</Text>
                 </MenuOption>
               </MenuOptions>
             </Menu>
@@ -324,6 +316,13 @@ const Home = ({ navigation, route }) => {
                 source={array.length == 0 ? require('../../assates/svg/Plus.png') : require('../../assates/svg/Dustbin.png')}
                 style={{ height: array.length == 0 ? 60 : 50, width: array.length == 0 ? 60 : 50 }} />
             </TouchableOpacity>
+            {array.length == 1 && <TouchableOpacity
+              style={{ top: '50%', position: 'absolute', right: '25%', height: "100%", justifyContent: "center" }}
+              onPress={() => array.length == 0 ? setModel(true) : DELETEITEM()}>
+              <Image
+                source={array.length == 1 ? require('../../assates/svg/Plus.png') : null}
+                style={{ height: 60, width: 60 }} />
+            </TouchableOpacity>}
           </View>
           <View style={{ width: '100%', flexDirection: 'column', alignItems: 'center', paddingTop: 25, backgroundColor: back }}>
             <View style={{ width: '85%', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
@@ -353,6 +352,8 @@ const Home = ({ navigation, route }) => {
               />
               : null}
           </View>
+          <Text style={{ color: 'red' }}>{array}</Text>
+          <Text style={{ color: 'red' }}>{indexValues}</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', alignItems: 'center', marginVertical: 5 }}>
             <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-between' }}>
               {prev == 0

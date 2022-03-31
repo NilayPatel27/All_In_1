@@ -346,7 +346,7 @@ const Item = ({ route, navigation }) => {
       if (select == 1) {
         setselect(-1);
       }
-      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+      { indexValues.length == 0 ? setarray([]) : setarray([...indexValues]) }
     };
 
     const onPress = () => {
@@ -382,7 +382,7 @@ const Item = ({ route, navigation }) => {
 
         setselect(-1);
       }
-      { indexValues.length == 0 ? setarray([]) : setarray(indexValues) }
+      { indexValues.length == 0 ? setarray([]) : setarray([...indexValues]) }
     }
     return (
       // #ffffe0
